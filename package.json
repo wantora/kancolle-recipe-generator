@@ -1,0 +1,42 @@
+{
+  "name": "kancolle-recipe-generator",
+  "description": "kancolle-recipe-generator",
+  "version": "1.0.0",
+  "author": "wantora <wantora@gmail.com>",
+  "babel": {
+    "presets": [
+      "latest"
+    ]
+  },
+  "bugs": {
+    "url": "https://github.com/wantora/kancolle-recipe-generator/issues"
+  },
+  "dependencies": {
+    "bootstrap": "^3.3.7",
+    "jquery": "^3.1.1",
+    "lodash": "^4.17.2"
+  },
+  "devDependencies": {
+    "babel-preset-latest": "^6.16.0",
+    "babelify": "^7.3.0",
+    "browserify": "^13.1.1",
+    "exorcist": "^0.4.0",
+    "gh-pages": "^0.12.0",
+    "http-server": "^0.9.0",
+    "uglifyify": "^3.0.4"
+  },
+  "homepage": "https://github.com/wantora/kancolle-recipe-generator#readme",
+  "license": "MIT",
+  "main": "index.js",
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/wantora/kancolle-recipe-generator.git"
+  },
+  "scripts": {
+    "start": "http-server public",
+    "build": "browserify index.js -g uglifyify -t babelify --debug | exorcist public/bundle.js.map > public/bundle.js",
+    "deploy": "npm run build && gh-pages -d public",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}

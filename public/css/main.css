@@ -1,0 +1,167 @@
+
+body {
+  margin: 15px;
+  font-family: sans-serif;
+}
+
+.alert {
+  margin: 0;
+}
+
+.panel-body h3 {
+  margin: 20px 0 10px 0;
+  font-size: 18px;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 10px;
+}
+
+.panel-body h3:first-child {
+  margin-top: 0;
+}
+
+.panel-heading h2 {
+  font-weight: bold;
+  margin: 0;
+  font-size: 100%;
+}
+
+.panel-heading h3 {
+  font-weight: bold;
+  margin: 0;
+  font-size: 100%;
+}
+
+.info-text {
+  border-bottom: 1px dotted #000;
+  font-weight: inherit;
+  cursor: help;
+  position: relative;
+  z-index: 100;
+}
+
+main {
+  max-width: 50em;
+  transition: 0.2s ease-in;
+  opacity: 1;
+}
+
+main.loading {
+  opacity: 0;
+}
+
+.kcitems {
+  margin: 15px 0 0 0;
+}
+
+.kcitems .list-group-item {
+  padding: 5px 5px 5px 10px;
+}
+
+.kcitems .list-group-item::after {
+  content: attr(data-category);
+  float: right;
+  font-size: 90%;
+  font-weight: normal;
+  color: hsl(0, 0%, 60%);
+}
+
+.kcitems .list-group-item.target-item {
+  font-weight: bold;
+}
+
+.kcitems.selected-items .close {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  text-align: right;
+}
+
+.kcitems.selected-items .list-group-item::after {
+  padding-right: 17px;
+}
+
+*[data-category="小口径主砲"],
+*[data-category="中口径主砲"],
+*[data-category="大口径主砲"],
+*[data-category="艦上爆撃機"],
+*[data-category="強化弾"] {
+  background-color: hsl(0, 100%, 95%);
+}
+
+*[data-category="副砲"] {
+  background-color: hsl(60, 100%, 95%);
+}
+
+*[data-category="艦上戦闘機"],
+*[data-category="水上偵察機"],
+*[data-category="水上爆撃機"],
+*[data-category="対空機銃"],
+*[data-category$="砲"][data-name*="高角"],
+*[data-category="強化弾"][data-name="三式弾"] {
+  background-color: hsl(120, 100%, 95%);
+}
+
+*[data-category="艦上攻撃機"],
+*[data-category="魚雷"],
+*[data-category="特殊潜航艇"] {
+  background-color: hsl(210, 100%, 95%);
+}
+
+*[data-category="艦上偵察機"],
+*[data-category="小型電探"],
+*[data-category="大型電探"],
+*[data-category="機関部強化"] {
+  background-color: hsl(40, 100%, 90%);
+}
+
+*[data-category="ソナー"],
+*[data-category="爆雷"] {
+  background-color: hsl(180, 100%, 95%);
+}
+
+*[data-category="簡易輸送部材"] {
+  background-color: hsl(0, 0%, 95%);
+}
+
+*[data-category="増設バルジ"] {
+  background-color: hsl(240, 100%, 95%);
+}
+
+#item-list dt,
+#item-list dd {
+  margin-bottom: 1px;
+}
+
+#item-list button {
+  margin: 0 2px;
+  padding: 0 4px;
+  border: none;
+  border-radius: 4px;
+  outline: none;
+}
+
+#item-list button:hover,
+#item-list button.selected {
+  color: hsl(0, 0%, 95%);
+  background-color: hsl(0, 0%, 70%);
+}
+
+.recipe-table {
+  width: auto;
+  margin: 0;
+}
+
+.recipe-table th,
+.recipe-table td {
+  width: 4em;
+}
+
+.recipe-panel .panel-heading {
+  cursor: pointer;
+}
+
+.recipe-panel .list-group {
+  margin: 0;
+}
