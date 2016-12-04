@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>艦これ 開発レシピジェネレータ</title>
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/main.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="page-header">
+  <h1>艦これ 開発レシピジェネレータ <small>複合レシピを自動生成</small></h1>
+</div>
+
+<main class="loading">
+  <div class="panel panel-default">
+    <div class="panel-heading"><h2>開発対象装備</h2></div>
+    <div class="panel-body">
+      <dl id="item-list" class="dl-horizontal"></dl>
+      
+      <ul id="selected-items" class="list-group kcitems selected-items"></ul>
+    </div>
+  </div>
+  
+  <div class="panel panel-default">
+    <div class="panel-heading"><h2>開発レシピ</h2></div>
+    <div id="recipe-panels" class="panel-body"></div>
+  </div>
+  
+  <div class="panel panel-default">
+    <div class="panel-heading"><h2>説明</h2></div>
+    <div class="panel-body">
+      <h3>秘書艦について</h3>
+      
+      <dl class="dl-horizontal">
+      <dt>砲戦系</dt><dd>戦艦、重巡洋艦、工作艦</dd>
+      <dt>水雷系</dt><dd>駆逐艦、軽巡洋艦、重雷装巡洋艦、練習巡洋艦、潜水艦、補給艦</dd>
+      <dt>空母系</dt><dd>正規空母、軽空母、水上機母艦、潜水空母、装甲空母、航空戦艦、航空巡洋艦、揚陸艦、潜水母艦</dd>
+      </dl>
+      
+      <p>また、Ro.43水偵は秘書艦がイタリア艦の場合のみ開発できます。</p>
+      
+      <h3>開発成功率の目安</h3>
+      
+      <dl class="dl-horizontal">
+      <dt>◎</dt><dd>比較的その装備の開発に適している</dd>
+      <dt>○</dt><dd>標準的</dd>
+      <dt>△</dt><dd>開発に適さない</dd>
+      </dl>
+      
+      <p>同じ表示でも開発率が異なる可能性があります。細かいテーブルごとの開発率は別のデータを参照してください。</p>
+      
+      <hr>
+      
+      <p>このジェネレータを製作するにあたり <a href="http://wikiwiki.jp/kancolle/?%B3%AB%C8%AF">艦隊これくしょん -艦これ- 攻略 Wiki*</a> のデータを参考にさせていただきました。</p>
+      <p>2016年12月2日時点のデータを使用しています。最新の開発結果とは異なる可能性があります。</p>
+    </div>
+  </div>
+</main>
+
+<address>
+  <strong>wantora</strong>
+  / <a href="http://d.hatena.ne.jp/wantora/">blog</a>
+  / <a href="https://github.com/wantora">github</a>
+  / <a href="https://github.com/wantora/kancolle-recipe-generator">project page</a>
+</address>
+
+<script src="bundle.js"></script>
+</body>
+</html>
