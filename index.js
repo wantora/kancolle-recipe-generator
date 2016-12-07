@@ -111,15 +111,18 @@ function addItem(name) {
   
   const li = createItemElement(recipeDataTable[name]);
   
-  const closeButton = $(`
-    <button type="button" class="close" aria-label="Close">
-      <span aria-hidden="true">&times;</span>
-    </button>`)[0];
-  
+  const closeButton = document.createElement("button");
+  closeButton.type = "button";
+  closeButton.classList.add("close-button");
   closeButton.addEventListener("click", (event) => {
     removeItem(name);
   }, false);
   li.appendChild(closeButton);
+  
+  const closeIcon = document.createElement("span");
+  closeIcon.classList.add("glyphicon");
+  closeIcon.classList.add("glyphicon-remove");
+  closeButton.appendChild(closeIcon);
   
   selectedItems.appendChild(li);
   
@@ -270,6 +273,12 @@ function updateResult() {
     const h3 = document.createElement("h3");
     h3.textContent = `(${index + 1}/${sortedRecipes.length}) ${targetNames.join("・")} ${recipe.secretaryType}・${recipe.materielType}レシピ`;
     heading.appendChild(h3);
+    
+    const headIcon = document.createElement("span");
+    headIcon.classList.add("glyphicon");
+    headIcon.classList.add("glyphicon-chevron-down");
+    headIcon.classList.add("accordion-icon");
+    h3.appendChild(headIcon);
     
     const collapse = document.createElement("div");
     collapse.classList.add("panel-collapse");
