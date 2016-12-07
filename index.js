@@ -329,7 +329,7 @@ function updateResult() {
   });
 }
 
-$.getJSON("data.json", (data) => {
+$.getJSON("data.json").done((data) => {
   recipeData = data;
   recipeDataTable = generateRecipeDataTable();
   
