@@ -31,11 +31,32 @@ function generateRecipeDataTable() {
   return table;
 }
 
+function generateSummary(item) {
+  let typeTexts = [];
+  
+  SECRETARY_TYPES.forEach((secretaryType) => {
+    const mtypes = MATERIEL_TYPES.filter((materielType) => item.results[secretaryType][materielType] > 0);
+    
+    if (mtypes.length > 0) {
+      typeTexts.push(`  ${secretaryType}：${mtypes.join("・")}`);
+    }
+  })
+  
+  let summary = `理論値：${item.recipe.join("/")}\n開発可能テーブル\n${typeTexts.join("\n")}`;
+  
+  if (item.name === "Ro.43水偵") {
+    summary += "\n秘書艦がイタリア艦の場合のみ開発可能";
+  }
+  
+  return summary;
+}
+
 function createItemElement(item) {
   const li = document.createElement("li");
   li.classList.add("list-group-item");
   li.setAttribute("data-name", item.name);
   li.setAttribute("data-category", item.category);
+  li.title = generateSummary(item);
   
   if (item.name === "Ro.43水偵") {
     const infoText = document.createElement("b");
@@ -68,22 +89,7 @@ function initItemList() {
       button.setAttribute("data-name", item.name);
       button.setAttribute("data-category", item.category);
       button.textContent = item.name;
-      
-      let typeTexts = [];
-      
-      SECRETARY_TYPES.forEach((secretaryType) => {
-        const mtypes = MATERIEL_TYPES.filter((materielType) => item.results[secretaryType][materielType] > 0);
-        
-        if (mtypes.length > 0) {
-          typeTexts.push(`  ${secretaryType}：${mtypes.join("・")}`);
-        }
-      })
-      
-      button.title = `理論値：${item.recipe.join("/")}\n開発可能テーブル\n${typeTexts.join("\n")}`;
-      
-      if (item.name === "Ro.43水偵") {
-        button.title += "\n秘書艦がイタリア艦の場合のみ開発可能";
-      }
+      button.title = generateSummary(item);
       
       button.addEventListener("click", (event) => {
         if (button.classList.contains("selected")) {
