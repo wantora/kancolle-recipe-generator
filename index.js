@@ -203,27 +203,24 @@ function generateRecipes(targetNames) {
     
     recipeData.forEach((item) => {
       const result = item.results[secretaryType][materielType];
+      const recipeResult = _.zip(recipe, item.recipe).every(([a, b]) => a >= b);
       
-      if (result > 0) {
-        const recipeResult = _.zip(recipe, item.recipe).every(([a, b]) => a >= b);
-        
-        items.push({
-          data: item,
-          result: recipeResult ? result : 0,
-          target: _.includes(targetNames, item.name),
-        });
-      }
+      items.push({
+        data: item,
+        result: recipeResult ? result : 0,
+        target: _.includes(targetNames, item.name),
+      });
     });
     
-    const results = items.filter((item) => item.target).map((item) => item.result);
+    const targetResults = items.filter((item) => item.target).map((item) => item.result);
     
     recipes.push({
       secretaryType: secretaryType,
       materielType: materielType,
       recipe: recipe,
       items: items,
-      resultMin: Math.min(...results),
-      resultMax: Math.max(...results),
+      resultMin: Math.min(...targetResults),
+      resultMax: Math.max(...targetResults),
     });
   });
   
@@ -255,8 +252,8 @@ function updateResult() {
   
   const sortedRecipes = _.sortBy(recipes, (recipe) => {
     return [
-      10 - recipe.resultMin,
-      10 - recipe.resultMax,
+      100 - recipe.resultMin,
+      100 - recipe.resultMax,
       _.reduce(recipe.recipe, (sum, n) => sum + n, 0),
     ];
   });
@@ -277,7 +274,7 @@ function updateResult() {
     panel.appendChild(heading);
     
     const h3 = document.createElement("h3");
-    h3.textContent = `(${index + 1}/${sortedRecipes.length}) ${targetNames.join("・")} ${recipe.secretaryType}・${recipe.materielType}レシピ`;
+    h3.textContent = `(${index + 1}/${sortedRecipes.length}) ${recipe.secretaryType}・${recipe.materielType}テーブル ${targetNames.join("・")}`;
     heading.appendChild(h3);
     
     const headIcon = document.createElement("span");
@@ -325,7 +322,7 @@ function updateResult() {
     ul.classList.add("kcitems");
     collapse.appendChild(ul);
     
-    _.sortBy(recipe.items, (item) => 10 - item.result).forEach((item) => {
+    _.sortBy(recipe.items, (item) => 100 - item.result).forEach((item) => {
       if (item.result === 0) {
         return;
       }
