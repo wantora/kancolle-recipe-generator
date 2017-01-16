@@ -145,17 +145,21 @@ main.loading {
 }
 
 #item-list button {
-  margin: 0 2px;
+  margin: 1px;
   padding: 0 4px;
   border: none;
   border-radius: 4px;
   outline: none;
+  border: 1px solid transparent;
 }
 
 #item-list button:hover,
 #item-list button.selected {
-  color: hsl(0, 0%, 95%);
-  background-color: hsl(0, 0%, 70%);
+  background-color: hsl(0, 0%, 80%);
+}
+
+#item-list button.selected {
+  border-color: hsl(0, 0%, 50%);
 }
 
 .panel-heading .accordion-icon {
