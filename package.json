@@ -3,11 +3,6 @@
   "description": "kancolle-recipe-generator",
   "version": "1.0.0",
   "author": "wantora <wantora@gmail.com>",
-  "babel": {
-    "presets": [
-      "latest"
-    ]
-  },
   "bugs": {
     "url": "https://github.com/wantora/kancolle-recipe-generator/issues"
   },
@@ -17,13 +12,13 @@
     "lodash": "^4.17.2"
   },
   "devDependencies": {
+    "babel-core": "^6.21.0",
+    "babel-loader": "^6.2.10",
     "babel-preset-latest": "^6.16.0",
-    "babelify": "^7.3.0",
-    "browserify": "^13.1.1",
-    "exorcist": "^0.4.0",
     "gh-pages": "^0.12.0",
-    "http-server": "^0.9.0",
-    "uglifyify": "^3.0.4"
+    "json-loader": "^0.5.4",
+    "webpack": "^1.14.0",
+    "webpack-dev-server": "^1.16.2"
   },
   "homepage": "https://github.com/wantora/kancolle-recipe-generator#readme",
   "license": "MIT",
@@ -34,8 +29,8 @@
     "url": "git+ssh://git@github.com/wantora/kancolle-recipe-generator.git"
   },
   "scripts": {
-    "start": "http-server public",
-    "build": "browserify index.js -g uglifyify -t babelify --debug | exorcist public/bundle.js.map > public/bundle.js",
+    "start": "webpack-dev-server --content-base ./public/ --inline --open",
+    "build": "webpack --config ./webpack-production.config.js",
     "deploy": "npm run build && gh-pages -d public",
     "test": "echo \"Error: no test specified\" && exit 1"
   }

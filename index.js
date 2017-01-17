@@ -341,14 +341,12 @@ function updateResult() {
   });
 }
 
-$.getJSON("data.json").done((data) => {
+(() => {
+  const data = require("./data.json");
+  
   recipeData = data;
   recipeDataTable = generateRecipeDataTable();
   
   initItemList();
   updateResult();
-  
-  _.toArray(document.querySelectorAll(".loading")).forEach((ele) => {
-    ele.classList.remove("loading");
-  });
-});
+})();
