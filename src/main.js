@@ -1,5 +1,7 @@
 "use strict";
 
+require("./main.css");
+
 const _ = require("lodash");
 const $ = window.jQuery = require("jquery");
 require("bootstrap");

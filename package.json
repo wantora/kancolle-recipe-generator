@@ -15,14 +15,17 @@
     "babel-core": "^6.21.0",
     "babel-loader": "^6.2.10",
     "babel-preset-latest": "^6.16.0",
+    "css-loader": "^0.26.1",
+    "extract-text-webpack-plugin": "^1.0.1",
+    "file-loader": "^0.9.0",
     "gh-pages": "^0.12.0",
     "json-loader": "^0.5.4",
+    "style-loader": "^0.13.1",
     "webpack": "^1.14.0",
     "webpack-dev-server": "^1.16.2"
   },
   "homepage": "https://github.com/wantora/kancolle-recipe-generator#readme",
   "license": "MIT",
-  "main": "index.js",
   "private": true,
   "repository": {
     "type": "git",
@@ -30,7 +33,7 @@
   },
   "scripts": {
     "start": "webpack-dev-server --content-base ./public/ --inline --open",
-    "build": "webpack --config ./webpack-production.config.js",
+    "build": "webpack -p",
     "deploy": "npm run build && gh-pages -d public",
     "test": "echo \"Error: no test specified\" && exit 1"
   }
