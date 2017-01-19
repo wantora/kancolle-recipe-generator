@@ -10,14 +10,18 @@ module.exports = {
     filename: "[name].js",
   },
   module: {
+    preLoaders: [
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        loader: "eslint",
+      },
+    ],
     loaders: [
       {
         test: /\.js$/,
         exclude: /node_modules/,
         loader: "babel",
-        query: {
-          presets: ["latest"],
-        },
       },
       {
         test: /\.json$/,

@@ -34,15 +34,16 @@ function generateRecipeDataTable() {
 }
 
 function generateSummary(item) {
-  let typeTexts = [];
+  const typeTexts = [];
   
   SECRETARY_TYPES.forEach((secretaryType) => {
-    const mtypes = MATERIEL_TYPES.filter((materielType) => item.results[secretaryType][materielType] > 0);
+    const mtypes = MATERIEL_TYPES
+      .filter((materielType) => item.results[secretaryType][materielType] > 0);
     
     if (mtypes.length > 0) {
       typeTexts.push(`  ${secretaryType}：${mtypes.join("・")}`);
     }
-  })
+  });
   
   let summary = `理論値：${item.recipe.join("/")}\n開発可能テーブル\n${typeTexts.join("\n")}`;
   
@@ -168,7 +169,7 @@ function generateRecipes(targetNames) {
   
   const recipes = [];
   
-  possibleTypes.map(([secretaryType, materielType]) => {
+  possibleTypes.forEach(([secretaryType, materielType]) => {
     const recipe = _.clone(baseRecipe);
     
     if (materielType === "鋼材(燃料)") {
