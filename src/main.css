@@ -136,12 +136,12 @@ main {
   background-color: hsl(240, 100%, 95%);
 }
 
-#item-list dt,
-#item-list dd {
+.item-list dt,
+.item-list dd {
   margin-bottom: 1px;
 }
 
-#item-list button {
+.item-list button {
   margin: 1px;
   padding: 2px 4px;
   border: none;
@@ -151,12 +151,12 @@ main {
   line-height: 1;
 }
 
-#item-list button:hover,
-#item-list button.selected {
+.item-list button:hover,
+.item-list button.selected {
   background-color: hsl(0, 0%, 80%);
 }
 
-#item-list button.selected {
+.item-list button.selected {
   border-color: hsl(0, 0%, 50%);
 }
 

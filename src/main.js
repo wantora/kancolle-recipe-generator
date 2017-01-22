@@ -2,9 +2,14 @@
 
 require("./main.css");
 
-const _ = require("lodash");
-const $ = window.jQuery = require("jquery");
+const jQuery = require("jquery");
+window.jQuery = jQuery;
 require("bootstrap");
+
+const React = require("react");
+const ReactDOM = require("react-dom");
+const classNames = require("classnames");
+const _ = require("lodash");
 
 const RESULT_TABLE = ["×", "△", "○", "◎"];
 const SECRETARY_TYPES = ["砲戦系", "水雷系", "空母系"];
@@ -16,340 +21,424 @@ const TYPES = _.flatten(SECRETARY_TYPES.map((secretaryType) => {
   });
 }));
 
-const itemList = document.getElementById("item-list");
-const selectedItems = document.getElementById("selected-items");
-const recipePanels = document.getElementById("recipe-panels");
-
-let recipeData = null;
-let recipeDataTable = null;
-
-function generateRecipeDataTable() {
-  const table = {};
-  
-  recipeData.forEach((item) => {
-    table[item.name] = item;
-  });
-  
-  return table;
-}
-
-function generateSummary(item) {
-  const typeTexts = [];
-  
-  SECRETARY_TYPES.forEach((secretaryType) => {
-    const mtypes = MATERIEL_TYPES
-      .filter((materielType) => item.results[secretaryType][materielType] > 0);
-    
-    if (mtypes.length > 0) {
-      typeTexts.push(`  ${secretaryType}：${mtypes.join("・")}`);
-    }
-  });
-  
-  let summary = `理論値：${item.recipe.join("/")}\n開発可能テーブル\n${typeTexts.join("\n")}`;
-  
-  if (item.name === "Ro.43水偵") {
-    summary += "\n秘書艦がイタリア艦の場合のみ開発可能";
+class RecipeItem {
+  constructor(item) {
+    this._item = item;
   }
-  
-  return summary;
-}
-
-function createItemElement(item) {
-  const li = document.createElement("li");
-  li.classList.add("list-group-item");
-  li.setAttribute("data-name", item.name);
-  li.setAttribute("data-category", item.category);
-  li.title = generateSummary(item);
-  
-  if (item.name === "Ro.43水偵") {
-    const infoText = document.createElement("b");
-    infoText.classList.add("info-text");
-    infoText.title = "Ro.43水偵は秘書艦がイタリア艦の場合のみ開発できます";
-    infoText.textContent = item.name;
-    
-    li.appendChild(infoText);
-  } else {
-    li.textContent = item.name;
+  get name() {
+    return this._item.name;
   }
-  
-  return li;
-}
-
-function initItemList() {
-  const g = _.groupBy(recipeData, "category");
-  
-  _.uniq(recipeData.map((item) => item.category)).forEach((category) => {
-    const dt = document.createElement("dt");
-    dt.textContent = category;
-    itemList.appendChild(dt);
+  get category() {
+    return this._item.category;
+  }
+  get recipe() {
+    return this._item.recipe;
+  }
+  get results() {
+    return this._item.results;
+  }
+  get summary() {
+    const typeTexts = [];
     
-    const dd = document.createElement("dd");
-    itemList.appendChild(dd);
-    
-    g[category].forEach((item) => {
-      const button = document.createElement("button");
-      button.type = "button";
-      button.setAttribute("data-name", item.name);
-      button.setAttribute("data-category", item.category);
-      button.textContent = item.name;
-      button.title = generateSummary(item);
+    SECRETARY_TYPES.forEach((secretaryType) => {
+      const mtypes = MATERIEL_TYPES
+        .filter((materielType) => this._item.results[secretaryType][materielType] > 0);
       
-      button.addEventListener("click", (event) => {
-        if (button.classList.contains("selected")) {
-          removeItem(item.name);
-        } else {
-          addItem(item.name);
+      if (mtypes.length > 0) {
+        typeTexts.push(`  ${secretaryType}：${mtypes.join("・")}`);
+      }
+    });
+    
+    let summary = `理論値：${this._item.recipe.join("/")}\n開発可能テーブル\n${typeTexts.join("\n")}`;
+    
+    if (this._item.name === "Ro.43水偵") {
+      summary += "\n秘書艦がイタリア艦の場合のみ開発可能";
+    }
+    
+    return summary;
+  }
+}
+
+class RecipeData {
+  constructor(data) {
+    this._items = data.map((d) => new RecipeItem(d));
+    this._categories = _.uniq(this._items.map((item) => item.category));
+    this._categoryTable = _.groupBy(this._items, "category");
+  }
+  get items() {
+    return this._items;
+  }
+  get categories() {
+    return this._categories;
+  }
+  getItemsByCategory(category) {
+    return this._categoryTable[category];
+  }
+  generateRecipes(targetItems) {
+    const possibleTypes = _.clone(TYPES);
+    
+    targetItems.forEach((item) => {
+      TYPES.forEach(([secretaryType, materielType]) => {
+        const result = item.results[secretaryType][materielType];
+        
+        if (result === 0) {
+          _.remove(possibleTypes, (t) => t[0] === secretaryType && t[1] === materielType);
         }
-      }, false);
-      
-      dd.appendChild(button);
-    });
-  });
-}
-
-function getSelectedItems() {
-  return _.toArray(selectedItems.querySelectorAll("li")).map((li) => {
-    return li.getAttribute("data-name");
-  });
-}
-
-function addItem(name) {
-  if (_.includes(getSelectedItems(), name)) {
-    return;
-  }
-  
-  const li = createItemElement(recipeDataTable[name]);
-  
-  const closeButton = document.createElement("button");
-  closeButton.type = "button";
-  closeButton.classList.add("close-button");
-  closeButton.addEventListener("click", (event) => {
-    removeItem(name);
-  }, false);
-  li.appendChild(closeButton);
-  
-  const closeIcon = document.createElement("span");
-  closeIcon.classList.add("glyphicon");
-  closeIcon.classList.add("glyphicon-remove");
-  closeButton.appendChild(closeIcon);
-  
-  selectedItems.appendChild(li);
-  
-  const button = itemList.querySelector(`button[data-name="${name}"]`);
-  button.classList.add("selected");
-  
-  updateResult();
-}
-
-function removeItem(name) {
-  const li = selectedItems.querySelector(`li[data-name="${name}"]`);
-  li.parentNode.removeChild(li);
-  
-  const button = itemList.querySelector(`button[data-name="${name}"]`);
-  button.classList.remove("selected");
-  
-  updateResult();
-}
-
-function generateRecipes(targetNames) {
-  const possibleTypes = _.clone(TYPES);
-  
-  targetNames.forEach((name) => {
-    TYPES.forEach(([secretaryType, materielType]) => {
-      const result = recipeDataTable[name].results[secretaryType][materielType];
-      
-      if (result === 0) {
-        _.remove(possibleTypes, (t) => t[0] === secretaryType && t[1] === materielType);
-      }
-    });
-  });
-  
-  const baseRecipe = _.zip(...targetNames.map((name) => recipeDataTable[name].recipe))
-    .map((a) => Math.max(...a));
-  
-  const recipes = [];
-  
-  possibleTypes.forEach(([secretaryType, materielType]) => {
-    const recipe = _.clone(baseRecipe);
-    
-    if (materielType === "鋼材(燃料)") {
-      const max = Math.max(...recipe);
-      
-      if (recipe[0] < max && recipe[2] < max) {
-        recipe[2] = max;
-      }
-    } else if (materielType === "弾薬") {
-      if (recipe[1] < recipe[3]) {
-        recipe[1] = recipe[3];
-      }
-      
-      const max = Math.max(recipe[0], recipe[2]);
-      
-      if (recipe[1] <= max) {
-        recipe[1] = max + 1;
-      }
-    } else if (materielType === "ボーキ") {
-      const max = Math.max(recipe[0], recipe[1], recipe[2]);
-      
-      if (recipe[3] <= max) {
-        recipe[3] = max + 1;
-      }
-    } else {
-      throw new Error("materielType");
-    }
-    
-    if (Math.max(...recipe) > 300) {
-      return;
-    }
-    
-    const items = [];
-    
-    recipeData.forEach((item) => {
-      const result = item.results[secretaryType][materielType];
-      const recipeResult = _.zip(recipe, item.recipe).every(([a, b]) => a >= b);
-      
-      items.push({
-        data: item,
-        result: recipeResult ? result : 0,
-        target: _.includes(targetNames, item.name),
       });
     });
     
-    const targetResults = items.filter((item) => item.target).map((item) => item.result);
+    const baseRecipe = _.zip(...targetItems.map((item) => item.recipe))
+      .map((a) => Math.max(...a));
     
-    recipes.push({
-      secretaryType: secretaryType,
-      materielType: materielType,
-      recipe: recipe,
-      items: items,
-      resultMin: Math.min(...targetResults),
-      resultMax: Math.max(...targetResults),
-    });
-  });
-  
-  return recipes;
-}
-
-function updateResult() {
-  const targetNames = getSelectedItems();
-  
-  if (targetNames.length === 0) {
-    recipePanels.innerHTML = `<div class="alert alert-info" role="alert"><p>
-      <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-      開発したい装備を選択してください。
-    </p></div>`;
-    return;
-  }
-  
-  const recipes = generateRecipes(targetNames);
-  
-  if (recipes.length === 0) {
-    recipePanels.innerHTML = `<div class="alert alert-danger" role="alert"><p>
-      <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-      条件を満たすレシピはありません。
-    </p></div>`;
-    return;
-  }
-  
-  recipePanels.textContent = "";
-  
-  const sortedRecipes = _.sortBy(recipes, (recipe) => {
-    return [
-      100 - recipe.resultMin,
-      100 - recipe.resultMax,
-      _.reduce(recipe.recipe, (sum, n) => sum + n, 0),
-    ];
-  });
-  
-  const allResultMin = Math.max(...recipes.map((recipe) => recipe.resultMin));
-  
-  sortedRecipes.forEach((recipe, index) => {
-    const panel = document.createElement("div");
-    panel.classList.add("panel");
-    panel.classList.add("panel-default");
-    panel.classList.add("recipe-panel");
+    const recipes = [];
     
-    const heading = document.createElement("div");
-    heading.classList.add("panel-heading");
-    heading.addEventListener("click", (event) => {
-      $(collapse).collapse("toggle");
-    }, false);
-    panel.appendChild(heading);
-    
-    const h3 = document.createElement("h3");
-    h3.textContent = `(${index + 1}/${sortedRecipes.length}) ${recipe.secretaryType}・${recipe.materielType}テーブル ${targetNames.join("・")}`;
-    heading.appendChild(h3);
-    
-    const headIcon = document.createElement("span");
-    headIcon.classList.add("glyphicon");
-    headIcon.classList.add("glyphicon-chevron-down");
-    headIcon.classList.add("accordion-icon");
-    h3.appendChild(headIcon);
-    
-    const collapse = document.createElement("div");
-    collapse.classList.add("panel-collapse");
-    collapse.classList.add("collapse");
-    
-    if (recipe.resultMin >= 2 || allResultMin < 2) {
-      collapse.classList.add("in");
-    }
-    
-    panel.appendChild(collapse);
-    
-    const body = document.createElement("div");
-    body.classList.add("panel-body");
-    collapse.appendChild(body);
-    
-    const table = document.createElement("table");
-    table.classList.add("table");
-    table.classList.add("table-bordered");
-    table.classList.add("table-condensed");
-    table.classList.add("recipe-table");
-    table.innerHTML = "<thead><tr><th>燃料</th><th>弾薬</th><th>鋼材</th><th>ボーキ</th><th>秘書艦</th></tr></thead>";
-    body.appendChild(table);
-    
-    const tbody = document.createElement("tbody");
-    table.appendChild(tbody);
-    
-    const tr = document.createElement("tr");
-    tbody.appendChild(tr);
-    
-    [...recipe.recipe, recipe.secretaryType].forEach((content) => {
-      const td = document.createElement("td");
-      td.textContent = content;
-      tr.appendChild(td);
-    });
-    
-    const ul = document.createElement("ul");
-    ul.classList.add("list-group");
-    ul.classList.add("kcitems");
-    collapse.appendChild(ul);
-    
-    _.sortBy(recipe.items, (item) => 100 - item.result).forEach((item) => {
-      if (item.result === 0) {
+    possibleTypes.forEach(([secretaryType, materielType]) => {
+      const recipe = _.clone(baseRecipe);
+      
+      if (materielType === "鋼材(燃料)") {
+        const max = Math.max(...recipe);
+        
+        if (recipe[0] < max && recipe[2] < max) {
+          recipe[2] = max;
+        }
+      } else if (materielType === "弾薬") {
+        if (recipe[1] < recipe[3]) {
+          recipe[1] = recipe[3];
+        }
+        
+        const max = Math.max(recipe[0], recipe[2]);
+        
+        if (recipe[1] <= max) {
+          recipe[1] = max + 1;
+        }
+      } else if (materielType === "ボーキ") {
+        const max = Math.max(recipe[0], recipe[1], recipe[2]);
+        
+        if (recipe[3] <= max) {
+          recipe[3] = max + 1;
+        }
+      } else {
+        throw new Error("materielType");
+      }
+      
+      if (Math.max(...recipe) > 300) {
         return;
       }
       
-      const li = createItemElement(item.data);
-      li.insertBefore(document.createTextNode(`${RESULT_TABLE[item.result]} `), li.firstChild);
+      const resultItems = [];
       
-      if (item.target) {
-        li.classList.add("target-item");
-      }
+      this._items.forEach((item) => {
+        const result = item.results[secretaryType][materielType];
+        const recipeResult = _.zip(recipe, item.recipe).every(([a, b]) => a >= b);
+        
+        resultItems.push({
+          data: item,
+          result: recipeResult ? result : 0,
+          target: targetItems.some((i) => i.name === item.name),
+        });
+      });
       
-      ul.appendChild(li);
+      const targetResults = resultItems
+        .filter((resultItem) => resultItem.target)
+        .map((resultItem) => resultItem.result);
+      
+      recipes.push({
+        secretaryType: secretaryType,
+        materielType: materielType,
+        recipe: recipe,
+        resultItems: resultItems,
+        resultMin: Math.min(...targetResults),
+        resultMax: Math.max(...targetResults),
+      });
     });
     
-    recipePanels.appendChild(panel);
-  });
+    return recipes;
+  }
 }
 
-(() => {
-  const data = require("./data.json");
-  
-  recipeData = data;
-  recipeDataTable = generateRecipeDataTable();
-  
-  initItemList();
-  updateResult();
-})();
+class ItemButton extends React.Component {
+  constructor(props) {
+    super(props);
+    
+    this._onClick = () => {
+      this.props.onToggleItem(this.props.item, !this.props.selected);
+    };
+  }
+  render() {
+    return <button type="button" className={classNames({selected: this.props.selected})}
+      title={this.props.item.summary}
+      onClick={this._onClick}
+      data-name={this.props.item.name}
+      data-category={this.props.item.category}>
+      {this.props.item.name}
+    </button>;
+  }
+}
+ItemButton.propTypes = {
+  item: React.PropTypes.object.isRequired,
+  selected: React.PropTypes.bool.isRequired,
+  onToggleItem: React.PropTypes.func.isRequired,
+};
+
+class ItemButtonList extends React.Component {
+  render() {
+    const itemList = [];
+    
+    this.props.recipeData.categories.forEach((category) => {
+      const buttons = this.props.recipeData.getItemsByCategory(category).map((item) => {
+        const selected = this.props.selectedItems.some((i) => i.name === item.name);
+        
+        return <ItemButton key={item.name} item={item} selected={selected}
+          onToggleItem={this.props.onToggleItem} />;
+      });
+      
+      itemList.push(<dt key={category + "-dt"}>{category}</dt>);
+      itemList.push(<dd key={category + "-dd"}>{buttons}</dd>);
+    });
+    
+    return <dl className="dl-horizontal item-list">{itemList}</dl>;
+  }
+}
+ItemButtonList.propTypes = {
+  recipeData: React.PropTypes.object.isRequired,
+  selectedItems: React.PropTypes.array.isRequired,
+  onToggleItem: React.PropTypes.func.isRequired,
+};
+
+class ItemListItem extends React.Component {
+  constructor(props) {
+    super(props);
+    
+    this._onClick = () => {
+      this.props.onToggleItem(this.props.item, false);
+    };
+  }
+  render() {
+    const contents = [];
+    const className = classNames({
+      "list-group-item": true,
+      "target-item": this.props.target,
+    });
+    
+    if (this.props.result) {
+      contents.push(`${RESULT_TABLE[this.props.result]} `);
+    }
+    
+    if (this.props.item.name === "Ro.43水偵") {
+      contents.push(<b key="info-text" className="info-text"
+        title="Ro.43水偵は秘書艦がイタリア艦の場合のみ開発できます">
+        {this.props.item.name}
+      </b>);
+    } else {
+      contents.push(this.props.item.name);
+    }
+    
+    if (this.props.onToggleItem) {
+      contents.push(<button key="close-button" type="button" className="close-button"
+        onClick={this._onClick}>
+        <span className="glyphicon glyphicon-remove" />
+      </button>);
+    }
+    
+    return <li className={className}
+      title={this.props.item.summary}
+      data-name={this.props.item.name}
+      data-category={this.props.item.category}>
+        {contents}
+    </li>;
+  }
+}
+ItemListItem.propTypes = {
+  item: React.PropTypes.object.isRequired,
+  onToggleItem: React.PropTypes.func,
+  result: React.PropTypes.number,
+  target: React.PropTypes.bool,
+};
+
+class SelectedItemList extends React.Component {
+  render() {
+    const components = this.props.selectedItems.map((item) => {
+      return <ItemListItem key={item.name} item={item} onToggleItem={this.props.onToggleItem} />;
+    });
+    
+    return <ul className="list-group kcitems selected-items">{components}</ul>;
+  }
+}
+SelectedItemList.propTypes = {
+  recipeData: React.PropTypes.object.isRequired,
+  selectedItems: React.PropTypes.array.isRequired,
+  onToggleItem: React.PropTypes.func.isRequired,
+};
+
+class ItemSelector extends React.Component {
+  render() {
+    return <div className="panel panel-default">
+      <div className="panel-heading"><h2>開発対象装備</h2></div>
+      <div className="panel-body">
+        <ItemButtonList
+          recipeData={this.props.recipeData}
+          selectedItems={this.props.selectedItems}
+          onToggleItem={this.props.onToggleItem} />
+        <SelectedItemList
+          recipeData={this.props.recipeData}
+          selectedItems={this.props.selectedItems}
+          onToggleItem={this.props.onToggleItem} />
+      </div>
+    </div>;
+  }
+}
+ItemSelector.propTypes = {
+  recipeData: React.PropTypes.object.isRequired,
+  selectedItems: React.PropTypes.array.isRequired,
+  onToggleItem: React.PropTypes.func.isRequired,
+};
+
+class Recipes extends React.Component {
+  render() {
+    let panels;
+    
+    if (this.props.selectedItems.length > 0) {
+      const recipes = this.props.recipeData.generateRecipes(this.props.selectedItems);
+      
+      if (recipes.length > 0) {
+        panels = this._generatePanels(recipes);
+      } else {
+        panels = [
+          <div key="alert" className="alert alert-danger" role="alert">
+            <p>
+              <span className="glyphicon glyphicon-exclamation-sign" aria-hidden="true" />{" "}
+              条件を満たすレシピはありません。
+            </p>
+          </div>,
+        ];
+      }
+    } else {
+      panels = [
+        <div key="alert" className="alert alert-info" role="alert">
+          <p>
+            <span className="glyphicon glyphicon-exclamation-sign" aria-hidden="true" />{" "}
+            開発したい装備を選択してください。
+          </p>
+        </div>,
+      ];
+    }
+    
+    return <div className="panel panel-default">
+      <div className="panel-heading"><h2>開発レシピ</h2></div>
+      <div className="panel-body">{panels}</div>
+    </div>;
+  }
+  _generatePanels(recipes) {
+    const sortedRecipes = _.sortBy(recipes, (recipe) => {
+      return [
+        100 - recipe.resultMin,
+        100 - recipe.resultMax,
+        _.reduce(recipe.recipe, (sum, n) => sum + n, 0),
+      ];
+    });
+    const allResultMin = Math.max(...recipes.map((recipe) => recipe.resultMin));
+    
+    return sortedRecipes.map((recipe, index) => {
+      const key = [...recipe.recipe, recipe.secretaryType].join("/");
+      const onClick = (event) => {
+        jQuery(event.currentTarget).parent().find(".collapse").collapse("toggle");
+      };
+      const collapseClass = classNames({
+        "panel-collapse": true,
+        "collapse": true,
+        "in": recipe.resultMin >= 2 || allResultMin < 2,
+      });
+      
+      const listItems = _.sortBy(recipe.resultItems, (resultItem) => 100 - resultItem.result)
+        .filter((resultItem) => resultItem.result > 0)
+        .map((resultItem) => {
+          return <ItemListItem key={resultItem.data.name}
+            item={resultItem.data}
+            result={resultItem.result}
+            target={resultItem.target} />;
+        });
+      
+      return <div key={key} className="panel panel-default recipe-panel">
+        <div className="panel-heading" onClick={onClick}>
+          <h3>
+            ({index + 1}/{sortedRecipes.length}){" "}
+            {recipe.secretaryType}・{recipe.materielType}テーブル{" "}
+            {this.props.selectedItems.map((i) => i.name).join("・")}
+            <span className="glyphicon glyphicon-chevron-down accordion-icon" />
+          </h3>
+        </div>
+        <div className={collapseClass}>
+          <div className="panel-body">
+            <table className="table table-bordered table-condensed recipe-table">
+              <thead>
+                <tr><th>燃料</th><th>弾薬</th><th>鋼材</th><th>ボーキ</th><th>秘書艦</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>{recipe.recipe[0]}</td>
+                  <td>{recipe.recipe[1]}</td>
+                  <td>{recipe.recipe[2]}</td>
+                  <td>{recipe.recipe[3]}</td>
+                  <td>{recipe.secretaryType}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <ul className="list-group kcitems">{listItems}</ul>
+        </div>
+      </div>;
+    });
+  }
+}
+Recipes.propTypes = {
+  recipeData: React.PropTypes.object.isRequired,
+  selectedItems: React.PropTypes.array.isRequired,
+};
+
+class Root extends React.Component {
+  constructor(props) {
+    super(props);
+    
+    this.state = {
+      selectedItems: [],
+    };
+    
+    this._onToggleItem = this.toggleItem.bind(this);
+  }
+  render() {
+    return <div>
+      <ItemSelector
+        recipeData={this.props.recipeData}
+        selectedItems={this.state.selectedItems}
+        onToggleItem={this._onToggleItem} />
+      <Recipes
+        recipeData={this.props.recipeData}
+        selectedItems={this.state.selectedItems} />
+    </div>;
+  }
+  toggleItem(targetItem, add) {
+    this.setState((prevState, props) => {
+      let newItems = prevState.selectedItems;
+      
+      if (add) {
+        if (newItems.every((i) => i.name !== targetItem.name)) {
+          newItems = newItems.concat([targetItem]);
+        }
+      } else {
+        newItems = newItems.filter((i) => i.name !== targetItem.name);
+      }
+      
+      return {selectedItems: newItems};
+    });
+  }
+}
+Root.propTypes = {
+  recipeData: React.PropTypes.object.isRequired,
+};
+
+const data = require("./data.json");
+
+ReactDOM.render(
+  <Root recipeData={new RecipeData(data)} />,
+  document.getElementById("root")
+);

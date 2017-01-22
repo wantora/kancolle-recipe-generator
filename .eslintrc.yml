@@ -1,5 +1,13 @@
+plugins:
+  - react
+
+parserOptions:
+  ecmaFeatures:
+    jsx: true
+
 extends:
   - eslint:recommended
+  - plugin:react/recommended
 
 env:
   es6: true
@@ -96,7 +104,7 @@ rules:
   no-nested-ternary: "error"
   no-new-object: "error"
   no-trailing-spaces: ["warn", {"skipBlankLines": true}]
-  no-underscore-dangle: "error"
+  no-underscore-dangle: ["error", {"allowAfterThis": true}]
   no-unneeded-ternary: "error"
   no-whitespace-before-property: "warn"
   object-curly-spacing: "warn"
