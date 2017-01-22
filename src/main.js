@@ -75,14 +75,15 @@ class RecipeData {
     return this._categoryTable[category];
   }
   generateRecipes(targetItems) {
-    const possibleTypes = _.clone(TYPES);
+    let possibleTypes = TYPES;
     
     targetItems.forEach((item) => {
       TYPES.forEach(([secretaryType, materielType]) => {
         const result = item.results[secretaryType][materielType];
         
         if (result === 0) {
-          _.remove(possibleTypes, (t) => t[0] === secretaryType && t[1] === materielType);
+          possibleTypes = possibleTypes
+            .filter((t) => !(t[0] === secretaryType && t[1] === materielType));
         }
       });
     });
@@ -93,7 +94,7 @@ class RecipeData {
     const recipes = [];
     
     possibleTypes.forEach(([secretaryType, materielType]) => {
-      const recipe = _.clone(baseRecipe);
+      const recipe = baseRecipe.concat();
       
       if (materielType === "鋼材(燃料)") {
         const max = Math.max(...recipe);
@@ -333,7 +334,7 @@ class Recipes extends React.Component {
       return [
         100 - recipe.resultMin,
         100 - recipe.resultMax,
-        _.reduce(recipe.recipe, (sum, n) => sum + n, 0),
+        recipe.recipe.reduce((sum, n) => sum + n, 0),
       ];
     });
     const allResultMin = Math.max(...recipes.map((recipe) => recipe.resultMin));
