@@ -1,15 +1,16 @@
-"use strict";
-
 require("./main.css");
 
-const jQuery = require("jquery");
+import jQuery from "jquery";
+
 window.jQuery = jQuery;
 require("bootstrap");
 
-const React = require("react");
-const ReactDOM = require("react-dom");
-const classNames = require("classnames");
-const _ = require("lodash");
+import React from "react";
+import ReactDOM from "react-dom";
+import classNames from "classnames";
+import _ from "lodash";
+
+import rawData from "./data.json";
 
 const RESULT_TABLE = ["×", "△", "○", "◎"];
 const SECRETARY_TYPES = ["砲戦系", "水雷系", "空母系"];
@@ -437,9 +438,7 @@ Root.propTypes = {
   recipeData: React.PropTypes.object.isRequired,
 };
 
-const data = require("./data.json");
-
 ReactDOM.render(
-  <Root recipeData={new RecipeData(data)} />,
+  <Root recipeData={new RecipeData(rawData)} />,
   document.getElementById("root")
 );
