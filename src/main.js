@@ -63,6 +63,7 @@ class RecipeItem {
 class RecipeData {
   constructor(data) {
     this._items = data.map((d) => new RecipeItem(d));
+    this._nameTable = _.keyBy(this._items, (item) => item.name);
     this._categories = _.uniq(this._items.map((item) => item.category));
     this._categoryTable = _.groupBy(this._items, "category");
   }
@@ -71,6 +72,9 @@ class RecipeData {
   }
   get categories() {
     return this._categories;
+  }
+  getItemByName(name) {
+    return this._nameTable[name];
   }
   getItemsByCategory(category) {
     return this._categoryTable[category];
@@ -401,10 +405,7 @@ class Root extends React.Component {
   constructor(props) {
     super(props);
     
-    this.state = {
-      selectedItems: [],
-    };
-    
+    this.state = this._loadState();
     this._onToggleItem = this.toggleItem.bind(this);
   }
   render() {
@@ -430,8 +431,38 @@ class Root extends React.Component {
         newItems = newItems.filter((i) => i.name !== targetItem.name);
       }
       
-      return {selectedItems: newItems};
+      const newState = {
+        selectedItems: newItems,
+      };
+      
+      this._saveState(newState);
+      return newState;
     });
+  }
+  _loadState() {
+    const state = {
+      selectedItems: [],
+    };
+    
+    try {
+      const value = sessionStorage.getItem("selectedItems");
+      if (value !== null) {
+        state.selectedItems = JSON.parse(value)
+          .map((name) => this.props.recipeData.getItemByName(name));
+      }
+    } catch (e) {
+      // pass
+    }
+    
+    return state;
+  }
+  _saveState(state) {
+    try {
+      const value = JSON.stringify(state.selectedItems.map((item) => item.name));
+      sessionStorage.setItem("selectedItems", value);
+    } catch (e) {
+      // pass
+    }
   }
 }
 Root.propTypes = {
