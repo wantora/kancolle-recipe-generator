@@ -1,23 +1,41 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="ja" prefix="og: http://ogp.me/ns#">
 <head>
   <meta charset="utf-8">
+  <title>艦これ 開発レシピジェネレータ</title>
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>艦これ 開発レシピジェネレータ</title>
+  <meta name="description" content="開発したい装備を選択していくだけで適切な開発レシピを自動で作ることができます。">
+  <meta property="og:title" content="艦これ 開発レシピジェネレータ">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://wantora.github.io/kancolle-recipe-generator/">
+  <meta property="og:image" content="https://wantora.github.io/kancolle-recipe-generator/thumbnail.png">
+  <meta property="og:description" content="開発したい装備を選択していくだけで適切な開発レシピを自動で作ることができます。">
+  <meta name="twitter:card" content="summary">
   <link href="bundle.css" rel="stylesheet">
+  <link rel="shortcut icon" type="image/x-icon" href="./favicon.ico">
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    
+    ga('create', 'UA-48995077-3', 'auto');
+    ga('send', 'pageview');
+  </script>
 </head>
 <body>
 
 <div class="page-header">
   <h1>艦これ 開発レシピジェネレータ <small>複合レシピを自動生成</small></h1>
+  <p>開発したい装備を選択していくだけで適切な開発レシピを自動で作ることができます。</p>
 </div>
 
 <main>
   <div id="root"></div>
   
   <div class="panel panel-default">
-    <div class="panel-heading"><h2>説明</h2></div>
+    <div class="panel-heading"><h2>ヘルプ</h2></div>
     <div class="panel-body">
       <h3>秘書艦について</h3>
       
@@ -41,6 +59,11 @@
       <li>表示はあくまでも目安であり、実際の成功率とは異なっている場合があります。</li>
       <li>同じ表示でも装備によって成功率は異なります。</li>
       </ul>
+      
+      <h3>開発レシピの並び順</h3>
+      
+      <p>上から順により適切だと思われるレシピから並んでいます。具体的には、より成功率が高そうで必要な資材の合計が少ないレシピから並んでいます。</p>
+      <p>また、対象装備の成功率がすべて「△」のレシピは最初から折りたたまれています。</p>
       
       <h3>更新履歴</h3>
       
@@ -85,14 +108,5 @@
 </address>
 
 <script src="bundle.js"></script>
-<script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-  ga('create', 'UA-48995077-3', 'auto');
-  ga('send', 'pageview');
-</script>
 </body>
 </html>
