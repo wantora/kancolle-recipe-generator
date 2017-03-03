@@ -1,7 +1,6 @@
-require("./main.css");
-
+import "core-js";
+import "./main.css";
 import jQuery from "jquery";
-
 window.jQuery = jQuery;
 require("bootstrap");
 

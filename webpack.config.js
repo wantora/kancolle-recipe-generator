@@ -1,47 +1,64 @@
+/* eslint-env node */
 const webpack = require("webpack");
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const CopyWebpackPlugin = require("copy-webpack-plugin");
+const path = require("path");
 
 module.exports = {
   entry: {
     bundle: "./src/main.js",
   },
   output: {
-    path: "public",
+    path: path.join(__dirname, "dist"),
     filename: "[name].js",
+    pathinfo: true,
   },
+  devtool: "eval-cheap-module-source-map",
+  plugins: [
+    new webpack.LoaderOptionsPlugin({
+      debug: true,
+    }),
+    new CopyWebpackPlugin([
+      {
+        from: "./src/www",
+      },
+    ]),
+    new ExtractTextPlugin("[name].css"),
+  ],
   module: {
-    preLoaders: [
+    rules: [
       {
         test: /\.js$/,
         exclude: /node_modules/,
-        loader: "eslint",
+        enforce: "pre",
+        use: "eslint-loader",
       },
-    ],
-    loaders: [
       {
         test: /\.js$/,
         exclude: /node_modules/,
-        loader: "babel",
-      },
-      {
-        test: /\.json$/,
-        loader: "json",
+        use: "babel-loader",
       },
       {
         test: /\.css$/,
-        loader: ExtractTextPlugin.extract("style-loader", "css-loader?sourceMap"),
+        use: ExtractTextPlugin.extract({
+          fallback: "style-loader",
+          use: {
+            loader: "css-loader",
+            options: {
+              sourceMap: true,
+            },
+          },
+        }),
       },
       {
-        test: /\.(woff2?|ttf|eot|svg)$/,
-        loader: "file",
-        query: {
-          name: "res/[name].[ext]",
+        test: /\.(jpg|png|woff2?|ttf|eot|svg)$/,
+        use: {
+          loader: "file-loader",
+          options: {
+            name: "res/[name].[ext]",
+          },
         },
       },
     ],
   },
-  plugins: [
-    new ExtractTextPlugin("[name].css"),
-  ],
-  devtool: "source-map",
 };
