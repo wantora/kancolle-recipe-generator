@@ -59,6 +59,17 @@ module.exports = {
           },
         },
       },
+      {
+        test: /\.csv$/,
+        use: {
+          loader: "csv-loader",
+          options: {
+            header: true,
+            dynamicTyping: true,
+            skipEmptyLines: true,
+          },
+        },
+      },
     ],
   },
 };

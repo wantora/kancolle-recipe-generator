@@ -9,7 +9,8 @@ import ReactDOM from "react-dom";
 import classNames from "classnames";
 import _ from "lodash";
 
-import rawData from "./data.json";
+import itemsData from "./data/items.json";
+import resultsData from "./data/results.csv";
 
 const RESULT_TABLE = ["×", "△", "○", "◎"];
 const SECRETARY_TYPES = ["砲戦系", "水雷系", "空母系"];
@@ -22,8 +23,9 @@ const TYPES = _.flatten(SECRETARY_TYPES.map((secretaryType) => {
 }));
 
 class RecipeItem {
-  constructor(item) {
+  constructor(item, results) {
     this._item = item;
+    this._results = results;
   }
   get name() {
     return this._item.name;
@@ -35,14 +37,14 @@ class RecipeItem {
     return this._item.recipe;
   }
   get results() {
-    return this._item.results;
+    return this._results;
   }
   get summary() {
     const typeTexts = [];
     
     SECRETARY_TYPES.forEach((secretaryType) => {
       const mtypes = MATERIEL_TYPES
-        .filter((materielType) => this._item.results[secretaryType][materielType] > 0);
+        .filter((materielType) => this._results[secretaryType][materielType] > 0);
       
       if (mtypes.length > 0) {
         typeTexts.push(`  ${secretaryType}：${mtypes.join("・")}`);
@@ -60,8 +62,23 @@ class RecipeItem {
 }
 
 class RecipeData {
-  constructor(data) {
-    this._items = data.map((d) => new RecipeItem(d));
+  constructor(items, results) {
+    const resultMap = {};
+
+    results.forEach((o) => {
+      if (!resultMap[o.name]) {
+        resultMap[o.name] = {};
+      }
+      if (!resultMap[o.name][o.secretaryType]) {
+        resultMap[o.name][o.secretaryType] = {};
+      }
+      if (!resultMap[o.name][o.secretaryType][o.materielType]) {
+        resultMap[o.name][o.secretaryType][o.materielType] = {};
+      }
+      resultMap[o.name][o.secretaryType][o.materielType] = o.result;
+    });
+
+    this._items = items.map((d) => new RecipeItem(d, resultMap[d.name]));
     this._nameTable = _.keyBy(this._items, (item) => item.name);
     this._categories = _.uniq(this._items.map((item) => item.category));
     this._categoryTable = _.groupBy(this._items, "category");
@@ -469,6 +486,6 @@ Root.propTypes = {
 };
 
 ReactDOM.render(
-  <Root recipeData={new RecipeData(rawData)} />,
+  <Root recipeData={new RecipeData(itemsData, resultsData)} />,
   document.getElementById("root")
 );
