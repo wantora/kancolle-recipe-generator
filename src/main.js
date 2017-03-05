@@ -85,10 +85,11 @@ class RecipeItem {
     
     SECRETARY_TYPES.forEach((secretaryType) => {
       const mtypes = MATERIEL_TYPES
-        .filter((materielType) => this._results[secretaryType][materielType].canDevelop());
+        .filter((materielType) => this._results[secretaryType][materielType].canDevelop())
+        .map((materielType) => `${this._results[secretaryType][materielType].label}${materielType}`);
       
       if (mtypes.length > 0) {
-        typeTexts.push(`  ${secretaryType}：${mtypes.join("・")}`);
+        typeTexts.push(`  ${secretaryType}：${mtypes.join(" ")}`);
       }
     });
     
