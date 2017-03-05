@@ -44,7 +44,7 @@
   "scripts": {
     "build": "webpack --config webpack.production.config.js",
     "deploy": "npm run build && gh-pages -d ./dist",
-    "lint": "eslint ./src",
+    "lint": "eslint .",
     "start": "webpack-dev-server --content-base ./src/www --inline --open",
     "test": "echo \"Error: no test specified\" && exit 1"
   }
