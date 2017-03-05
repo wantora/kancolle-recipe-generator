@@ -33,6 +33,7 @@
 
 <main>
   <div id="root"></div>
+  <script src="bundle.js"></script>
   
   <div class="panel panel-default">
     <div class="panel-heading"><h2>ヘルプ</h2></div>
@@ -50,9 +51,10 @@
       <h3>開発成功率の目安</h3>
       
       <dl class="dl-horizontal">
-      <dt>◎</dt><dd>比較的成功率が高い</dd>
-      <dt>○</dt><dd>中間的な成功率</dd>
-      <dt>△</dt><dd>比較的成功率が低い、あるいは情報が少なく成功率の判断ができない</dd>
+      <dt>◎</dt><dd>その装備の中で成功率が最も高い</dd>
+      <dt>○</dt><dd>◎と△の中間</dd>
+      <dt>△</dt><dd>その装備の中で成功率が最も低い</dd>
+      <dt>？</dt><dd>情報が少なく成功率の判断ができない</dd>
       </dl>
       
       <ul>
@@ -66,6 +68,14 @@
       <p>また、対象装備の成功率がすべて「△」のレシピは最初から折りたたまれています。</p>
       
       <h3>更新履歴</h3>
+      
+      <h4>2017-03-06</h4>
+      
+      <ul>
+      <li>開発成功率の目安に "？" を追加</li>
+      <li>ツールチップに開発成功率を表示するようにした</li>
+      <li>詳細情報を表示するようにした</li>
+      </ul>
       
       <h4>2017-02-04</h4>
       
@@ -119,7 +129,5 @@
   / <a href="https://github.com/wantora">github</a>
   / <a href="https://github.com/wantora/kancolle-recipe-generator">project page</a>
 </address>
-
-<script src="bundle.js"></script>
 </body>
 </html>
