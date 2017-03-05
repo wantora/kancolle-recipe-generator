@@ -12,7 +12,28 @@ import _ from "lodash";
 import itemsData from "./data/items.json";
 import resultsData from "./data/results.csv";
 
-const RESULT_TABLE = ["×", "△", "○", "◎"];
+const RESULT_TABLE = {
+  "A": {
+    order: 4,
+    label: "◎",
+  },
+  "B": {
+    order: 3,
+    label: "○",
+  },
+  "C": {
+    order: 1,
+    label: "△",
+  },
+  "Q": {
+    order: 2,
+    label: "？",
+  },
+  "X": {
+    order: null,
+    label: "×",
+  },
+};
 const SECRETARY_TYPES = ["砲戦系", "水雷系", "空母系"];
 const MATERIEL_TYPES = ["鋼材(燃料)", "弾薬", "ボーキ"];
 
@@ -21,6 +42,26 @@ const TYPES = _.flatten(SECRETARY_TYPES.map((secretaryType) => {
     return [secretaryType, materielType];
   });
 }));
+
+class Result {
+  constructor(value) {
+    this._value = value;
+  }
+  get value() {
+    return this._value;
+  }
+  get order() {
+    return RESULT_TABLE[this._value].order;
+  }
+  get label() {
+    return RESULT_TABLE[this._value].label;
+  }
+  canDevelop() {
+    return this._value !== "X";
+  }
+}
+
+const RESULT_CANNOT_DEVELOP = new Result("X");
 
 class RecipeItem {
   constructor(item, results) {
@@ -44,7 +85,7 @@ class RecipeItem {
     
     SECRETARY_TYPES.forEach((secretaryType) => {
       const mtypes = MATERIEL_TYPES
-        .filter((materielType) => this._results[secretaryType][materielType] > 0);
+        .filter((materielType) => this._results[secretaryType][materielType].canDevelop());
       
       if (mtypes.length > 0) {
         typeTexts.push(`  ${secretaryType}：${mtypes.join("・")}`);
@@ -72,10 +113,7 @@ class RecipeData {
       if (!resultMap[o.name][o.secretaryType]) {
         resultMap[o.name][o.secretaryType] = {};
       }
-      if (!resultMap[o.name][o.secretaryType][o.materielType]) {
-        resultMap[o.name][o.secretaryType][o.materielType] = {};
-      }
-      resultMap[o.name][o.secretaryType][o.materielType] = o.result;
+      resultMap[o.name][o.secretaryType][o.materielType] = new Result(o.result);
     });
 
     this._items = items.map((d) => new RecipeItem(d, resultMap[d.name]));
@@ -102,7 +140,7 @@ class RecipeData {
       TYPES.forEach(([secretaryType, materielType]) => {
         const result = item.results[secretaryType][materielType];
         
-        if (result === 0) {
+        if (!result.canDevelop()) {
           possibleTypes = possibleTypes
             .filter((t) => !(t[0] === secretaryType && t[1] === materielType));
         }
@@ -155,22 +193,22 @@ class RecipeData {
         
         resultItems.push({
           data: item,
-          result: recipeResult ? result : 0,
+          result: recipeResult ? result : RESULT_CANNOT_DEVELOP,
           target: targetItems.some((i) => i.name === item.name),
         });
       });
       
-      const targetResults = resultItems
+      const targetResultOrders = resultItems
         .filter((resultItem) => resultItem.target)
-        .map((resultItem) => resultItem.result);
+        .map((resultItem) => resultItem.result.order);
       
       recipes.push({
         secretaryType: secretaryType,
         materielType: materielType,
         recipe: recipe,
         resultItems: resultItems,
-        resultMin: Math.min(...targetResults),
-        resultMax: Math.max(...targetResults),
+        resultMin: Math.min(...targetResultOrders),
+        resultMax: Math.max(...targetResultOrders),
       });
     });
     
@@ -243,7 +281,7 @@ class ItemListItem extends React.Component {
     });
     
     if (this.props.result) {
-      contents.push(`${RESULT_TABLE[this.props.result]} `);
+      contents.push(`${this.props.result.label} `);
     }
     
     if (this.props.item.name === "Ro.43水偵") {
@@ -273,7 +311,7 @@ class ItemListItem extends React.Component {
 ItemListItem.propTypes = {
   item: React.PropTypes.object.isRequired,
   onToggleItem: React.PropTypes.func,
-  result: React.PropTypes.number,
+  result: React.PropTypes.object,
   target: React.PropTypes.bool,
 };
 
@@ -368,11 +406,12 @@ class Recipes extends React.Component {
       const collapseClass = classNames({
         "panel-collapse": true,
         "collapse": true,
-        "in": recipe.resultMin >= 2 || allResultMin < 2,
+        "in": recipe.resultMin > 1 || allResultMin <= 1,
       });
       
-      const listItems = _.sortBy(recipe.resultItems, (resultItem) => 100 - resultItem.result)
-        .filter((resultItem) => resultItem.result > 0)
+      const listItems = _.sortBy(
+          recipe.resultItems.filter((resultItem) => resultItem.result.canDevelop()),
+          (resultItem) => 100 - resultItem.result.order)
         .map((resultItem) => {
           return <ItemListItem key={resultItem.data.name}
             item={resultItem.data}
