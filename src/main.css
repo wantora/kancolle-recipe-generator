@@ -7,16 +7,19 @@ body {
 
 .alert {
   margin: 0;
+  margin-bottom: 20px;
 }
 
-.panel-body > h3 {
+.panel-body > h3,
+.recipe-panel .panel-body > h4 {
   margin: 20px 0 10px 0;
   font-size: 18px;
   border-bottom: 1px solid #eee;
   padding-bottom: 10px;
 }
 
-.panel-body > h3:first-child {
+.panel-body > h3:first-child,
+.recipe-panel .panel-body > h4:first-child {
   margin-top: 0;
 }
 
@@ -177,6 +180,21 @@ main {
 .recipe-table th,
 .recipe-table td {
   width: 4em;
+}
+
+.recipe-table th.materiel-type,
+.recipe-table td.materiel-type {
+  width: 7em;
+}
+
+.recipe-table th.item-name,
+.recipe-table td.item-name {
+  width: auto;
+}
+
+.recipe-table th.possible-type,
+.recipe-table td.possible-type {
+  background-color: hsl(350, 100%, 90%);
 }
 
 .recipe-panel .panel-heading {

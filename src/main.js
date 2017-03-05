@@ -135,59 +135,18 @@ class RecipeData {
     return this._categoryTable[category];
   }
   generateRecipes(targetItems) {
-    let possibleTypes = TYPES;
-    
-    targetItems.forEach((item) => {
-      TYPES.forEach(([secretaryType, materielType]) => {
-        const result = item.results[secretaryType][materielType];
-        
-        if (!result.canDevelop()) {
-          possibleTypes = possibleTypes
-            .filter((t) => !(t[0] === secretaryType && t[1] === materielType));
-        }
-      });
-    });
-    
-    const baseRecipe = _.zip(...targetItems.map((item) => item.recipe))
-      .map((a) => Math.max(...a));
-    
+    const possibleTypes = this.generatePossibleTypes(targetItems);
+    const baseRecipe = this.generateBaseRecipe(targetItems);
     const recipes = [];
     
     possibleTypes.forEach(([secretaryType, materielType]) => {
-      const recipe = baseRecipe.concat();
-      
-      if (materielType === "鋼材(燃料)") {
-        const max = Math.max(...recipe);
-        
-        if (recipe[0] < max && recipe[2] < max) {
-          recipe[2] = max;
-        }
-      } else if (materielType === "弾薬") {
-        if (recipe[1] < recipe[3]) {
-          recipe[1] = recipe[3];
-        }
-        
-        const max = Math.max(recipe[0], recipe[2]);
-        
-        if (recipe[1] <= max) {
-          recipe[1] = max + 1;
-        }
-      } else if (materielType === "ボーキ") {
-        const max = Math.max(recipe[0], recipe[1], recipe[2]);
-        
-        if (recipe[3] <= max) {
-          recipe[3] = max + 1;
-        }
-      } else {
-        throw new Error("materielType");
-      }
-      
-      if (Math.max(...recipe) > 300) {
-        return;
-      }
-      
+      const recipe = this.generateMaterielRecipe(baseRecipe, materielType);
       const resultItems = [];
       
+      if (recipe === null) {
+        return;
+      }
+
       this._items.forEach((item) => {
         const result = item.results[secretaryType][materielType];
         const recipeResult = _.zip(recipe, item.recipe).every(([a, b]) => a >= b);
@@ -214,6 +173,61 @@ class RecipeData {
     });
     
     return recipes;
+  }
+  generatePossibleTypes(targetItems) {
+    let possibleTypes = TYPES;
+    
+    targetItems.forEach((item) => {
+      TYPES.forEach(([secretaryType, materielType]) => {
+        const result = item.results[secretaryType][materielType];
+        
+        if (!result.canDevelop()) {
+          possibleTypes = possibleTypes
+            .filter((t) => !(t[0] === secretaryType && t[1] === materielType));
+        }
+      });
+    });
+
+    return possibleTypes;
+  }
+  generateBaseRecipe(targetItems) {
+    return _.zip(...targetItems.map((item) => item.recipe))
+      .map((a) => Math.max(...a));
+  }
+  generateMaterielRecipe(baseRecipe, materielType) {
+    const recipe = baseRecipe.concat();
+    
+    if (materielType === "鋼材(燃料)") {
+      const max = Math.max(...recipe);
+      
+      if (recipe[0] < max && recipe[2] < max) {
+        recipe[2] = max;
+      }
+    } else if (materielType === "弾薬") {
+      if (recipe[1] < recipe[3]) {
+        recipe[1] = recipe[3];
+      }
+      
+      const max = Math.max(recipe[0], recipe[2]);
+      
+      if (recipe[1] <= max) {
+        recipe[1] = max + 1;
+      }
+    } else if (materielType === "ボーキ") {
+      const max = Math.max(recipe[0], recipe[1], recipe[2]);
+      
+      if (recipe[3] <= max) {
+        recipe[3] = max + 1;
+      }
+    } else {
+      throw new Error("materielType");
+    }
+    
+    if (Math.max(...recipe) > 300) {
+      return null;
+    } else {
+      return recipe;
+    }
   }
 }
 
@@ -354,6 +368,109 @@ ItemSelector.propTypes = {
   onToggleItem: React.PropTypes.func.isRequired,
 };
 
+class RecipePanel extends React.Component {
+  render() {
+    const onClick = (event) => {
+      jQuery(event.currentTarget).parent().find(".collapse").collapse("toggle");
+    };
+    const collapseClass = classNames({
+      "panel-collapse": true,
+      "collapse": true,
+      "in": !this.props.collapse,
+    });
+
+    return <div className="panel panel-default recipe-panel">
+      <div className="panel-heading" onClick={onClick}>
+        <h3>
+          {this.props.title}
+          <span className="glyphicon glyphicon-chevron-down accordion-icon" />
+        </h3>
+      </div>
+      <div className={collapseClass}>
+        {this.props.children}
+      </div>
+    </div>;
+  }
+}
+RecipePanel.propTypes = {
+  children: React.PropTypes.any.isRequired,
+  title: React.PropTypes.string.isRequired,
+  collapse: React.PropTypes.bool.isRequired,
+};
+
+class InfoPanel extends React.Component {
+  render() {
+    const baseRecipe = this.props.recipeData.generateBaseRecipe(this.props.selectedItems);
+    const recipeRows = MATERIEL_TYPES.map((materielType) => {
+      const recipe = this.props.recipeData.generateMaterielRecipe(baseRecipe, materielType);
+
+      if (recipe === null) {
+        return <tr key={materielType}>
+          <td className="materiel-type">{materielType}</td>
+          <td colSpan={4}>不可</td>
+        </tr>;
+      } else {
+        return <tr key={materielType}>
+          <td className="materiel-type">{materielType}</td>
+          <td>{recipe[0]}</td>
+          <td>{recipe[1]}</td>
+          <td>{recipe[2]}</td>
+          <td>{recipe[3]}</td>
+        </tr>;
+      }
+    });
+
+    const possibleTypes = this.props.recipeData.generatePossibleTypes(this.props.selectedItems);
+    const itemRows = this.props.selectedItems.map((item) => {
+      return <tr key={item.name}>
+        <td key={`${item.name}_name`} className="item-name">{item.name}</td>
+        {TYPES.map(([secretaryType, materielType]) => {
+          const isPossibleType = possibleTypes
+            .some(([s, m]) => s === secretaryType && m === materielType);
+
+          return <td
+            key={`${item.name}_${secretaryType}_${materielType}`}
+            className={classNames({"possible-type": isPossibleType})}
+          >
+            {item.results[secretaryType][materielType].label}
+          </td>;
+        })}
+      </tr>;
+    });
+
+    return <RecipePanel title="詳細情報" collapse={true}>
+      <div className="panel-body">
+        <h4>理論値</h4>
+        <table className="table table-bordered table-condensed recipe-table">
+          <thead>
+            <tr>
+              <th className="materiel-type">最大資材</th>
+              <th>燃料</th><th>弾薬</th><th>鋼材</th><th>ボーキ</th>
+            </tr>
+          </thead>
+          <tbody>{recipeRows}</tbody>
+        </table>
+
+        <h4>開発テーブル</h4>
+        <table className="table table-bordered table-condensed recipe-table">
+          <thead>
+            <tr>
+              <th className="item-name" rowSpan={2}>装備</th>
+              {SECRETARY_TYPES.map((t) => <th key={t} colSpan={3}>{t}</th>)}
+            </tr>
+            <tr>{_.times(3, (i) => MATERIEL_TYPES.map((t) => <th key={`${i}_${t}`}>{t}</th>))}</tr>
+          </thead>
+          <tbody>{itemRows}</tbody>
+        </table>
+      </div>
+    </RecipePanel>;
+  }
+}
+InfoPanel.propTypes = {
+  recipeData: React.PropTypes.object.isRequired,
+  selectedItems: React.PropTypes.array.isRequired,
+};
+
 class Recipes extends React.Component {
   render() {
     let panels;
@@ -373,6 +490,12 @@ class Recipes extends React.Component {
           </div>,
         ];
       }
+
+      panels.push(<InfoPanel
+        key="info"
+        recipeData={this.props.recipeData}
+        selectedItems={this.props.selectedItems}
+      />);
     } else {
       panels = [
         <div key="alert" className="alert alert-info" role="alert">
@@ -401,14 +524,6 @@ class Recipes extends React.Component {
     
     return sortedRecipes.map((recipe, index) => {
       const key = [...recipe.recipe, recipe.secretaryType].join("/");
-      const onClick = (event) => {
-        jQuery(event.currentTarget).parent().find(".collapse").collapse("toggle");
-      };
-      const collapseClass = classNames({
-        "panel-collapse": true,
-        "collapse": true,
-        "in": recipe.resultMin > 1 || allResultMin <= 1,
-      });
       
       const listItems = _.sortBy(
           recipe.resultItems.filter((resultItem) => resultItem.result.canDevelop()),
@@ -420,35 +535,33 @@ class Recipes extends React.Component {
             target={resultItem.target} />;
         });
       
-      return <div key={key} className="panel panel-default recipe-panel">
-        <div className="panel-heading" onClick={onClick}>
-          <h3>
-            ({index + 1}/{sortedRecipes.length}){" "}
-            {recipe.secretaryType}・{recipe.materielType}テーブル{" "}
-            {this.props.selectedItems.map((i) => i.name).join("・")}
-            <span className="glyphicon glyphicon-chevron-down accordion-icon" />
-          </h3>
+      const title =
+          `(${index + 1}/${sortedRecipes.length}) ` +
+          `${recipe.secretaryType}・${recipe.materielType}テーブル ` +
+          `${this.props.selectedItems.map((i) => i.name).join("・")}`;
+
+      return <RecipePanel key={key}
+        title={title}
+        collapse={recipe.resultMin <= 1 && allResultMin > 1}
+      >
+        <div className="panel-body">
+          <table className="table table-bordered table-condensed recipe-table">
+            <thead>
+              <tr><th>燃料</th><th>弾薬</th><th>鋼材</th><th>ボーキ</th><th>秘書艦</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>{recipe.recipe[0]}</td>
+                <td>{recipe.recipe[1]}</td>
+                <td>{recipe.recipe[2]}</td>
+                <td>{recipe.recipe[3]}</td>
+                <td>{recipe.secretaryType}</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
-        <div className={collapseClass}>
-          <div className="panel-body">
-            <table className="table table-bordered table-condensed recipe-table">
-              <thead>
-                <tr><th>燃料</th><th>弾薬</th><th>鋼材</th><th>ボーキ</th><th>秘書艦</th></tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>{recipe.recipe[0]}</td>
-                  <td>{recipe.recipe[1]}</td>
-                  <td>{recipe.recipe[2]}</td>
-                  <td>{recipe.recipe[3]}</td>
-                  <td>{recipe.secretaryType}</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-          <ul className="list-group kcitems">{listItems}</ul>
-        </div>
-      </div>;
+        <ul className="list-group kcitems">{listItems}</ul>
+      </RecipePanel>;
     });
   }
 }
