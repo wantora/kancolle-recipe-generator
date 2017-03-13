@@ -373,9 +373,9 @@ class RecipePanel extends React.Component {
       do {
         if (ele.classList.contains("panel-heading")) {
           dispatch({
-            type: "toggleTab",
-            tabKey: this.props.tabKey,
-            expanded: !this.props.expanded,
+            type: "togglePanel",
+            key: this.props.panelKey,
+            value: !this.props.expanded,
           });
           break;
         }
@@ -399,7 +399,7 @@ class RecipePanel extends React.Component {
 RecipePanel.propTypes = {
   children: React.PropTypes.any.isRequired,
   title: React.PropTypes.string.isRequired,
-  tabKey: React.PropTypes.string.isRequired,
+  panelKey: React.PropTypes.string.isRequired,
   expanded: React.PropTypes.bool.isRequired,
 };
 
@@ -459,8 +459,8 @@ class InfoPanel extends React.Component {
 
     return <RecipePanel
       title="詳細情報"
-      expanded={this.props.expandedTabs.info}
-      tabKey="info"
+      expanded={this.props.expandedPanels.info}
+      panelKey="info"
     >
       <h4>理論値</h4>
       <table className="table table-bordered table-condensed recipe-table">
@@ -501,7 +501,7 @@ class InfoPanel extends React.Component {
 InfoPanel.propTypes = {
   recipeData: React.PropTypes.object.isRequired,
   selectedItems: React.PropTypes.array.isRequired,
-  expandedTabs: React.PropTypes.object.isRequired,
+  expandedPanels: React.PropTypes.object.isRequired,
 };
 
 class Recipes extends React.Component {
@@ -528,7 +528,7 @@ class Recipes extends React.Component {
         key="info"
         recipeData={this.props.recipeData}
         selectedItems={this.props.selectedItems}
-        expandedTabs={this.props.expandedTabs}
+        expandedPanels={this.props.expandedPanels}
       />);
     } else {
       panels = [
@@ -572,13 +572,13 @@ class Recipes extends React.Component {
         `${recipe.secretaryType}・${recipe.materielType}テーブル ` +
         `${this.props.selectedItems.map((i) => i.name).join("・")}`;
 
-      const tabKey = index.toString();
-      const expanded = this.props.expandedTabs.hasOwnProperty(tabKey) ?
-        this.props.expandedTabs[tabKey] : (recipe.resultMin > 1 || allResultMin <= 1);
+      const panelKey = index.toString();
+      const expanded = this.props.expandedPanels.hasOwnProperty(panelKey) ?
+        this.props.expandedPanels[panelKey] : (recipe.resultMin > 1 || allResultMin <= 1);
 
       return <RecipePanel key={`recipe${index}`}
         title={title}
-        tabKey={tabKey}
+        panelKey={panelKey}
         expanded={expanded}
       >
         <table className="table table-bordered table-condensed recipe-table">
@@ -603,7 +603,7 @@ class Recipes extends React.Component {
 Recipes.propTypes = {
   recipeData: React.PropTypes.object.isRequired,
   selectedItems: React.PropTypes.array.isRequired,
-  expandedTabs: React.PropTypes.object.isRequired,
+  expandedPanels: React.PropTypes.object.isRequired,
 };
 
 class Root extends React.Component {
@@ -618,14 +618,14 @@ class Root extends React.Component {
       <Recipes
         recipeData={this.props.recipeData}
         selectedItems={selectedItems}
-        expandedTabs={this.props.expandedTabs} />
+        expandedPanels={this.props.expandedPanels} />
     </div>;
   }
 }
 Root.propTypes = {
   recipeData: React.PropTypes.object.isRequired,
   selectedItems: React.PropTypes.array.isRequired,
-  expandedTabs: React.PropTypes.object.isRequired,
+  expandedPanels: React.PropTypes.object.isRequired,
 };
 
 function reducer(state, action) {
@@ -633,22 +633,22 @@ function reducer(state, action) {
     if (state.selectedItems.every((item) => item !== action.value)) {
       return Object.assign({}, state, {
         selectedItems: state.selectedItems.concat([action.value]),
-        expandedTabs: {
-          info: state.expandedTabs.info,
+        expandedPanels: {
+          info: state.expandedPanels.info,
         },
       });
     }
   } else if (action.type === "removeItem") {
     return Object.assign({}, state, {
       selectedItems: state.selectedItems.filter((item) => item !== action.value),
-      expandedTabs: {
-        info: state.expandedTabs.info,
+      expandedPanels: {
+        info: state.expandedPanels.info,
       },
     });
-  } else if (action.type === "toggleTab") {
+  } else if (action.type === "togglePanel") {
     return Object.assign({}, state, {
-      expandedTabs: Object.assign({}, state.expandedTabs, {
-        [action.tabKey]: action.expanded,
+      expandedPanels: Object.assign({}, state.expandedPanels, {
+        [action.key]: action.value,
       }),
     });
   }
@@ -663,7 +663,7 @@ function render() {
 const recipeData = new RecipeData(itemsData, resultsData);
 const initialState = {
   selectedItems: [],
-  expandedTabs: {
+  expandedPanels: {
     info: false,
   },
 };
