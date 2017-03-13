@@ -402,6 +402,16 @@ class InfoPanel extends React.Component {
   render() {
     const possibleTypes = this.props.recipeData.generatePossibleTypes(this.props.selectedItems);
 
+    const itemRecipeRows = this.props.selectedItems.map((item) => {
+      return <tr key={item.name}>
+        <td className="item-name">{item.name}</td>
+        <td>{item.recipe[0]}</td>
+        <td>{item.recipe[1]}</td>
+        <td>{item.recipe[2]}</td>
+        <td>{item.recipe[3]}</td>
+      </tr>;
+    });
+
     const baseRecipe = this.props.recipeData.generateBaseRecipe(this.props.selectedItems);
     const recipeRows = MATERIEL_TYPES.map((materielType) => {
       const recipe = this.props.recipeData.generateMaterielRecipe(baseRecipe, materielType);
@@ -445,6 +455,17 @@ class InfoPanel extends React.Component {
     return <RecipePanel title="詳細情報" collapse={true}>
       <div className="panel-body">
         <h4>理論値</h4>
+        <table className="table table-bordered table-condensed recipe-table">
+          <thead>
+            <tr>
+              <th className="item-name">装備</th>
+              <th>燃料</th><th>弾薬</th><th>鋼材</th><th>ボーキ</th>
+            </tr>
+          </thead>
+          <tbody>{itemRecipeRows}</tbody>
+        </table>
+
+        <h4>最大資材別投入資材</h4>
         <table className="table table-bordered table-condensed recipe-table">
           <thead>
             <tr>
