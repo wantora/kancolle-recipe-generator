@@ -10,9 +10,10 @@
     "bootstrap": "^3.3.7",
     "classnames": "^2.2.5",
     "core-js": "^2.4.1",
-    "jquery": "^3.1.1",
+    "events": "^1.1.1",
     "lodash": "^4.17.2",
     "react": "^15.4.2",
+    "react-bootstrap": "^0.30.8",
     "react-dom": "^15.4.2",
     "regenerator-runtime": "^0.10.3"
   },

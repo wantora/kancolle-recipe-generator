@@ -1,13 +1,15 @@
 import "core-js";
+
+import "bootstrap/dist/css/bootstrap.css";
 import "./main.css";
-import jQuery from "jquery";
-window.jQuery = jQuery;
-require("bootstrap");
 
 import React from "react";
 import ReactDOM from "react-dom";
 import classNames from "classnames";
 import _ from "lodash";
+import {Panel, ListGroup, ListGroupItem} from "react-bootstrap";
+import {Store, dispatch} from "./flux";
+import Storage from "./storage";
 
 import itemsData from "./data/items.json";
 import resultsData from "./data/results.csv";
@@ -236,7 +238,10 @@ class ItemButton extends React.Component {
     super(props);
     
     this._onClick = () => {
-      this.props.onToggleItem(this.props.item, !this.props.selected);
+      dispatch({
+        type: this.props.selected ? "removeItem" : "addItem",
+        value: this.props.item.name,
+      });
     };
   }
   render() {
@@ -252,7 +257,6 @@ class ItemButton extends React.Component {
 ItemButton.propTypes = {
   item: React.PropTypes.object.isRequired,
   selected: React.PropTypes.bool.isRequired,
-  onToggleItem: React.PropTypes.func.isRequired,
 };
 
 class ItemButtonList extends React.Component {
@@ -263,8 +267,7 @@ class ItemButtonList extends React.Component {
       const buttons = this.props.recipeData.getItemsByCategory(category).map((item) => {
         const selected = this.props.selectedItems.some((i) => i.name === item.name);
         
-        return <ItemButton key={item.name} item={item} selected={selected}
-          onToggleItem={this.props.onToggleItem} />;
+        return <ItemButton key={item.name} item={item} selected={selected} />;
       });
       
       itemList.push(<dt key={category + "-dt"}>{category}</dt>);
@@ -277,7 +280,6 @@ class ItemButtonList extends React.Component {
 ItemButtonList.propTypes = {
   recipeData: React.PropTypes.object.isRequired,
   selectedItems: React.PropTypes.array.isRequired,
-  onToggleItem: React.PropTypes.func.isRequired,
 };
 
 class ItemListItem extends React.Component {
@@ -285,15 +287,14 @@ class ItemListItem extends React.Component {
     super(props);
     
     this._onClick = () => {
-      this.props.onToggleItem(this.props.item, false);
+      dispatch({
+        type: "removeItem",
+        value: this.props.item.name,
+      });
     };
   }
   render() {
     const contents = [];
-    const className = classNames({
-      "list-group-item": true,
-      "target-item": this.props.target,
-    });
     
     if (this.props.result) {
       contents.push(`${this.props.result.label} `);
@@ -308,24 +309,25 @@ class ItemListItem extends React.Component {
       contents.push(this.props.item.name);
     }
     
-    if (this.props.onToggleItem) {
+    if (this.props.button) {
       contents.push(<button key="close-button" type="button" className="close-button"
         onClick={this._onClick}>
         <span className="glyphicon glyphicon-remove" />
       </button>);
     }
     
-    return <li className={className}
+    return <ListGroupItem
+      className={classNames({"target-item": this.props.target})}
       title={this.props.item.summary}
       data-name={this.props.item.name}
       data-category={this.props.item.category}>
         {contents}
-    </li>;
+    </ListGroupItem>;
   }
 }
 ItemListItem.propTypes = {
   item: React.PropTypes.object.isRequired,
-  onToggleItem: React.PropTypes.func,
+  button: React.PropTypes.bool,
   result: React.PropTypes.object,
   target: React.PropTypes.bool,
 };
@@ -333,16 +335,15 @@ ItemListItem.propTypes = {
 class SelectedItemList extends React.Component {
   render() {
     const components = this.props.selectedItems.map((item) => {
-      return <ItemListItem key={item.name} item={item} onToggleItem={this.props.onToggleItem} />;
+      return <ItemListItem key={item.name} item={item} button={true} />;
     });
     
-    return <ul className="list-group kcitems selected-items">{components}</ul>;
+    return <ListGroup className="kcitems selected-items">{components}</ListGroup>;
   }
 }
 SelectedItemList.propTypes = {
   recipeData: React.PropTypes.object.isRequired,
   selectedItems: React.PropTypes.array.isRequired,
-  onToggleItem: React.PropTypes.func.isRequired,
 };
 
 class ItemSelector extends React.Component {
@@ -352,12 +353,10 @@ class ItemSelector extends React.Component {
       <div className="panel-body">
         <ItemButtonList
           recipeData={this.props.recipeData}
-          selectedItems={this.props.selectedItems}
-          onToggleItem={this.props.onToggleItem} />
+          selectedItems={this.props.selectedItems} />
         <SelectedItemList
           recipeData={this.props.recipeData}
-          selectedItems={this.props.selectedItems}
-          onToggleItem={this.props.onToggleItem} />
+          selectedItems={this.props.selectedItems} />
       </div>
     </div>;
   }
@@ -365,37 +364,43 @@ class ItemSelector extends React.Component {
 ItemSelector.propTypes = {
   recipeData: React.PropTypes.object.isRequired,
   selectedItems: React.PropTypes.array.isRequired,
-  onToggleItem: React.PropTypes.func.isRequired,
 };
 
 class RecipePanel extends React.Component {
   render() {
     const onClick = (event) => {
-      jQuery(event.currentTarget).parent().find(".collapse").collapse("toggle");
+      let ele = event.target;
+      do {
+        if (ele.classList.contains("panel-heading")) {
+          dispatch({
+            type: "toggleTab",
+            tabKey: this.props.tabKey,
+            expanded: !this.props.expanded,
+          });
+          break;
+        }
+      } while (ele !== event.currentTarget && (ele = ele.parentNode));
     };
-    const collapseClass = classNames({
-      "panel-collapse": true,
-      "collapse": true,
-      "in": !this.props.collapse,
-    });
 
-    return <div className="panel panel-default recipe-panel">
-      <div className="panel-heading" onClick={onClick}>
+    return <Panel collapsible expanded={this.props.expanded}
+      className="recipe-panel"
+      onClick={onClick}
+      header={
         <h3>
           {this.props.title}
           <span className="glyphicon glyphicon-chevron-down accordion-icon" />
         </h3>
-      </div>
-      <div className={collapseClass}>
-        {this.props.children}
-      </div>
-    </div>;
+      }
+    >
+      {this.props.children}
+    </Panel>;
   }
 }
 RecipePanel.propTypes = {
   children: React.PropTypes.any.isRequired,
   title: React.PropTypes.string.isRequired,
-  collapse: React.PropTypes.bool.isRequired,
+  tabKey: React.PropTypes.string.isRequired,
+  expanded: React.PropTypes.bool.isRequired,
 };
 
 class InfoPanel extends React.Component {
@@ -452,48 +457,51 @@ class InfoPanel extends React.Component {
       </tr>;
     });
 
-    return <RecipePanel title="詳細情報" collapse={true}>
-      <div className="panel-body">
-        <h4>理論値</h4>
-        <table className="table table-bordered table-condensed recipe-table">
-          <thead>
-            <tr>
-              <th className="item-name">装備</th>
-              <th>燃料</th><th>弾薬</th><th>鋼材</th><th>ボーキ</th>
-            </tr>
-          </thead>
-          <tbody>{itemRecipeRows}</tbody>
-        </table>
+    return <RecipePanel
+      title="詳細情報"
+      expanded={this.props.expandedTabs.info}
+      tabKey="info"
+    >
+      <h4>理論値</h4>
+      <table className="table table-bordered table-condensed recipe-table">
+        <thead>
+          <tr>
+            <th className="item-name">装備</th>
+            <th>燃料</th><th>弾薬</th><th>鋼材</th><th>ボーキ</th>
+          </tr>
+        </thead>
+        <tbody>{itemRecipeRows}</tbody>
+      </table>
 
-        <h4>最大資材別投入資材</h4>
-        <table className="table table-bordered table-condensed recipe-table">
-          <thead>
-            <tr>
-              <th className="materiel-type">最大資材</th>
-              <th>燃料</th><th>弾薬</th><th>鋼材</th><th>ボーキ</th>
-            </tr>
-          </thead>
-          <tbody>{recipeRows}</tbody>
-        </table>
+      <h4>最大資材別投入資材</h4>
+      <table className="table table-bordered table-condensed recipe-table">
+        <thead>
+          <tr>
+            <th className="materiel-type">最大資材</th>
+            <th>燃料</th><th>弾薬</th><th>鋼材</th><th>ボーキ</th>
+          </tr>
+        </thead>
+        <tbody>{recipeRows}</tbody>
+      </table>
 
-        <h4>開発テーブル</h4>
-        <table className="table table-bordered table-condensed recipe-table">
-          <thead>
-            <tr>
-              <th className="item-name" rowSpan={2}>装備</th>
-              {SECRETARY_TYPES.map((t) => <th key={t} colSpan={3}>{t}</th>)}
-            </tr>
-            <tr>{_.times(3, (i) => MATERIEL_TYPES.map((t) => <th key={`${i}_${t}`}>{t}</th>))}</tr>
-          </thead>
-          <tbody>{itemRows}</tbody>
-        </table>
-      </div>
+      <h4>開発テーブル</h4>
+      <table className="table table-bordered table-condensed recipe-table">
+        <thead>
+          <tr>
+            <th className="item-name" rowSpan={2}>装備</th>
+            {SECRETARY_TYPES.map((t) => <th key={t} colSpan={3}>{t}</th>)}
+          </tr>
+          <tr>{_.times(3, (i) => MATERIEL_TYPES.map((t) => <th key={`${i}_${t}`}>{t}</th>))}</tr>
+        </thead>
+        <tbody>{itemRows}</tbody>
+      </table>
     </RecipePanel>;
   }
 }
 InfoPanel.propTypes = {
   recipeData: React.PropTypes.object.isRequired,
   selectedItems: React.PropTypes.array.isRequired,
+  expandedTabs: React.PropTypes.object.isRequired,
 };
 
 class Recipes extends React.Component {
@@ -520,6 +528,7 @@ class Recipes extends React.Component {
         key="info"
         recipeData={this.props.recipeData}
         selectedItems={this.props.selectedItems}
+        expandedTabs={this.props.expandedTabs}
       />);
     } else {
       panels = [
@@ -546,10 +555,8 @@ class Recipes extends React.Component {
       ];
     });
     const allResultMin = Math.max(...recipes.map((recipe) => recipe.resultMin));
-    
+
     return sortedRecipes.map((recipe, index) => {
-      const key = [...recipe.recipe, recipe.secretaryType].join("/");
-      
       const listItems = _.sortBy(
           recipe.resultItems.filter((resultItem) => resultItem.result.canDevelop()),
           (resultItem) => 100 - resultItem.result.order)
@@ -561,31 +568,34 @@ class Recipes extends React.Component {
         });
       
       const title =
-          `(${index + 1}/${sortedRecipes.length}) ` +
-          `${recipe.secretaryType}・${recipe.materielType}テーブル ` +
-          `${this.props.selectedItems.map((i) => i.name).join("・")}`;
+        `(${index + 1}/${sortedRecipes.length}) ` +
+        `${recipe.secretaryType}・${recipe.materielType}テーブル ` +
+        `${this.props.selectedItems.map((i) => i.name).join("・")}`;
 
-      return <RecipePanel key={key}
+      const tabKey = index.toString();
+      const expanded = this.props.expandedTabs.hasOwnProperty(tabKey) ?
+        this.props.expandedTabs[tabKey] : (recipe.resultMin > 1 || allResultMin <= 1);
+
+      return <RecipePanel key={`recipe${index}`}
         title={title}
-        collapse={recipe.resultMin <= 1 && allResultMin > 1}
+        tabKey={tabKey}
+        expanded={expanded}
       >
-        <div className="panel-body">
-          <table className="table table-bordered table-condensed recipe-table">
-            <thead>
-              <tr><th>燃料</th><th>弾薬</th><th>鋼材</th><th>ボーキ</th><th>秘書艦</th></tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>{recipe.recipe[0]}</td>
-                <td>{recipe.recipe[1]}</td>
-                <td>{recipe.recipe[2]}</td>
-                <td>{recipe.recipe[3]}</td>
-                <td>{recipe.secretaryType}</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-        <ul className="list-group kcitems">{listItems}</ul>
+        <table className="table table-bordered table-condensed recipe-table">
+          <thead>
+            <tr><th>燃料</th><th>弾薬</th><th>鋼材</th><th>ボーキ</th><th>秘書艦</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>{recipe.recipe[0]}</td>
+              <td>{recipe.recipe[1]}</td>
+              <td>{recipe.recipe[2]}</td>
+              <td>{recipe.recipe[3]}</td>
+              <td>{recipe.secretaryType}</td>
+            </tr>
+          </tbody>
+        </table>
+        <ListGroup fill className="kcitems">{listItems}</ListGroup>
       </RecipePanel>;
     });
   }
@@ -593,77 +603,73 @@ class Recipes extends React.Component {
 Recipes.propTypes = {
   recipeData: React.PropTypes.object.isRequired,
   selectedItems: React.PropTypes.array.isRequired,
+  expandedTabs: React.PropTypes.object.isRequired,
 };
 
 class Root extends React.Component {
-  constructor(props) {
-    super(props);
-    
-    this.state = this._loadState();
-    this._onToggleItem = this.toggleItem.bind(this);
-  }
   render() {
+    const selectedItems = this.props.selectedItems
+      .map((name) => this.props.recipeData.getItemByName(name));
+
     return <div>
       <ItemSelector
         recipeData={this.props.recipeData}
-        selectedItems={this.state.selectedItems}
-        onToggleItem={this._onToggleItem} />
+        selectedItems={selectedItems} />
       <Recipes
         recipeData={this.props.recipeData}
-        selectedItems={this.state.selectedItems} />
+        selectedItems={selectedItems}
+        expandedTabs={this.props.expandedTabs} />
     </div>;
-  }
-  toggleItem(targetItem, add) {
-    this.setState((prevState, props) => {
-      let newItems = prevState.selectedItems;
-      
-      if (add) {
-        if (newItems.every((i) => i.name !== targetItem.name)) {
-          newItems = newItems.concat([targetItem]);
-        }
-      } else {
-        newItems = newItems.filter((i) => i.name !== targetItem.name);
-      }
-      
-      const newState = {
-        selectedItems: newItems,
-      };
-      
-      this._saveState(newState);
-      return newState;
-    });
-  }
-  _loadState() {
-    const state = {
-      selectedItems: [],
-    };
-    
-    try {
-      const value = sessionStorage.getItem("selectedItems");
-      if (value !== null) {
-        state.selectedItems = JSON.parse(value)
-          .map((name) => this.props.recipeData.getItemByName(name));
-      }
-    } catch (e) {
-      // pass
-    }
-    
-    return state;
-  }
-  _saveState(state) {
-    try {
-      const value = JSON.stringify(state.selectedItems.map((item) => item.name));
-      sessionStorage.setItem("selectedItems", value);
-    } catch (e) {
-      // pass
-    }
   }
 }
 Root.propTypes = {
   recipeData: React.PropTypes.object.isRequired,
+  selectedItems: React.PropTypes.array.isRequired,
+  expandedTabs: React.PropTypes.object.isRequired,
 };
 
-ReactDOM.render(
-  <Root recipeData={new RecipeData(itemsData, resultsData)} />,
-  document.getElementById("root")
-);
+function reducer(state, action) {
+  if (action.type === "addItem") {
+    if (state.selectedItems.every((item) => item !== action.value)) {
+      return Object.assign({}, state, {
+        selectedItems: state.selectedItems.concat([action.value]),
+        expandedTabs: {
+          info: state.expandedTabs.info,
+        },
+      });
+    }
+  } else if (action.type === "removeItem") {
+    return Object.assign({}, state, {
+      selectedItems: state.selectedItems.filter((item) => item !== action.value),
+      expandedTabs: {
+        info: state.expandedTabs.info,
+      },
+    });
+  } else if (action.type === "toggleTab") {
+    return Object.assign({}, state, {
+      expandedTabs: Object.assign({}, state.expandedTabs, {
+        [action.tabKey]: action.expanded,
+      }),
+    });
+  }
+  return state;
+}
+
+function render() {
+  storage.save(store.state);
+  ReactDOM.render(<Root recipeData={recipeData} {...store.state} />, document.getElementById("root"));
+}
+
+const recipeData = new RecipeData(itemsData, resultsData);
+const initialState = {
+  selectedItems: [],
+  expandedTabs: {
+    info: false,
+  },
+};
+
+const storage = new Storage("kancolle-recipe-generator", sessionStorage);
+const store = new Store(storage.load(initialState), reducer);
+
+store.subscribe(render);
+render();
