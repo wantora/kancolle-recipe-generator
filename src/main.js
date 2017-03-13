@@ -6,8 +6,16 @@ import "./main.css";
 import React from "react";
 import ReactDOM from "react-dom";
 import classNames from "classnames";
-import _ from "lodash";
-import {Panel, ListGroup, ListGroupItem} from "react-bootstrap";
+import flatten from "lodash/flatten";
+import groupBy from "lodash/groupBy";
+import keyBy from "lodash/keyBy";
+import sortBy from "lodash/sortBy";
+import times from "lodash/times";
+import uniq from "lodash/uniq";
+import zip from "lodash/zip";
+import Panel from "react-bootstrap/lib/Panel";
+import ListGroup from "react-bootstrap/lib/ListGroup";
+import ListGroupItem from "react-bootstrap/lib/ListGroupItem";
 import {Store, dispatch} from "./flux";
 import Storage from "./storage";
 
@@ -39,7 +47,7 @@ const RESULT_TABLE = {
 const SECRETARY_TYPES = ["砲戦系", "水雷系", "空母系"];
 const MATERIEL_TYPES = ["鋼材(燃料)", "弾薬", "ボーキ"];
 
-const TYPES = _.flatten(SECRETARY_TYPES.map((secretaryType) => {
+const TYPES = flatten(SECRETARY_TYPES.map((secretaryType) => {
   return MATERIEL_TYPES.map((materielType) => {
     return [secretaryType, materielType];
   });
@@ -120,9 +128,9 @@ class RecipeData {
     });
 
     this._items = items.map((d) => new RecipeItem(d, resultMap[d.name]));
-    this._nameTable = _.keyBy(this._items, (item) => item.name);
-    this._categories = _.uniq(this._items.map((item) => item.category));
-    this._categoryTable = _.groupBy(this._items, "category");
+    this._nameTable = keyBy(this._items, (item) => item.name);
+    this._categories = uniq(this._items.map((item) => item.category));
+    this._categoryTable = groupBy(this._items, "category");
   }
   get items() {
     return this._items;
@@ -151,7 +159,7 @@ class RecipeData {
 
       this._items.forEach((item) => {
         const result = item.results[secretaryType][materielType];
-        const recipeResult = _.zip(recipe, item.recipe).every(([a, b]) => a >= b);
+        const recipeResult = zip(recipe, item.recipe).every(([a, b]) => a >= b);
         
         resultItems.push({
           data: item,
@@ -193,7 +201,7 @@ class RecipeData {
     return possibleTypes;
   }
   generateBaseRecipe(targetItems) {
-    return _.zip(...targetItems.map((item) => item.recipe))
+    return zip(...targetItems.map((item) => item.recipe))
       .map((a) => Math.max(...a));
   }
   generateMaterielRecipe(baseRecipe, materielType) {
@@ -491,7 +499,7 @@ class InfoPanel extends React.Component {
             <th className="item-name" rowSpan={2}>装備</th>
             {SECRETARY_TYPES.map((t) => <th key={t} colSpan={3}>{t}</th>)}
           </tr>
-          <tr>{_.times(3, (i) => MATERIEL_TYPES.map((t) => <th key={`${i}_${t}`}>{t}</th>))}</tr>
+          <tr>{times(3, (i) => MATERIEL_TYPES.map((t) => <th key={`${i}_${t}`}>{t}</th>))}</tr>
         </thead>
         <tbody>{itemRows}</tbody>
       </table>
@@ -547,7 +555,7 @@ class Recipes extends React.Component {
     </div>;
   }
   _generatePanels(recipes) {
-    const sortedRecipes = _.sortBy(recipes, (recipe) => {
+    const sortedRecipes = sortBy(recipes, (recipe) => {
       return [
         100 - recipe.resultMin,
         100 - recipe.resultMax,
@@ -557,7 +565,7 @@ class Recipes extends React.Component {
     const allResultMin = Math.max(...recipes.map((recipe) => recipe.resultMin));
 
     return sortedRecipes.map((recipe, index) => {
-      const listItems = _.sortBy(
+      const listItems = sortBy(
           recipe.resultItems.filter((resultItem) => resultItem.result.canDevelop()),
           (resultItem) => 100 - resultItem.result.order)
         .map((resultItem) => {
