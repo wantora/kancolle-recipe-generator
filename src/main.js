@@ -400,6 +400,8 @@ RecipePanel.propTypes = {
 
 class InfoPanel extends React.Component {
   render() {
+    const possibleTypes = this.props.recipeData.generatePossibleTypes(this.props.selectedItems);
+
     const baseRecipe = this.props.recipeData.generateBaseRecipe(this.props.selectedItems);
     const recipeRows = MATERIEL_TYPES.map((materielType) => {
       const recipe = this.props.recipeData.generateMaterielRecipe(baseRecipe, materielType);
@@ -410,17 +412,19 @@ class InfoPanel extends React.Component {
           <td colSpan={4}>不可</td>
         </tr>;
       } else {
+        const isPossibleType = possibleTypes.some(([s, m]) => m === materielType);
+        const className = classNames({"possible-type": isPossibleType});
+
         return <tr key={materielType}>
           <td className="materiel-type">{materielType}</td>
-          <td>{recipe[0]}</td>
-          <td>{recipe[1]}</td>
-          <td>{recipe[2]}</td>
-          <td>{recipe[3]}</td>
+          <td className={className}>{recipe[0]}</td>
+          <td className={className}>{recipe[1]}</td>
+          <td className={className}>{recipe[2]}</td>
+          <td className={className}>{recipe[3]}</td>
         </tr>;
       }
     });
 
-    const possibleTypes = this.props.recipeData.generatePossibleTypes(this.props.selectedItems);
     const itemRows = this.props.selectedItems.map((item) => {
       return <tr key={item.name}>
         <td key={`${item.name}_name`} className="item-name">{item.name}</td>
