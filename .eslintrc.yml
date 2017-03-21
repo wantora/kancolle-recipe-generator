@@ -17,9 +17,13 @@ env:
 
 rules:
   # Possible Errors
+  no-compare-neg-zero: "error"
   no-console: "warn" # recommended
+  no-prototype-builtins: "error"
+  no-template-curly-in-string: "error"
   
   # Best Practices
+  accessor-pairs: "error"
   array-callback-return: "error"
   consistent-return: "error"
   curly: ["error", "all"]
@@ -30,12 +34,12 @@ rules:
   no-alert: "warn"
   no-caller: "error"
   no-div-regex: "error"
+  no-empty-function: "error"
   no-eq-null: "error"
   no-eval: "error"
   no-extend-native: "error"
   no-extra-bind: "error"
   no-floating-decimal: "error"
-  no-global-assign: "error"
   no-implicit-coercion: "error"
   no-implied-eval: "error"
   no-invalid-this: "error"
@@ -43,7 +47,7 @@ rules:
   no-labels: "error"
   no-lone-blocks: "error"
   no-loop-func: "error"
-  no-multi-spaces: "error"
+  no-multi-spaces: "warn"
   no-multi-str: "error"
   no-new-func: "error"
   no-new-wrappers: "error"
@@ -55,14 +59,14 @@ rules:
   no-self-compare: "error"
   no-sequences: "error"
   no-throw-literal: "error"
+  no-unmodified-loop-condition: "error"
   no-unused-expressions: "error"
-  no-useless-call: "error"
-  no-useless-concat: "error"
   no-useless-escape: "error"
   no-useless-return: "error"
   no-void: "error"
   no-warning-comments: "warn"
   no-with: "error"
+  prefer-promise-reject-errors: "error"
   radix: "error"
   wrap-iife: ["error", "inside"]
   
@@ -94,9 +98,11 @@ rules:
   key-spacing: "warn"
   keyword-spacing: "warn"
   linebreak-style: ["error", "unix"]
-  max-depth: ["warn", 3]
+  max-depth: ["warn", {"max": 5}]
   max-len: ["warn", {"code": 100, "ignoreStrings": true, "ignoreTemplateLiterals": true, "ignoreRegExpLiterals": true}]
-  max-params: ["warn", 5]
+  max-nested-callbacks: ["warn", {"max": 5}]
+  max-params: ["warn", {"max": 5}]
+  max-statements-per-line: ["warn", {"max": 2}]
   new-parens: "error"
   no-array-constructor: "error"
   no-mixed-operators: "error"
@@ -126,12 +132,14 @@ rules:
   # ECMAScript 6
   arrow-parens: "error"
   arrow-spacing: "warn"
-  no-confusing-arrow: "error"
+  no-confusing-arrow: ["error", {"allowParens": true}]
   no-duplicate-imports: "error"
+  no-useless-constructor: "error"
   no-var: "error"
   object-shorthand: ["error", "methods"]
   prefer-arrow-callback: "error"
   prefer-const: "error"
+  prefer-numeric-literals: "error"
   prefer-rest-params: "error"
   prefer-spread: "error"
   rest-spread-spacing: "warn"

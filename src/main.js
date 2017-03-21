@@ -581,7 +581,7 @@ class Recipes extends React.Component {
         `${this.props.selectedItems.map((i) => i.name).join("・")}`;
 
       const panelKey = index.toString();
-      const expanded = this.props.expandedPanels.hasOwnProperty(panelKey) ?
+      const expanded = Object.prototype.hasOwnProperty.call(this.props.expandedPanels, panelKey) ?
         this.props.expandedPanels[panelKey] : (recipe.resultMin > 1 || allResultMin <= 1);
 
       return <RecipePanel key={`recipe${index}`}
