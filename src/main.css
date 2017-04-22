@@ -103,6 +103,10 @@ main {
 }
 
 *[data-category="艦上戦闘機"],
+*[data-category="陸上攻撃機"] {
+  background-color: hsl(120, 50%, 80%);
+}
+
 *[data-category="水上偵察機"],
 *[data-category="水上爆撃機"],
 *[data-category="対空機銃"],
