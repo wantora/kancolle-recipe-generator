@@ -16,11 +16,11 @@ import zip from "lodash/zip";
 import Panel from "react-bootstrap/lib/Panel";
 import ListGroup from "react-bootstrap/lib/ListGroup";
 import ListGroupItem from "react-bootstrap/lib/ListGroupItem";
+import PropTypes from "prop-types";
 import {Store, dispatch} from "./flux";
 import Storage from "./storage";
 
 import itemsData from "./data/items.json";
-import resultsData from "./data/results.csv";
 
 const RESULT_TABLE = {
   "A": {
@@ -35,11 +35,11 @@ const RESULT_TABLE = {
     order: 1,
     label: "△",
   },
-  "Q": {
+  "unknown": {
     order: 2,
     label: "？",
   },
-  "X": {
+  "none": {
     order: null,
     label: "×",
   },
@@ -67,16 +67,23 @@ class Result {
     return RESULT_TABLE[this._value].label;
   }
   canDevelop() {
-    return this._value !== "X";
+    return this._value !== "none";
   }
 }
 
-const RESULT_CANNOT_DEVELOP = new Result("X");
+const RESULT_CANNOT_DEVELOP = new Result("none");
 
 class RecipeItem {
-  constructor(item, results) {
+  constructor(item) {
     this._item = item;
-    this._results = results;
+    this._results = {};
+    
+    this._item.results.forEach(([secretaryType, materielType, result]) => {
+      if (!this._results[secretaryType]) {
+        this._results[secretaryType] = {};
+      }
+      this._results[secretaryType][materielType] = new Result(result);
+    });
   }
   get name() {
     return this._item.name;
@@ -114,20 +121,8 @@ class RecipeItem {
 }
 
 class RecipeData {
-  constructor(items, results) {
-    const resultMap = {};
-
-    results.forEach((o) => {
-      if (!resultMap[o.name]) {
-        resultMap[o.name] = {};
-      }
-      if (!resultMap[o.name][o.secretaryType]) {
-        resultMap[o.name][o.secretaryType] = {};
-      }
-      resultMap[o.name][o.secretaryType][o.materielType] = new Result(o.result);
-    });
-
-    this._items = items.map((d) => new RecipeItem(d, resultMap[d.name]));
+  constructor(items) {
+    this._items = items.map((d) => new RecipeItem(d));
     this._nameTable = keyBy(this._items, (item) => item.name);
     this._categories = uniq(this._items.map((item) => item.category));
     this._categoryTable = groupBy(this._items, "category");
@@ -263,8 +258,8 @@ class ItemButton extends React.Component {
   }
 }
 ItemButton.propTypes = {
-  item: React.PropTypes.object.isRequired,
-  selected: React.PropTypes.bool.isRequired,
+  item: PropTypes.object.isRequired,
+  selected: PropTypes.bool.isRequired,
 };
 
 class ItemButtonList extends React.Component {
@@ -286,8 +281,8 @@ class ItemButtonList extends React.Component {
   }
 }
 ItemButtonList.propTypes = {
-  recipeData: React.PropTypes.object.isRequired,
-  selectedItems: React.PropTypes.array.isRequired,
+  recipeData: PropTypes.object.isRequired,
+  selectedItems: PropTypes.array.isRequired,
 };
 
 class ItemListItem extends React.Component {
@@ -334,10 +329,10 @@ class ItemListItem extends React.Component {
   }
 }
 ItemListItem.propTypes = {
-  item: React.PropTypes.object.isRequired,
-  button: React.PropTypes.bool,
-  result: React.PropTypes.object,
-  target: React.PropTypes.bool,
+  item: PropTypes.object.isRequired,
+  button: PropTypes.bool,
+  result: PropTypes.object,
+  target: PropTypes.bool,
 };
 
 class SelectedItemList extends React.Component {
@@ -350,8 +345,8 @@ class SelectedItemList extends React.Component {
   }
 }
 SelectedItemList.propTypes = {
-  recipeData: React.PropTypes.object.isRequired,
-  selectedItems: React.PropTypes.array.isRequired,
+  recipeData: PropTypes.object.isRequired,
+  selectedItems: PropTypes.array.isRequired,
 };
 
 class ItemSelector extends React.Component {
@@ -370,8 +365,8 @@ class ItemSelector extends React.Component {
   }
 }
 ItemSelector.propTypes = {
-  recipeData: React.PropTypes.object.isRequired,
-  selectedItems: React.PropTypes.array.isRequired,
+  recipeData: PropTypes.object.isRequired,
+  selectedItems: PropTypes.array.isRequired,
 };
 
 class RecipePanel extends React.Component {
@@ -405,10 +400,10 @@ class RecipePanel extends React.Component {
   }
 }
 RecipePanel.propTypes = {
-  children: React.PropTypes.any.isRequired,
-  title: React.PropTypes.string.isRequired,
-  panelKey: React.PropTypes.string.isRequired,
-  expanded: React.PropTypes.bool.isRequired,
+  children: PropTypes.any.isRequired,
+  title: PropTypes.string.isRequired,
+  panelKey: PropTypes.string.isRequired,
+  expanded: PropTypes.bool.isRequired,
 };
 
 class InfoPanel extends React.Component {
@@ -507,9 +502,9 @@ class InfoPanel extends React.Component {
   }
 }
 InfoPanel.propTypes = {
-  recipeData: React.PropTypes.object.isRequired,
-  selectedItems: React.PropTypes.array.isRequired,
-  expandedPanels: React.PropTypes.object.isRequired,
+  recipeData: PropTypes.object.isRequired,
+  selectedItems: PropTypes.array.isRequired,
+  expandedPanels: PropTypes.object.isRequired,
 };
 
 class Recipes extends React.Component {
@@ -609,9 +604,9 @@ class Recipes extends React.Component {
   }
 }
 Recipes.propTypes = {
-  recipeData: React.PropTypes.object.isRequired,
-  selectedItems: React.PropTypes.array.isRequired,
-  expandedPanels: React.PropTypes.object.isRequired,
+  recipeData: PropTypes.object.isRequired,
+  selectedItems: PropTypes.array.isRequired,
+  expandedPanels: PropTypes.object.isRequired,
 };
 
 class Root extends React.Component {
@@ -631,9 +626,9 @@ class Root extends React.Component {
   }
 }
 Root.propTypes = {
-  recipeData: React.PropTypes.object.isRequired,
-  selectedItems: React.PropTypes.array.isRequired,
-  expandedPanels: React.PropTypes.object.isRequired,
+  recipeData: PropTypes.object.isRequired,
+  selectedItems: PropTypes.array.isRequired,
+  expandedPanels: PropTypes.object.isRequired,
 };
 
 function reducer(state, action) {
@@ -668,7 +663,7 @@ function render() {
   ReactDOM.render(<Root recipeData={recipeData} {...store.state} />, document.getElementById("root"));
 }
 
-const recipeData = new RecipeData(itemsData, resultsData);
+const recipeData = new RecipeData(itemsData);
 const initialState = {
   selectedItems: [],
   expandedPanels: {
