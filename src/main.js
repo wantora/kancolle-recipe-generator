@@ -439,7 +439,7 @@ class InfoPanel extends React.Component {
         const className = classNames({"possible-type": isPossibleType});
 
         return <tr key={materielType}>
-          <td className="materiel-type">{materielType}</td>
+          <td className={classNames({"materiel-type": true, "possible-type": isPossibleType})}>{materielType}</td>
           <td className={className}>{recipe[0]}</td>
           <td className={className}>{recipe[1]}</td>
           <td className={className}>{recipe[2]}</td>
