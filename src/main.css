@@ -99,20 +99,20 @@ main {
 }
 
 *[data-category="副砲"] {
-  background-color: hsl(60, 100%, 95%);
+  background-color: hsl(60, 100%, 93%);
 }
 
 *[data-category="艦上戦闘機"],
-*[data-category="陸上攻撃機"] {
-  background-color: hsl(120, 50%, 80%);
+*[data-category="陸上攻撃機"],
+*[data-category="水上偵察機"],
+*[data-category="水上爆撃機"] {
+  background-color: hsl(120, 90%, 93%);
 }
 
-*[data-category="水上偵察機"],
-*[data-category="水上爆撃機"],
 *[data-category="対空機銃"],
 *[data-category$="砲"][data-name*="高角"],
 *[data-category="強化弾"][data-name="三式弾"] {
-  background-color: hsl(120, 100%, 95%);
+  background-color: hsl(90, 90%, 93%);
 }
 
 *[data-category="艦上攻撃機"],
@@ -125,7 +125,7 @@ main {
 *[data-category="小型電探"],
 *[data-category="大型電探"],
 *[data-category="機関部強化"] {
-  background-color: hsl(40, 100%, 90%);
+  background-color: hsl(40, 100%, 93%);
 }
 
 *[data-category="ソナー"],
