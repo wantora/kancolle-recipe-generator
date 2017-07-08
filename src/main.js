@@ -1,6 +1,5 @@
 import "core-js";
 
-import "bootstrap/dist/css/bootstrap.css";
 import "./main.css";
 
 import React from "react";
