@@ -210,3 +210,7 @@ main {
 .recipe-panel .list-group {
   margin: 0;
 }
+
+.share-box {
+  float: right;
+}

@@ -18,19 +18,21 @@ export default class RecipePanel extends React.Component {
         }
       } while (ele !== event.currentTarget && (ele = ele.parentNode));
     };
-
-    return <Panel collapsible expanded={this.props.expanded}
-      className="recipe-panel"
-      onClick={onClick}
-      header={
-        <h3>
-          {this.props.title}
-          <span className="glyphicon glyphicon-chevron-down accordion-icon" />
-        </h3>
-      }
-    >
-      {this.props.children}
-    </Panel>;
+    
+    return <div id={this.props.panelKey}>
+      <Panel collapsible expanded={this.props.expanded}
+        className="recipe-panel"
+        onClick={onClick}
+        header={
+          <h3>
+            {this.props.title}
+            <span className="glyphicon glyphicon-chevron-down accordion-icon" />
+          </h3>
+        }
+      >
+        {this.props.children}
+      </Panel>
+    </div>;
   }
 }
 RecipePanel.propTypes = {

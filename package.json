@@ -16,6 +16,7 @@
     "react": "^15.6.1",
     "react-bootstrap": "^0.31.0",
     "react-dom": "^15.6.1",
+    "react-twitter-widgets": "^1.4.0",
     "regenerator-runtime": "^0.10.5"
   },
   "devDependencies": {

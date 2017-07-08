@@ -4,7 +4,9 @@ import sortBy from "lodash/sortBy";
 import InfoPanel from "./InfoPanel";
 import ItemListItem from "./ItemListItem";
 import RecipePanel from "./RecipePanel";
+import {generateURL} from "../lib/QueryLoader";
 import ListGroup from "react-bootstrap/lib/ListGroup";
+import {Share} from "react-twitter-widgets";
 
 export default class Recipes extends React.Component {
   render() {
@@ -69,20 +71,29 @@ export default class Recipes extends React.Component {
             target={resultItem.target} />;
         });
       
+      const selectedItemNames = this.props.selectedItems.map((i) => i.name);
+      
       const title =
         `(${index + 1}/${sortedRecipes.length}) ` +
         `${recipe.secretaryType}・${recipe.materielType}テーブル ` +
-        `${this.props.selectedItems.map((i) => i.name).join("・")}`;
-
-      const panelKey = index.toString();
+        `${selectedItemNames.join("・")}`;
+      
+      const panelKey = String(index + 1);
       const expanded = Object.prototype.hasOwnProperty.call(this.props.expandedPanels, panelKey) ?
         this.props.expandedPanels[panelKey] : (recipe.resultMin > 1 || allResultMin <= 1);
-
+      
+      const recipeURL = generateURL(location.href, selectedItemNames, panelKey);
+      const recipeText = `${selectedItemNames.join("・")} を開発できるレシピは ${recipe.recipe.join("/")} 秘書:${recipe.secretaryType}`;
+      
       return <RecipePanel key={`recipe${index}`}
         title={title}
         panelKey={panelKey}
         expanded={expanded}
       >
+        <div className="share-box">
+          <Share url={recipeURL} options={{text: recipeText, hashtags: "艦これ"}} />
+        </div>
+        
         <table className="table table-bordered table-condensed recipe-table">
           <thead>
             <tr><th>燃料</th><th>弾薬</th><th>鋼材</th><th>ボーキ</th><th>秘書艦</th></tr>

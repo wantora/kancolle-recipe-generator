@@ -9,6 +9,7 @@ import {Store} from "./flux";
 import Storage from "./storage";
 import Root from "./components/Root";
 import RecipeData from "./lib/RecipeData";
+import {loadURLQuery} from "./lib/QueryLoader";
 
 import itemsData from "./data/items.json";
 
@@ -51,6 +52,16 @@ const initialState = {
     info: false,
   },
 };
+
+const query = loadURLQuery(location.href);
+if (query) {
+  initialState.selectedItems = query.selectedItems
+    .filter((name) => recipeData.getItemByName(name));
+  
+  if (query.panelKey) {
+    initialState.expandedPanels[query.panelKey] = true;
+  }
+}
 
 const storage = new Storage("kancolle-recipe-generator", sessionStorage);
 const store = new Store(storage.load(initialState), reducer);
