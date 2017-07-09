@@ -5,6 +5,7 @@ import InfoPanel from "./InfoPanel";
 import ItemListItem from "./ItemListItem";
 import RecipePanel from "./RecipePanel";
 import {generateURL} from "../lib/QueryLoader";
+import {TYPENAME_TABLE} from "../lib/RecipeItem";
 import ListGroup from "react-bootstrap/lib/ListGroup";
 import {Share} from "react-twitter-widgets";
 
@@ -78,7 +79,7 @@ export default class Recipes extends React.Component {
         `${recipe.secretaryType}・${recipe.materielType}テーブル ` +
         `${selectedItemNames.join("・")}`;
       
-      const panelKey = String(index + 1);
+      const panelKey = recipe.recipe.join("/") + TYPENAME_TABLE[recipe.secretaryType];
       const expanded = Object.prototype.hasOwnProperty.call(this.props.expandedPanels, panelKey) ?
         this.props.expandedPanels[panelKey] : (recipe.resultMin > 1 || allResultMin <= 1);
       

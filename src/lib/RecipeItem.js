@@ -10,6 +10,12 @@ export const TYPES = flatten(SECRETARY_TYPES.map((secretaryType) => {
   });
 }));
 
+export const TYPENAME_TABLE = {
+  "砲戦系": "b",
+  "水雷系": "d",
+  "空母系": "a",
+};
+
 export default class RecipeItem {
   constructor(item) {
     this._item = item;

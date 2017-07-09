@@ -11,7 +11,7 @@ export function generateURL(baseURL, selectedItems, panelKey) {
   } else {
     const str = selectedItems.join("<>");
     urlElement.search = `?q=${encodeURIComponent(QUERY_VERSION + URLSafeBase64.encode(str))}`;
-    urlElement.hash = `#${encodeURIComponent(panelKey)}`;
+    urlElement.hash = `#${panelKey}`;
   }
   
   return urlElement.href;
