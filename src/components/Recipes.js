@@ -4,10 +4,10 @@ import sortBy from "lodash/sortBy";
 import InfoPanel from "./InfoPanel";
 import ItemListItem from "./ItemListItem";
 import RecipePanel from "./RecipePanel";
+import ShareBox from "./ShareBox";
 import {generateURL} from "../lib/QueryLoader";
 import {TYPENAME_TABLE} from "../lib/RecipeItem";
 import ListGroup from "react-bootstrap/lib/ListGroup";
-import {Share} from "react-twitter-widgets";
 
 export default class Recipes extends React.Component {
   render() {
@@ -91,10 +91,7 @@ export default class Recipes extends React.Component {
         panelKey={panelKey}
         expanded={expanded}
       >
-        <div className="share-box">
-          <Share url={recipeURL} options={{text: recipeText, hashtags: "艦これ"}} />
-        </div>
-        
+        <ShareBox url={recipeURL} text={recipeText} hashtags="艦これ" expanded={expanded} />
         <table className="table table-bordered table-condensed recipe-table">
           <thead>
             <tr><th>燃料</th><th>弾薬</th><th>鋼材</th><th>ボーキ</th><th>秘書艦</th></tr>
