@@ -12,7 +12,7 @@ export const TYPES = flatten(SECRETARY_TYPES.map((secretaryType) => {
 
 export const TYPENAME_TABLE = {
   "砲戦系": "b",
-  "水雷系": "d",
+  "水雷系": "t",
   "空母系": "a",
 };
 
