@@ -5,7 +5,7 @@ import zip from "lodash/zip";
 import Result from "./Result";
 import RecipeItem, {TYPES} from "./RecipeItem";
 
-const RESULT_CANNOT_DEVELOP = new Result("none");
+const RESULT_CANNOT_DEVELOP = new Result("none", [0, 0]);
 
 export default class RecipeData {
   constructor(items) {

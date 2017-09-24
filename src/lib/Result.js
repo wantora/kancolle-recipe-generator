@@ -22,8 +22,9 @@ const RESULT_TABLE = {
 };
 
 export default class Result {
-  constructor(value) {
+  constructor(value, count) {
     this._value = value;
+    this._count = count;
   }
   get value() {
     return this._value;

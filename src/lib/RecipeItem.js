@@ -21,11 +21,13 @@ export default class RecipeItem {
     this._item = item;
     this._results = {};
     
-    this._item.results.forEach(([secretaryType, materielType, result]) => {
-      if (!this._results[secretaryType]) {
-        this._results[secretaryType] = {};
+    this._item.results.forEach((resultData) => {
+      const result = new Result(resultData.result, resultData.count);
+      
+      if (!this._results[resultData.type[0]]) {
+        this._results[resultData.type[0]] = {};
       }
-      this._results[secretaryType][materielType] = new Result(result);
+      this._results[resultData.type[0]][resultData.type[1]] = result;
     });
   }
   get name() {
