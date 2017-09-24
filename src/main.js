@@ -62,8 +62,9 @@ if (query) {
     initialState.expandedPanels[query.panelKey] = true;
   }
 }
+const storageKey = "kancolle-recipe-generator" + location.search;
 
-const storage = new Storage("kancolle-recipe-generator", sessionStorage);
+const storage = new Storage(storageKey, sessionStorage);
 const store = new Store(storage.load(initialState), reducer);
 
 store.subscribe(render);
