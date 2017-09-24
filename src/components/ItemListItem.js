@@ -38,6 +38,13 @@ export default class ItemListItem extends React.Component {
       </button>);
     }
     
+    contents.push(
+      <span key="info" className="info">
+        {this.props.result ? `${this.props.result.rateStr} | ` : null}
+        {this.props.item.category}
+      </span>
+    );
+    
     return <ListGroupItem
       className={classNames({"target-item": this.props.target})}
       title={this.props.item.summary}

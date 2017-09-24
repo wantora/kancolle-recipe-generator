@@ -42,7 +42,7 @@ body {
 }
 
 main {
-  max-width: 50em;
+  max-width: 55em;
   transition: 0.2s ease-in;
   opacity: 1;
 }
@@ -55,8 +55,7 @@ main {
   padding: 5px 5px 5px 10px;
 }
 
-.kcitems .list-group-item::after {
-  content: attr(data-category);
+.kcitems .list-group-item .info {
   float: right;
   font-size: 90%;
   font-weight: normal;
@@ -86,7 +85,7 @@ main {
   color: hsl(0, 0%, 20%);
 }
 
-.kcitems.selected-items .list-group-item::after {
+.kcitems.selected-items .list-group-item .info {
   padding-right: 19px; /* calc(1em + 5px) */
 }
 
@@ -197,6 +196,10 @@ main {
 .recipe-table th.possible-type,
 .recipe-table td.possible-type {
   background-color: hsl(350, 100%, 90%);
+}
+
+.recipe-table .rate {
+  font-size: 10px;
 }
 
 .recipe-panel .panel-heading {
