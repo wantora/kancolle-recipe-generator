@@ -6,7 +6,7 @@ import "./main.css";
 import React from "react";
 import ReactDOM from "react-dom";
 import {Store} from "./flux";
-import Storage from "./storage";
+import PermanentStorage from "./storage";
 import Root from "./components/Root";
 import RecipeData from "./lib/RecipeData";
 import {loadURLQuery} from "./lib/QueryLoader";
@@ -56,7 +56,7 @@ const initialState = {
 const query = loadURLQuery(location.href);
 if (query) {
   initialState.selectedItems = query.selectedItems
-    .filter((name) => recipeData.getItemByName(name));
+    .filter((itemName) => recipeData.getItemByName(itemName));
   
   if (query.panelKey) {
     initialState.expandedPanels[query.panelKey] = true;
@@ -64,7 +64,7 @@ if (query) {
 }
 const storageKey = "kancolle-recipe-generator" + location.search;
 
-const storage = new Storage(storageKey, sessionStorage);
+const storage = new PermanentStorage(storageKey, sessionStorage);
 const store = new Store(storage.load(initialState), reducer);
 
 store.subscribe(render);

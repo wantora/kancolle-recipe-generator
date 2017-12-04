@@ -50,7 +50,7 @@ export default class ItemListItem extends React.Component {
       title={this.props.item.summary}
       data-name={this.props.item.name}
       data-category={this.props.item.category}>
-        {contents}
+      {contents}
     </ListGroupItem>;
   }
 }

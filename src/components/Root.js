@@ -6,7 +6,7 @@ import Recipes from "./Recipes";
 export default class Root extends React.Component {
   render() {
     const selectedItems = this.props.selectedItems
-      .map((name) => this.props.recipeData.getItemByName(name));
+      .map((itemName) => this.props.recipeData.getItemByName(itemName));
 
     return <div>
       <ItemSelector

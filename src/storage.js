@@ -1,4 +1,4 @@
-export default class Storage {
+export default class PermanentStorage {
   constructor(key, domStorage) {
     this.key = key;
     this.domStorage = domStorage;

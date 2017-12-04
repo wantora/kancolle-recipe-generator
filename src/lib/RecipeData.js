@@ -20,8 +20,8 @@ export default class RecipeData {
   get categories() {
     return this._categories;
   }
-  getItemByName(name) {
-    return this._nameTable[name];
+  getItemByName(itemName) {
+    return this._nameTable[itemName];
   }
   getItemsByCategory(category) {
     return this._categoryTable[category];

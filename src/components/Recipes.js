@@ -63,14 +63,14 @@ export default class Recipes extends React.Component {
 
     return sortedRecipes.map((recipe, index) => {
       const listItems = sortBy(
-          recipe.resultItems.filter((resultItem) => resultItem.result.canDevelop()),
-          (resultItem) => 100 - resultItem.result.order)
-        .map((resultItem) => {
-          return <ItemListItem key={resultItem.data.name}
-            item={resultItem.data}
-            result={resultItem.result}
-            target={resultItem.target} />;
-        });
+        recipe.resultItems.filter((resultItem) => resultItem.result.canDevelop()),
+        (resultItem) => 100 - resultItem.result.order
+      ).map((resultItem) => {
+        return <ItemListItem key={resultItem.data.name}
+          item={resultItem.data}
+          result={resultItem.result}
+          target={resultItem.target} />;
+      });
       
       const selectedItemNames = this.props.selectedItems.map((i) => i.name);
       

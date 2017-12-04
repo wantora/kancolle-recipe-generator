@@ -5,8 +5,8 @@ import {dispatch} from "../flux";
 
 export default class RecipePanel extends React.Component {
   render() {
-    const onClick = (event) => {
-      let ele = event.target;
+    const onClick = (ev) => {
+      let ele = ev.target;
       do {
         if (ele.classList.contains("panel-heading")) {
           dispatch({
@@ -16,7 +16,7 @@ export default class RecipePanel extends React.Component {
           });
           break;
         }
-      } while (ele !== event.currentTarget && (ele = ele.parentNode));
+      } while (ele !== ev.currentTarget && (ele = ele.parentNode));
     };
     
     return <div id={this.props.panelKey}>
