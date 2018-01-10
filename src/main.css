@@ -52,11 +52,15 @@ main {
 }
 
 .kcitems .list-group-item {
+  display: flex;
   padding: 5px 5px 5px 10px;
 }
 
 .kcitems .list-group-item .info {
-  float: right;
+  margin-left: auto;
+  height: 1em;
+  line-height: 1;
+  align-self: center;
   font-size: 90%;
   font-weight: normal;
   color: hsl(0, 0%, 60%);
@@ -164,8 +168,12 @@ main {
   border-color: hsl(0, 0%, 50%);
 }
 
+.panel-heading {
+  display: flex;
+}
+
 .panel-heading .accordion-icon {
-  float: right;
+  margin-left: auto;
   color: hsl(0, 0%, 60%);
 }
 

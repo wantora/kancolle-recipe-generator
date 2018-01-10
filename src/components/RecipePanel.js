@@ -22,10 +22,8 @@ export default class RecipePanel extends React.Component {
     return <div id={this.props.panelKey}>
       <Panel className="recipe-panel" expanded={this.props.expanded}>
         <Panel.Heading onClick={onClick}>
-          <h3>
-            {this.props.title}
-            <span className="glyphicon glyphicon-chevron-down accordion-icon" />
-          </h3>
+          <h3>{this.props.title}</h3>
+          <span className="glyphicon glyphicon-chevron-down accordion-icon" />
         </Panel.Heading>
         <Panel.Collapse>
           {this.props.children}

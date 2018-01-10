@@ -17,26 +17,22 @@ export default class ItemListItem extends React.Component {
   }
   render() {
     const contents = [];
+    const labels = [];
     
     if (this.props.result) {
-      contents.push(`${this.props.result.label} `);
+      labels.push(`${this.props.result.label} `);
     }
     
     if (this.props.item.name === "Ro.43水偵") {
-      contents.push(<b key="info-text" className="info-text"
+      labels.push(<b key="info-text" className="info-text"
         title="Ro.43水偵は秘書艦がイタリア艦の場合のみ開発できます">
         {this.props.item.name}
       </b>);
     } else {
-      contents.push(this.props.item.name);
+      labels.push(this.props.item.name);
     }
     
-    if (this.props.button) {
-      contents.push(<button key="close-button" type="button" className="close-button"
-        onClick={this._onClick}>
-        <span className="glyphicon glyphicon-remove" />
-      </button>);
-    }
+    contents.push(<span key="label">{labels}</span>);
     
     contents.push(
       <span key="info" className="info">
@@ -44,6 +40,13 @@ export default class ItemListItem extends React.Component {
         {this.props.item.category}
       </span>
     );
+    
+    if (this.props.button) {
+      contents.push(<button key="close-button" type="button" className="close-button"
+        onClick={this._onClick}>
+        <span className="glyphicon glyphicon-remove" />
+      </button>);
+    }
     
     return <ListGroupItem
       className={classNames({"target-item": this.props.target})}
