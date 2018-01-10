@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import sortBy from "lodash/sortBy";
+import Panel from "react-bootstrap/lib/Panel";
 import InfoPanel from "./InfoPanel";
 import ItemListItem from "./ItemListItem";
 import RecipePanel from "./RecipePanel";
@@ -91,22 +92,24 @@ export default class Recipes extends React.Component {
         panelKey={panelKey}
         expanded={expanded}
       >
-        <ShareBox url={recipeURL} text={recipeText} hashtags="艦これ" expanded={expanded} />
-        <table className="table table-bordered table-condensed recipe-table">
-          <thead>
-            <tr><th>燃料</th><th>弾薬</th><th>鋼材</th><th>ボーキ</th><th>秘書艦</th></tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>{recipe.recipe[0]}</td>
-              <td>{recipe.recipe[1]}</td>
-              <td>{recipe.recipe[2]}</td>
-              <td>{recipe.recipe[3]}</td>
-              <td>{recipe.secretaryType}</td>
-            </tr>
-          </tbody>
-        </table>
-        <ListGroup fill className="kcitems">{listItems}</ListGroup>
+        <Panel.Body>
+          <ShareBox url={recipeURL} text={recipeText} hashtags="艦これ" expanded={expanded} />
+          <table className="table table-bordered table-condensed recipe-table">
+            <thead>
+              <tr><th>燃料</th><th>弾薬</th><th>鋼材</th><th>ボーキ</th><th>秘書艦</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>{recipe.recipe[0]}</td>
+                <td>{recipe.recipe[1]}</td>
+                <td>{recipe.recipe[2]}</td>
+                <td>{recipe.recipe[3]}</td>
+                <td>{recipe.secretaryType}</td>
+              </tr>
+            </tbody>
+          </table>
+        </Panel.Body>
+        <ListGroup className="kcitems">{listItems}</ListGroup>
       </RecipePanel>;
     });
   }

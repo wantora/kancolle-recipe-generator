@@ -20,17 +20,16 @@ export default class RecipePanel extends React.Component {
     };
     
     return <div id={this.props.panelKey}>
-      <Panel collapsible expanded={this.props.expanded}
-        className="recipe-panel"
-        onClick={onClick}
-        header={
+      <Panel className="recipe-panel" expanded={this.props.expanded}>
+        <Panel.Heading onClick={onClick}>
           <h3>
             {this.props.title}
             <span className="glyphicon glyphicon-chevron-down accordion-icon" />
           </h3>
-        }
-      >
-        {this.props.children}
+        </Panel.Heading>
+        <Panel.Collapse>
+          {this.props.children}
+        </Panel.Collapse>
       </Panel>
     </div>;
   }

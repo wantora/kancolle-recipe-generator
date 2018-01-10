@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
 import times from "lodash/times";
+import Panel from "react-bootstrap/lib/Panel";
 import RecipePanel from "./RecipePanel";
 import {SECRETARY_TYPES, MATERIEL_TYPES, TYPES} from "../lib/RecipeItem";
 
@@ -65,39 +66,41 @@ export default class InfoPanel extends React.Component {
       expanded={this.props.expandedPanels.info}
       panelKey="info"
     >
-      <h4>理論値</h4>
-      <table className="table table-bordered table-condensed recipe-table">
-        <thead>
-          <tr>
-            <th className="item-name">装備</th>
-            <th>燃料</th><th>弾薬</th><th>鋼材</th><th>ボーキ</th>
-          </tr>
-        </thead>
-        <tbody>{itemRecipeRows}</tbody>
-      </table>
+      <Panel.Body>
+        <h4>理論値</h4>
+        <table className="table table-bordered table-condensed recipe-table">
+          <thead>
+            <tr>
+              <th className="item-name">装備</th>
+              <th>燃料</th><th>弾薬</th><th>鋼材</th><th>ボーキ</th>
+            </tr>
+          </thead>
+          <tbody>{itemRecipeRows}</tbody>
+        </table>
 
-      <h4>最大資材別投入資材</h4>
-      <table className="table table-bordered table-condensed recipe-table">
-        <thead>
-          <tr>
-            <th className="materiel-type">最大資材</th>
-            <th>燃料</th><th>弾薬</th><th>鋼材</th><th>ボーキ</th>
-          </tr>
-        </thead>
-        <tbody>{recipeRows}</tbody>
-      </table>
+        <h4>最大資材別投入資材</h4>
+        <table className="table table-bordered table-condensed recipe-table">
+          <thead>
+            <tr>
+              <th className="materiel-type">最大資材</th>
+              <th>燃料</th><th>弾薬</th><th>鋼材</th><th>ボーキ</th>
+            </tr>
+          </thead>
+          <tbody>{recipeRows}</tbody>
+        </table>
 
-      <h4>開発テーブル</h4>
-      <table className="table table-bordered table-condensed recipe-table">
-        <thead>
-          <tr>
-            <th className="item-name" rowSpan={2}>装備</th>
-            {SECRETARY_TYPES.map((t) => <th key={t} colSpan={3}>{t}</th>)}
-          </tr>
-          <tr>{times(3, (i) => MATERIEL_TYPES.map((t) => <th key={`${i}_${t}`}>{t}</th>))}</tr>
-        </thead>
-        <tbody>{itemRows}</tbody>
-      </table>
+        <h4>開発テーブル</h4>
+        <table className="table table-bordered table-condensed recipe-table">
+          <thead>
+            <tr>
+              <th className="item-name" rowSpan={2}>装備</th>
+              {SECRETARY_TYPES.map((t) => <th key={t} colSpan={3}>{t}</th>)}
+            </tr>
+            <tr>{times(3, (i) => MATERIEL_TYPES.map((t) => <th key={`${i}_${t}`}>{t}</th>))}</tr>
+          </thead>
+          <tbody>{itemRows}</tbody>
+        </table>
+      </Panel.Body>
     </RecipePanel>;
   }
 }
