@@ -214,6 +214,27 @@ main {
   margin: 0;
 }
 
+.recipe-box {
+  display: flex;
+  flex-wrap: wrap;
+}
+
 .share-box {
-  float: right;
+  margin-left: auto;
+}
+
+.tweet-button:link {
+  border-radius: 3px;
+  padding: 2px 8px;
+  font-size: 11px;
+  background-color: #1b95e0;
+  text-decoration: none;
+}
+.tweet-button:link,
+.tweet-button:visited {
+  color: #fff;
+}
+.tweet-button:hover,
+.tweet-button:active {
+  background-color: #0c7abf;
 }

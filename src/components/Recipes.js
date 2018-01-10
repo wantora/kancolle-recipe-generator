@@ -92,8 +92,7 @@ export default class Recipes extends React.Component {
         panelKey={panelKey}
         expanded={expanded}
       >
-        <Panel.Body>
-          <ShareBox url={recipeURL} text={recipeText} hashtags="艦これ" expanded={expanded} />
+        <Panel.Body className="recipe-box">
           <table className="table table-bordered table-condensed recipe-table">
             <thead>
               <tr><th>燃料</th><th>弾薬</th><th>鋼材</th><th>ボーキ</th><th>秘書艦</th></tr>
@@ -108,6 +107,7 @@ export default class Recipes extends React.Component {
               </tr>
             </tbody>
           </table>
+          <ShareBox url={recipeURL} text={recipeText} hashtags="艦これ" />
         </Panel.Body>
         <ListGroup className="kcitems">{listItems}</ListGroup>
       </RecipePanel>;
