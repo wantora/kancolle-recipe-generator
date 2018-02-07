@@ -1,10 +1,26 @@
 {
   "name": "kancolle-recipe-generator",
-  "description": "kancolle-recipe-generator",
   "version": "1.0.0",
-  "author": "wantora <wantora@gmail.com>",
+  "private": true,
+  "description": "kancolle-recipe-generator",
+  "homepage": "https://github.com/wantora/kancolle-recipe-generator#readme",
   "bugs": {
     "url": "https://github.com/wantora/kancolle-recipe-generator/issues"
+  },
+  "license": "MIT",
+  "author": "wantora <wantora@gmail.com>",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/wantora/kancolle-recipe-generator.git"
+  },
+  "scripts": {
+    "build": "npm-run-all -s clean build:js",
+    "build:js": "webpack --env.production true",
+    "clean": "rimraf dist",
+    "deploy": "npm-run-all -s build deploy:gh",
+    "deploy:gh": "gh-pages -d ./dist",
+    "lint": "eslint .",
+    "start": "webpack-dev-server --content-base ./src/www --inline --open"
   },
   "dependencies": {
     "bootstrap": "^3.3.7",
@@ -38,21 +54,5 @@
     "style-loader": "^0.19.1",
     "webpack": "^3.10.0",
     "webpack-dev-server": "^2.10.1"
-  },
-  "homepage": "https://github.com/wantora/kancolle-recipe-generator#readme",
-  "license": "MIT",
-  "private": true,
-  "repository": {
-    "type": "git",
-    "url": "git+ssh://git@github.com/wantora/kancolle-recipe-generator.git"
-  },
-  "scripts": {
-    "clean": "rimraf dist",
-    "build": "npm-run-all -s clean build:js",
-    "build:js": "webpack --env.production true",
-    "deploy": "npm-run-all -s build deploy:gh",
-    "deploy:gh": "gh-pages -d ./dist",
-    "lint": "eslint .",
-    "start": "webpack-dev-server --content-base ./src/www --inline --open"
   }
 }
