@@ -105,10 +105,8 @@ async function generateItems(db) {
     for (const {id, recipe, countTable} of resultItems) {
       if (matchRecipe(items, recipe)) {
         // Ro.43水偵
-        if (id === slotitemRo43.id) {
-          if (!secretaryIsItalian) { continue; }
-        } else {
-          if (secretaryIsItalian) { continue; }
+        if (id === slotitemRo43.id || materielType === "ボーキ") {
+          if ((id !== slotitemRo43.id) === secretaryIsItalian) { continue; }
         }
         
         // 九六式陸攻以外の場合、九六式陸攻が開発可能なレシピを除外
