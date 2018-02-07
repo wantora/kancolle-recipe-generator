@@ -2,6 +2,7 @@ plugins:
   - react
 
 parserOptions:
+  ecmaVersion: 2017
   sourceType: module
   ecmaFeatures:
     jsx: true
@@ -17,3 +18,13 @@ env:
 
 globals:
   process: false
+
+overrides:
+  - files:
+      - webpack.config.js
+      - scripts/**/*.js
+    parserOptions:
+      sourceType: script
+    env:
+      browser: false
+      node: true

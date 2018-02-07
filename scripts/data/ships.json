@@ -1,0 +1,2497 @@
+{
+  "1": {
+    "id": 1,
+    "name": "睦月",
+    "secretaryType": "水雷系"
+  },
+  "2": {
+    "id": 2,
+    "name": "如月",
+    "secretaryType": "水雷系"
+  },
+  "6": {
+    "id": 6,
+    "name": "長月",
+    "secretaryType": "水雷系"
+  },
+  "7": {
+    "id": 7,
+    "name": "三日月",
+    "secretaryType": "水雷系"
+  },
+  "9": {
+    "id": 9,
+    "name": "吹雪",
+    "secretaryType": "水雷系"
+  },
+  "10": {
+    "id": 10,
+    "name": "白雪",
+    "secretaryType": "水雷系"
+  },
+  "11": {
+    "id": 11,
+    "name": "深雪",
+    "secretaryType": "水雷系"
+  },
+  "12": {
+    "id": 12,
+    "name": "磯波",
+    "secretaryType": "水雷系"
+  },
+  "13": {
+    "id": 13,
+    "name": "綾波",
+    "secretaryType": "水雷系"
+  },
+  "14": {
+    "id": 14,
+    "name": "敷波",
+    "secretaryType": "水雷系"
+  },
+  "15": {
+    "id": 15,
+    "name": "曙",
+    "secretaryType": "水雷系"
+  },
+  "16": {
+    "id": 16,
+    "name": "潮",
+    "secretaryType": "水雷系"
+  },
+  "17": {
+    "id": 17,
+    "name": "陽炎",
+    "secretaryType": "水雷系"
+  },
+  "18": {
+    "id": 18,
+    "name": "不知火",
+    "secretaryType": "水雷系"
+  },
+  "19": {
+    "id": 19,
+    "name": "黒潮",
+    "secretaryType": "水雷系"
+  },
+  "20": {
+    "id": 20,
+    "name": "雪風",
+    "secretaryType": "水雷系"
+  },
+  "21": {
+    "id": 21,
+    "name": "長良",
+    "secretaryType": "水雷系"
+  },
+  "22": {
+    "id": 22,
+    "name": "五十鈴",
+    "secretaryType": "水雷系"
+  },
+  "23": {
+    "id": 23,
+    "name": "由良",
+    "secretaryType": "水雷系"
+  },
+  "24": {
+    "id": 24,
+    "name": "大井",
+    "secretaryType": "水雷系"
+  },
+  "25": {
+    "id": 25,
+    "name": "北上",
+    "secretaryType": "水雷系"
+  },
+  "26": {
+    "id": 26,
+    "name": "扶桑",
+    "secretaryType": "砲戦系"
+  },
+  "27": {
+    "id": 27,
+    "name": "山城",
+    "secretaryType": "砲戦系"
+  },
+  "28": {
+    "id": 28,
+    "name": "皐月",
+    "secretaryType": "水雷系"
+  },
+  "29": {
+    "id": 29,
+    "name": "文月",
+    "secretaryType": "水雷系"
+  },
+  "30": {
+    "id": 30,
+    "name": "菊月",
+    "secretaryType": "水雷系"
+  },
+  "31": {
+    "id": 31,
+    "name": "望月",
+    "secretaryType": "水雷系"
+  },
+  "32": {
+    "id": 32,
+    "name": "初雪",
+    "secretaryType": "水雷系"
+  },
+  "33": {
+    "id": 33,
+    "name": "叢雲",
+    "secretaryType": "水雷系"
+  },
+  "34": {
+    "id": 34,
+    "name": "暁",
+    "secretaryType": "水雷系"
+  },
+  "35": {
+    "id": 35,
+    "name": "響",
+    "secretaryType": "水雷系"
+  },
+  "36": {
+    "id": 36,
+    "name": "雷",
+    "secretaryType": "水雷系"
+  },
+  "37": {
+    "id": 37,
+    "name": "電",
+    "secretaryType": "水雷系"
+  },
+  "38": {
+    "id": 38,
+    "name": "初春",
+    "secretaryType": "水雷系"
+  },
+  "39": {
+    "id": 39,
+    "name": "子日",
+    "secretaryType": "水雷系"
+  },
+  "40": {
+    "id": 40,
+    "name": "若葉",
+    "secretaryType": "水雷系"
+  },
+  "41": {
+    "id": 41,
+    "name": "初霜",
+    "secretaryType": "水雷系"
+  },
+  "42": {
+    "id": 42,
+    "name": "白露",
+    "secretaryType": "水雷系"
+  },
+  "43": {
+    "id": 43,
+    "name": "時雨",
+    "secretaryType": "水雷系"
+  },
+  "44": {
+    "id": 44,
+    "name": "村雨",
+    "secretaryType": "水雷系"
+  },
+  "45": {
+    "id": 45,
+    "name": "夕立",
+    "secretaryType": "水雷系"
+  },
+  "46": {
+    "id": 46,
+    "name": "五月雨",
+    "secretaryType": "水雷系"
+  },
+  "47": {
+    "id": 47,
+    "name": "涼風",
+    "secretaryType": "水雷系"
+  },
+  "48": {
+    "id": 48,
+    "name": "霰",
+    "secretaryType": "水雷系"
+  },
+  "49": {
+    "id": 49,
+    "name": "霞",
+    "secretaryType": "水雷系"
+  },
+  "50": {
+    "id": 50,
+    "name": "島風",
+    "secretaryType": "水雷系"
+  },
+  "51": {
+    "id": 51,
+    "name": "天龍",
+    "secretaryType": "水雷系"
+  },
+  "52": {
+    "id": 52,
+    "name": "龍田",
+    "secretaryType": "水雷系"
+  },
+  "53": {
+    "id": 53,
+    "name": "名取",
+    "secretaryType": "水雷系"
+  },
+  "54": {
+    "id": 54,
+    "name": "川内",
+    "secretaryType": "水雷系"
+  },
+  "55": {
+    "id": 55,
+    "name": "神通",
+    "secretaryType": "水雷系"
+  },
+  "56": {
+    "id": 56,
+    "name": "那珂",
+    "secretaryType": "水雷系"
+  },
+  "57": {
+    "id": 57,
+    "name": "大井改",
+    "secretaryType": "水雷系"
+  },
+  "58": {
+    "id": 58,
+    "name": "北上改",
+    "secretaryType": "水雷系"
+  },
+  "59": {
+    "id": 59,
+    "name": "古鷹",
+    "secretaryType": "砲戦系"
+  },
+  "60": {
+    "id": 60,
+    "name": "加古",
+    "secretaryType": "砲戦系"
+  },
+  "61": {
+    "id": 61,
+    "name": "青葉",
+    "secretaryType": "砲戦系"
+  },
+  "62": {
+    "id": 62,
+    "name": "妙高",
+    "secretaryType": "砲戦系"
+  },
+  "63": {
+    "id": 63,
+    "name": "那智",
+    "secretaryType": "砲戦系"
+  },
+  "64": {
+    "id": 64,
+    "name": "足柄",
+    "secretaryType": "砲戦系"
+  },
+  "65": {
+    "id": 65,
+    "name": "羽黒",
+    "secretaryType": "砲戦系"
+  },
+  "66": {
+    "id": 66,
+    "name": "高雄",
+    "secretaryType": "砲戦系"
+  },
+  "67": {
+    "id": 67,
+    "name": "愛宕",
+    "secretaryType": "砲戦系"
+  },
+  "68": {
+    "id": 68,
+    "name": "摩耶",
+    "secretaryType": "砲戦系"
+  },
+  "69": {
+    "id": 69,
+    "name": "鳥海",
+    "secretaryType": "砲戦系"
+  },
+  "70": {
+    "id": 70,
+    "name": "最上",
+    "secretaryType": "砲戦系"
+  },
+  "71": {
+    "id": 71,
+    "name": "利根",
+    "secretaryType": "砲戦系"
+  },
+  "72": {
+    "id": 72,
+    "name": "筑摩",
+    "secretaryType": "砲戦系"
+  },
+  "73": {
+    "id": 73,
+    "name": "最上改",
+    "secretaryType": "空母系"
+  },
+  "74": {
+    "id": 74,
+    "name": "祥鳳",
+    "secretaryType": "空母系"
+  },
+  "75": {
+    "id": 75,
+    "name": "飛鷹",
+    "secretaryType": "空母系"
+  },
+  "76": {
+    "id": 76,
+    "name": "龍驤",
+    "secretaryType": "空母系"
+  },
+  "77": {
+    "id": 77,
+    "name": "伊勢",
+    "secretaryType": "砲戦系"
+  },
+  "78": {
+    "id": 78,
+    "name": "金剛",
+    "secretaryType": "砲戦系"
+  },
+  "79": {
+    "id": 79,
+    "name": "榛名",
+    "secretaryType": "砲戦系"
+  },
+  "80": {
+    "id": 80,
+    "name": "長門",
+    "secretaryType": "砲戦系"
+  },
+  "81": {
+    "id": 81,
+    "name": "陸奥",
+    "secretaryType": "砲戦系"
+  },
+  "82": {
+    "id": 82,
+    "name": "伊勢改",
+    "secretaryType": "空母系"
+  },
+  "83": {
+    "id": 83,
+    "name": "赤城",
+    "secretaryType": "空母系"
+  },
+  "84": {
+    "id": 84,
+    "name": "加賀",
+    "secretaryType": "空母系"
+  },
+  "85": {
+    "id": 85,
+    "name": "霧島",
+    "secretaryType": "砲戦系"
+  },
+  "86": {
+    "id": 86,
+    "name": "比叡",
+    "secretaryType": "砲戦系"
+  },
+  "87": {
+    "id": 87,
+    "name": "日向",
+    "secretaryType": "砲戦系"
+  },
+  "88": {
+    "id": 88,
+    "name": "日向改",
+    "secretaryType": "空母系"
+  },
+  "89": {
+    "id": 89,
+    "name": "鳳翔",
+    "secretaryType": "空母系"
+  },
+  "90": {
+    "id": 90,
+    "name": "蒼龍",
+    "secretaryType": "空母系"
+  },
+  "91": {
+    "id": 91,
+    "name": "飛龍",
+    "secretaryType": "空母系"
+  },
+  "92": {
+    "id": 92,
+    "name": "隼鷹",
+    "secretaryType": "空母系"
+  },
+  "93": {
+    "id": 93,
+    "name": "朧",
+    "secretaryType": "水雷系"
+  },
+  "94": {
+    "id": 94,
+    "name": "漣",
+    "secretaryType": "水雷系"
+  },
+  "95": {
+    "id": 95,
+    "name": "朝潮",
+    "secretaryType": "水雷系"
+  },
+  "96": {
+    "id": 96,
+    "name": "大潮",
+    "secretaryType": "水雷系"
+  },
+  "97": {
+    "id": 97,
+    "name": "満潮",
+    "secretaryType": "水雷系"
+  },
+  "98": {
+    "id": 98,
+    "name": "荒潮",
+    "secretaryType": "水雷系"
+  },
+  "99": {
+    "id": 99,
+    "name": "球磨",
+    "secretaryType": "水雷系"
+  },
+  "100": {
+    "id": 100,
+    "name": "多摩",
+    "secretaryType": "水雷系"
+  },
+  "101": {
+    "id": 101,
+    "name": "木曾",
+    "secretaryType": "水雷系"
+  },
+  "102": {
+    "id": 102,
+    "name": "千歳",
+    "secretaryType": "空母系"
+  },
+  "103": {
+    "id": 103,
+    "name": "千代田",
+    "secretaryType": "空母系"
+  },
+  "104": {
+    "id": 104,
+    "name": "千歳改",
+    "secretaryType": "空母系"
+  },
+  "105": {
+    "id": 105,
+    "name": "千代田改",
+    "secretaryType": "空母系"
+  },
+  "106": {
+    "id": 106,
+    "name": "千歳甲",
+    "secretaryType": "空母系"
+  },
+  "107": {
+    "id": 107,
+    "name": "千代田甲",
+    "secretaryType": "空母系"
+  },
+  "108": {
+    "id": 108,
+    "name": "千歳航",
+    "secretaryType": "空母系"
+  },
+  "109": {
+    "id": 109,
+    "name": "千代田航",
+    "secretaryType": "空母系"
+  },
+  "110": {
+    "id": 110,
+    "name": "翔鶴",
+    "secretaryType": "空母系"
+  },
+  "111": {
+    "id": 111,
+    "name": "瑞鶴",
+    "secretaryType": "空母系"
+  },
+  "112": {
+    "id": 112,
+    "name": "瑞鶴改",
+    "secretaryType": "空母系"
+  },
+  "113": {
+    "id": 113,
+    "name": "鬼怒",
+    "secretaryType": "水雷系"
+  },
+  "114": {
+    "id": 114,
+    "name": "阿武隈",
+    "secretaryType": "水雷系"
+  },
+  "115": {
+    "id": 115,
+    "name": "夕張",
+    "secretaryType": "水雷系"
+  },
+  "116": {
+    "id": 116,
+    "name": "瑞鳳",
+    "secretaryType": "空母系"
+  },
+  "117": {
+    "id": 117,
+    "name": "瑞鳳改",
+    "secretaryType": "空母系"
+  },
+  "118": {
+    "id": 118,
+    "name": "大井改二",
+    "secretaryType": "水雷系"
+  },
+  "119": {
+    "id": 119,
+    "name": "北上改二",
+    "secretaryType": "水雷系"
+  },
+  "120": {
+    "id": 120,
+    "name": "三隈",
+    "secretaryType": "砲戦系"
+  },
+  "121": {
+    "id": 121,
+    "name": "三隈改",
+    "secretaryType": "空母系"
+  },
+  "122": {
+    "id": 122,
+    "name": "舞風",
+    "secretaryType": "水雷系"
+  },
+  "123": {
+    "id": 123,
+    "name": "衣笠",
+    "secretaryType": "砲戦系"
+  },
+  "124": {
+    "id": 124,
+    "name": "鈴谷",
+    "secretaryType": "砲戦系"
+  },
+  "125": {
+    "id": 125,
+    "name": "熊野",
+    "secretaryType": "砲戦系"
+  },
+  "126": {
+    "id": 126,
+    "name": "伊168",
+    "secretaryType": "水雷系"
+  },
+  "127": {
+    "id": 127,
+    "name": "伊58",
+    "secretaryType": "水雷系"
+  },
+  "128": {
+    "id": 128,
+    "name": "伊8",
+    "secretaryType": "水雷系"
+  },
+  "129": {
+    "id": 129,
+    "name": "鈴谷改",
+    "secretaryType": "空母系"
+  },
+  "130": {
+    "id": 130,
+    "name": "熊野改",
+    "secretaryType": "空母系"
+  },
+  "131": {
+    "id": 131,
+    "name": "大和",
+    "secretaryType": "砲戦系"
+  },
+  "132": {
+    "id": 132,
+    "name": "秋雲",
+    "secretaryType": "水雷系"
+  },
+  "133": {
+    "id": 133,
+    "name": "夕雲",
+    "secretaryType": "水雷系"
+  },
+  "134": {
+    "id": 134,
+    "name": "巻雲",
+    "secretaryType": "水雷系"
+  },
+  "135": {
+    "id": 135,
+    "name": "長波",
+    "secretaryType": "水雷系"
+  },
+  "136": {
+    "id": 136,
+    "name": "大和改",
+    "secretaryType": "砲戦系"
+  },
+  "137": {
+    "id": 137,
+    "name": "阿賀野",
+    "secretaryType": "水雷系"
+  },
+  "138": {
+    "id": 138,
+    "name": "能代",
+    "secretaryType": "水雷系"
+  },
+  "139": {
+    "id": 139,
+    "name": "矢矧",
+    "secretaryType": "水雷系"
+  },
+  "140": {
+    "id": 140,
+    "name": "酒匂",
+    "secretaryType": "水雷系"
+  },
+  "141": {
+    "id": 141,
+    "name": "五十鈴改二",
+    "secretaryType": "水雷系"
+  },
+  "142": {
+    "id": 142,
+    "name": "衣笠改二",
+    "secretaryType": "砲戦系"
+  },
+  "143": {
+    "id": 143,
+    "name": "武蔵",
+    "secretaryType": "砲戦系"
+  },
+  "144": {
+    "id": 144,
+    "name": "夕立改二",
+    "secretaryType": "水雷系"
+  },
+  "145": {
+    "id": 145,
+    "name": "時雨改二",
+    "secretaryType": "水雷系"
+  },
+  "146": {
+    "id": 146,
+    "name": "木曾改二",
+    "secretaryType": "水雷系"
+  },
+  "147": {
+    "id": 147,
+    "name": "Верный",
+    "secretaryType": "水雷系"
+  },
+  "148": {
+    "id": 148,
+    "name": "武蔵改",
+    "secretaryType": "砲戦系"
+  },
+  "149": {
+    "id": 149,
+    "name": "金剛改二",
+    "secretaryType": "砲戦系"
+  },
+  "150": {
+    "id": 150,
+    "name": "比叡改二",
+    "secretaryType": "砲戦系"
+  },
+  "151": {
+    "id": 151,
+    "name": "榛名改二",
+    "secretaryType": "砲戦系"
+  },
+  "152": {
+    "id": 152,
+    "name": "霧島改二",
+    "secretaryType": "砲戦系"
+  },
+  "153": {
+    "id": 153,
+    "name": "大鳳",
+    "secretaryType": "空母系"
+  },
+  "154": {
+    "id": 154,
+    "name": "香取",
+    "secretaryType": "水雷系"
+  },
+  "155": {
+    "id": 155,
+    "name": "伊401",
+    "secretaryType": "空母系"
+  },
+  "156": {
+    "id": 156,
+    "name": "大鳳改",
+    "secretaryType": "空母系"
+  },
+  "157": {
+    "id": 157,
+    "name": "龍驤改二",
+    "secretaryType": "空母系"
+  },
+  "158": {
+    "id": 158,
+    "name": "川内改二",
+    "secretaryType": "水雷系"
+  },
+  "159": {
+    "id": 159,
+    "name": "神通改二",
+    "secretaryType": "水雷系"
+  },
+  "160": {
+    "id": 160,
+    "name": "那珂改二",
+    "secretaryType": "水雷系"
+  },
+  "161": {
+    "id": 161,
+    "name": "あきつ丸",
+    "secretaryType": "空母系"
+  },
+  "162": {
+    "id": 162,
+    "name": "神威",
+    "secretaryType": "水雷系"
+  },
+  "163": {
+    "id": 163,
+    "name": "まるゆ",
+    "secretaryType": "水雷系"
+  },
+  "164": {
+    "id": 164,
+    "name": "弥生",
+    "secretaryType": "水雷系"
+  },
+  "165": {
+    "id": 165,
+    "name": "卯月",
+    "secretaryType": "水雷系"
+  },
+  "166": {
+    "id": 166,
+    "name": "あきつ丸改",
+    "secretaryType": "空母系"
+  },
+  "167": {
+    "id": 167,
+    "name": "磯風",
+    "secretaryType": "水雷系"
+  },
+  "168": {
+    "id": 168,
+    "name": "浦風",
+    "secretaryType": "水雷系"
+  },
+  "169": {
+    "id": 169,
+    "name": "谷風",
+    "secretaryType": "水雷系"
+  },
+  "170": {
+    "id": 170,
+    "name": "浜風",
+    "secretaryType": "水雷系"
+  },
+  "171": {
+    "id": 171,
+    "name": "Bismarck",
+    "secretaryType": "砲戦系"
+  },
+  "172": {
+    "id": 172,
+    "name": "Bismarck改",
+    "secretaryType": "砲戦系"
+  },
+  "173": {
+    "id": 173,
+    "name": "Bismarck zwei",
+    "secretaryType": "砲戦系"
+  },
+  "174": {
+    "id": 174,
+    "name": "Z1",
+    "secretaryType": "水雷系"
+  },
+  "175": {
+    "id": 175,
+    "name": "Z3",
+    "secretaryType": "水雷系"
+  },
+  "176": {
+    "id": 176,
+    "name": "Prinz Eugen",
+    "secretaryType": "砲戦系"
+  },
+  "177": {
+    "id": 177,
+    "name": "Prinz Eugen改",
+    "secretaryType": "砲戦系"
+  },
+  "178": {
+    "id": 178,
+    "name": "Bismarck drei",
+    "secretaryType": "砲戦系"
+  },
+  "179": {
+    "id": 179,
+    "name": "Z1 zwei",
+    "secretaryType": "水雷系"
+  },
+  "180": {
+    "id": 180,
+    "name": "Z3 zwei",
+    "secretaryType": "水雷系"
+  },
+  "181": {
+    "id": 181,
+    "name": "天津風",
+    "secretaryType": "水雷系"
+  },
+  "182": {
+    "id": 182,
+    "name": "明石",
+    "secretaryType": "砲戦系"
+  },
+  "183": {
+    "id": 183,
+    "name": "大淀",
+    "secretaryType": "水雷系"
+  },
+  "184": {
+    "id": 184,
+    "name": "大鯨",
+    "secretaryType": "空母系"
+  },
+  "185": {
+    "id": 185,
+    "name": "龍鳳",
+    "secretaryType": "空母系"
+  },
+  "186": {
+    "id": 186,
+    "name": "時津風",
+    "secretaryType": "水雷系"
+  },
+  "187": {
+    "id": 187,
+    "name": "明石改",
+    "secretaryType": "砲戦系"
+  },
+  "188": {
+    "id": 188,
+    "name": "利根改二",
+    "secretaryType": "空母系"
+  },
+  "189": {
+    "id": 189,
+    "name": "筑摩改二",
+    "secretaryType": "空母系"
+  },
+  "190": {
+    "id": 190,
+    "name": "初風",
+    "secretaryType": "水雷系"
+  },
+  "191": {
+    "id": 191,
+    "name": "伊19",
+    "secretaryType": "水雷系"
+  },
+  "192": {
+    "id": 192,
+    "name": "那智改二",
+    "secretaryType": "砲戦系"
+  },
+  "193": {
+    "id": 193,
+    "name": "足柄改二",
+    "secretaryType": "砲戦系"
+  },
+  "194": {
+    "id": 194,
+    "name": "羽黒改二",
+    "secretaryType": "砲戦系"
+  },
+  "195": {
+    "id": 195,
+    "name": "綾波改二",
+    "secretaryType": "水雷系"
+  },
+  "196": {
+    "id": 196,
+    "name": "飛龍改二",
+    "secretaryType": "空母系"
+  },
+  "197": {
+    "id": 197,
+    "name": "蒼龍改二",
+    "secretaryType": "空母系"
+  },
+  "199": {
+    "id": 199,
+    "name": "大潮改二",
+    "secretaryType": "水雷系"
+  },
+  "200": {
+    "id": 200,
+    "name": "阿武隈改二",
+    "secretaryType": "水雷系"
+  },
+  "201": {
+    "id": 201,
+    "name": "吹雪改",
+    "secretaryType": "水雷系"
+  },
+  "202": {
+    "id": 202,
+    "name": "白雪改",
+    "secretaryType": "水雷系"
+  },
+  "203": {
+    "id": 203,
+    "name": "初雪改",
+    "secretaryType": "水雷系"
+  },
+  "204": {
+    "id": 204,
+    "name": "深雪改",
+    "secretaryType": "水雷系"
+  },
+  "205": {
+    "id": 205,
+    "name": "叢雲改",
+    "secretaryType": "水雷系"
+  },
+  "206": {
+    "id": 206,
+    "name": "磯波改",
+    "secretaryType": "水雷系"
+  },
+  "207": {
+    "id": 207,
+    "name": "綾波改",
+    "secretaryType": "水雷系"
+  },
+  "208": {
+    "id": 208,
+    "name": "敷波改",
+    "secretaryType": "水雷系"
+  },
+  "209": {
+    "id": 209,
+    "name": "金剛改",
+    "secretaryType": "砲戦系"
+  },
+  "210": {
+    "id": 210,
+    "name": "比叡改",
+    "secretaryType": "砲戦系"
+  },
+  "211": {
+    "id": 211,
+    "name": "榛名改",
+    "secretaryType": "砲戦系"
+  },
+  "212": {
+    "id": 212,
+    "name": "霧島改",
+    "secretaryType": "砲戦系"
+  },
+  "213": {
+    "id": 213,
+    "name": "天龍改",
+    "secretaryType": "水雷系"
+  },
+  "214": {
+    "id": 214,
+    "name": "龍田改",
+    "secretaryType": "水雷系"
+  },
+  "215": {
+    "id": 215,
+    "name": "球磨改",
+    "secretaryType": "水雷系"
+  },
+  "216": {
+    "id": 216,
+    "name": "多摩改",
+    "secretaryType": "水雷系"
+  },
+  "217": {
+    "id": 217,
+    "name": "木曾改",
+    "secretaryType": "水雷系"
+  },
+  "218": {
+    "id": 218,
+    "name": "長良改",
+    "secretaryType": "水雷系"
+  },
+  "219": {
+    "id": 219,
+    "name": "五十鈴改",
+    "secretaryType": "水雷系"
+  },
+  "220": {
+    "id": 220,
+    "name": "由良改",
+    "secretaryType": "水雷系"
+  },
+  "221": {
+    "id": 221,
+    "name": "名取改",
+    "secretaryType": "水雷系"
+  },
+  "222": {
+    "id": 222,
+    "name": "川内改",
+    "secretaryType": "水雷系"
+  },
+  "223": {
+    "id": 223,
+    "name": "神通改",
+    "secretaryType": "水雷系"
+  },
+  "224": {
+    "id": 224,
+    "name": "那珂改",
+    "secretaryType": "水雷系"
+  },
+  "225": {
+    "id": 225,
+    "name": "陽炎改",
+    "secretaryType": "水雷系"
+  },
+  "226": {
+    "id": 226,
+    "name": "不知火改",
+    "secretaryType": "水雷系"
+  },
+  "227": {
+    "id": 227,
+    "name": "黒潮改",
+    "secretaryType": "水雷系"
+  },
+  "228": {
+    "id": 228,
+    "name": "雪風改",
+    "secretaryType": "水雷系"
+  },
+  "229": {
+    "id": 229,
+    "name": "島風改",
+    "secretaryType": "水雷系"
+  },
+  "230": {
+    "id": 230,
+    "name": "朧改",
+    "secretaryType": "水雷系"
+  },
+  "231": {
+    "id": 231,
+    "name": "曙改",
+    "secretaryType": "水雷系"
+  },
+  "232": {
+    "id": 232,
+    "name": "漣改",
+    "secretaryType": "水雷系"
+  },
+  "233": {
+    "id": 233,
+    "name": "潮改",
+    "secretaryType": "水雷系"
+  },
+  "234": {
+    "id": 234,
+    "name": "暁改",
+    "secretaryType": "水雷系"
+  },
+  "235": {
+    "id": 235,
+    "name": "響改",
+    "secretaryType": "水雷系"
+  },
+  "236": {
+    "id": 236,
+    "name": "雷改",
+    "secretaryType": "水雷系"
+  },
+  "237": {
+    "id": 237,
+    "name": "電改",
+    "secretaryType": "水雷系"
+  },
+  "238": {
+    "id": 238,
+    "name": "初春改",
+    "secretaryType": "水雷系"
+  },
+  "239": {
+    "id": 239,
+    "name": "子日改",
+    "secretaryType": "水雷系"
+  },
+  "240": {
+    "id": 240,
+    "name": "若葉改",
+    "secretaryType": "水雷系"
+  },
+  "241": {
+    "id": 241,
+    "name": "初霜改",
+    "secretaryType": "水雷系"
+  },
+  "242": {
+    "id": 242,
+    "name": "白露改",
+    "secretaryType": "水雷系"
+  },
+  "243": {
+    "id": 243,
+    "name": "時雨改",
+    "secretaryType": "水雷系"
+  },
+  "244": {
+    "id": 244,
+    "name": "村雨改",
+    "secretaryType": "水雷系"
+  },
+  "245": {
+    "id": 245,
+    "name": "夕立改",
+    "secretaryType": "水雷系"
+  },
+  "246": {
+    "id": 246,
+    "name": "五月雨改",
+    "secretaryType": "水雷系"
+  },
+  "247": {
+    "id": 247,
+    "name": "涼風改",
+    "secretaryType": "水雷系"
+  },
+  "248": {
+    "id": 248,
+    "name": "朝潮改",
+    "secretaryType": "水雷系"
+  },
+  "249": {
+    "id": 249,
+    "name": "大潮改",
+    "secretaryType": "水雷系"
+  },
+  "250": {
+    "id": 250,
+    "name": "満潮改",
+    "secretaryType": "水雷系"
+  },
+  "251": {
+    "id": 251,
+    "name": "荒潮改",
+    "secretaryType": "水雷系"
+  },
+  "252": {
+    "id": 252,
+    "name": "霰改",
+    "secretaryType": "水雷系"
+  },
+  "253": {
+    "id": 253,
+    "name": "霞改",
+    "secretaryType": "水雷系"
+  },
+  "254": {
+    "id": 254,
+    "name": "睦月改",
+    "secretaryType": "水雷系"
+  },
+  "255": {
+    "id": 255,
+    "name": "如月改",
+    "secretaryType": "水雷系"
+  },
+  "256": {
+    "id": 256,
+    "name": "皐月改",
+    "secretaryType": "水雷系"
+  },
+  "257": {
+    "id": 257,
+    "name": "文月改",
+    "secretaryType": "水雷系"
+  },
+  "258": {
+    "id": 258,
+    "name": "長月改",
+    "secretaryType": "水雷系"
+  },
+  "259": {
+    "id": 259,
+    "name": "菊月改",
+    "secretaryType": "水雷系"
+  },
+  "260": {
+    "id": 260,
+    "name": "三日月改",
+    "secretaryType": "水雷系"
+  },
+  "261": {
+    "id": 261,
+    "name": "望月改",
+    "secretaryType": "水雷系"
+  },
+  "262": {
+    "id": 262,
+    "name": "古鷹改",
+    "secretaryType": "砲戦系"
+  },
+  "263": {
+    "id": 263,
+    "name": "加古改",
+    "secretaryType": "砲戦系"
+  },
+  "264": {
+    "id": 264,
+    "name": "青葉改",
+    "secretaryType": "砲戦系"
+  },
+  "265": {
+    "id": 265,
+    "name": "妙高改",
+    "secretaryType": "砲戦系"
+  },
+  "266": {
+    "id": 266,
+    "name": "那智改",
+    "secretaryType": "砲戦系"
+  },
+  "267": {
+    "id": 267,
+    "name": "足柄改",
+    "secretaryType": "砲戦系"
+  },
+  "268": {
+    "id": 268,
+    "name": "羽黒改",
+    "secretaryType": "砲戦系"
+  },
+  "269": {
+    "id": 269,
+    "name": "高雄改",
+    "secretaryType": "砲戦系"
+  },
+  "270": {
+    "id": 270,
+    "name": "愛宕改",
+    "secretaryType": "砲戦系"
+  },
+  "271": {
+    "id": 271,
+    "name": "摩耶改",
+    "secretaryType": "砲戦系"
+  },
+  "272": {
+    "id": 272,
+    "name": "鳥海改",
+    "secretaryType": "砲戦系"
+  },
+  "273": {
+    "id": 273,
+    "name": "利根改",
+    "secretaryType": "砲戦系"
+  },
+  "274": {
+    "id": 274,
+    "name": "筑摩改",
+    "secretaryType": "砲戦系"
+  },
+  "275": {
+    "id": 275,
+    "name": "長門改",
+    "secretaryType": "砲戦系"
+  },
+  "276": {
+    "id": 276,
+    "name": "陸奥改",
+    "secretaryType": "砲戦系"
+  },
+  "277": {
+    "id": 277,
+    "name": "赤城改",
+    "secretaryType": "空母系"
+  },
+  "278": {
+    "id": 278,
+    "name": "加賀改",
+    "secretaryType": "空母系"
+  },
+  "279": {
+    "id": 279,
+    "name": "蒼龍改",
+    "secretaryType": "空母系"
+  },
+  "280": {
+    "id": 280,
+    "name": "飛龍改",
+    "secretaryType": "空母系"
+  },
+  "281": {
+    "id": 281,
+    "name": "龍驤改",
+    "secretaryType": "空母系"
+  },
+  "282": {
+    "id": 282,
+    "name": "祥鳳改",
+    "secretaryType": "空母系"
+  },
+  "283": {
+    "id": 283,
+    "name": "飛鷹改",
+    "secretaryType": "空母系"
+  },
+  "284": {
+    "id": 284,
+    "name": "隼鷹改",
+    "secretaryType": "空母系"
+  },
+  "285": {
+    "id": 285,
+    "name": "鳳翔改",
+    "secretaryType": "空母系"
+  },
+  "286": {
+    "id": 286,
+    "name": "扶桑改",
+    "secretaryType": "空母系"
+  },
+  "287": {
+    "id": 287,
+    "name": "山城改",
+    "secretaryType": "空母系"
+  },
+  "288": {
+    "id": 288,
+    "name": "翔鶴改",
+    "secretaryType": "空母系"
+  },
+  "289": {
+    "id": 289,
+    "name": "鬼怒改",
+    "secretaryType": "水雷系"
+  },
+  "290": {
+    "id": 290,
+    "name": "阿武隈改",
+    "secretaryType": "水雷系"
+  },
+  "291": {
+    "id": 291,
+    "name": "千歳航改",
+    "secretaryType": "空母系"
+  },
+  "292": {
+    "id": 292,
+    "name": "千代田航改",
+    "secretaryType": "空母系"
+  },
+  "293": {
+    "id": 293,
+    "name": "夕張改",
+    "secretaryType": "水雷系"
+  },
+  "294": {
+    "id": 294,
+    "name": "舞風改",
+    "secretaryType": "水雷系"
+  },
+  "295": {
+    "id": 295,
+    "name": "衣笠改",
+    "secretaryType": "砲戦系"
+  },
+  "296": {
+    "id": 296,
+    "name": "千歳航改二",
+    "secretaryType": "空母系"
+  },
+  "297": {
+    "id": 297,
+    "name": "千代田航改二",
+    "secretaryType": "空母系"
+  },
+  "300": {
+    "id": 300,
+    "name": "初風改",
+    "secretaryType": "水雷系"
+  },
+  "301": {
+    "id": 301,
+    "name": "秋雲改",
+    "secretaryType": "水雷系"
+  },
+  "302": {
+    "id": 302,
+    "name": "夕雲改",
+    "secretaryType": "水雷系"
+  },
+  "303": {
+    "id": 303,
+    "name": "巻雲改",
+    "secretaryType": "水雷系"
+  },
+  "304": {
+    "id": 304,
+    "name": "長波改",
+    "secretaryType": "水雷系"
+  },
+  "305": {
+    "id": 305,
+    "name": "阿賀野改",
+    "secretaryType": "水雷系"
+  },
+  "306": {
+    "id": 306,
+    "name": "能代改",
+    "secretaryType": "水雷系"
+  },
+  "307": {
+    "id": 307,
+    "name": "矢矧改",
+    "secretaryType": "水雷系"
+  },
+  "308": {
+    "id": 308,
+    "name": "弥生改",
+    "secretaryType": "水雷系"
+  },
+  "309": {
+    "id": 309,
+    "name": "卯月改",
+    "secretaryType": "水雷系"
+  },
+  "310": {
+    "id": 310,
+    "name": "Z1改",
+    "secretaryType": "水雷系"
+  },
+  "311": {
+    "id": 311,
+    "name": "Z3改",
+    "secretaryType": "水雷系"
+  },
+  "312": {
+    "id": 312,
+    "name": "浜風改",
+    "secretaryType": "水雷系"
+  },
+  "313": {
+    "id": 313,
+    "name": "谷風改",
+    "secretaryType": "水雷系"
+  },
+  "314": {
+    "id": 314,
+    "name": "酒匂改",
+    "secretaryType": "水雷系"
+  },
+  "316": {
+    "id": 316,
+    "name": "天津風改",
+    "secretaryType": "水雷系"
+  },
+  "317": {
+    "id": 317,
+    "name": "浦風改",
+    "secretaryType": "水雷系"
+  },
+  "318": {
+    "id": 318,
+    "name": "龍鳳改",
+    "secretaryType": "空母系"
+  },
+  "319": {
+    "id": 319,
+    "name": "妙高改二",
+    "secretaryType": "砲戦系"
+  },
+  "320": {
+    "id": 320,
+    "name": "磯風改",
+    "secretaryType": "水雷系"
+  },
+  "321": {
+    "id": 321,
+    "name": "大淀改",
+    "secretaryType": "水雷系"
+  },
+  "322": {
+    "id": 322,
+    "name": "時津風改",
+    "secretaryType": "水雷系"
+  },
+  "323": {
+    "id": 323,
+    "name": "春雨改",
+    "secretaryType": "水雷系"
+  },
+  "324": {
+    "id": 324,
+    "name": "早霜改",
+    "secretaryType": "水雷系"
+  },
+  "325": {
+    "id": 325,
+    "name": "清霜改",
+    "secretaryType": "水雷系"
+  },
+  "326": {
+    "id": 326,
+    "name": "初春改二",
+    "secretaryType": "水雷系"
+  },
+  "327": {
+    "id": 327,
+    "name": "朝雲改",
+    "secretaryType": "水雷系"
+  },
+  "328": {
+    "id": 328,
+    "name": "山雲改",
+    "secretaryType": "水雷系"
+  },
+  "329": {
+    "id": 329,
+    "name": "野分改",
+    "secretaryType": "水雷系"
+  },
+  "330": {
+    "id": 330,
+    "name": "秋月改",
+    "secretaryType": "水雷系"
+  },
+  "331": {
+    "id": 331,
+    "name": "天城",
+    "secretaryType": "空母系"
+  },
+  "332": {
+    "id": 332,
+    "name": "葛城",
+    "secretaryType": "空母系"
+  },
+  "334": {
+    "id": 334,
+    "name": "U-511改",
+    "secretaryType": "水雷系"
+  },
+  "343": {
+    "id": 343,
+    "name": "香取改",
+    "secretaryType": "水雷系"
+  },
+  "344": {
+    "id": 344,
+    "name": "朝霜改",
+    "secretaryType": "水雷系"
+  },
+  "345": {
+    "id": 345,
+    "name": "高波改",
+    "secretaryType": "水雷系"
+  },
+  "346": {
+    "id": 346,
+    "name": "照月改",
+    "secretaryType": "水雷系"
+  },
+  "347": {
+    "id": 347,
+    "name": "Libeccio改",
+    "secretaryType": "水雷系"
+  },
+  "348": {
+    "id": 348,
+    "name": "瑞穂改",
+    "secretaryType": "空母系"
+  },
+  "349": {
+    "id": 349,
+    "name": "風雲改",
+    "secretaryType": "水雷系"
+  },
+  "350": {
+    "id": 350,
+    "name": "海風改",
+    "secretaryType": "水雷系"
+  },
+  "351": {
+    "id": 351,
+    "name": "江風改",
+    "secretaryType": "水雷系"
+  },
+  "352": {
+    "id": 352,
+    "name": "速吸改",
+    "secretaryType": "水雷系"
+  },
+  "353": {
+    "id": 353,
+    "name": "Graf Zeppelin改",
+    "secretaryType": "空母系"
+  },
+  "354": {
+    "id": 354,
+    "name": "嵐改",
+    "secretaryType": "水雷系"
+  },
+  "355": {
+    "id": 355,
+    "name": "萩風改",
+    "secretaryType": "水雷系"
+  },
+  "356": {
+    "id": 356,
+    "name": "鹿島改",
+    "secretaryType": "水雷系"
+  },
+  "357": {
+    "id": 357,
+    "name": "初月改",
+    "secretaryType": "水雷系"
+  },
+  "358": {
+    "id": 358,
+    "name": "Zara改",
+    "secretaryType": "砲戦系"
+  },
+  "359": {
+    "id": 359,
+    "name": "沖波改",
+    "secretaryType": "水雷系"
+  },
+  "360": {
+    "id": 360,
+    "name": "Iowa改",
+    "secretaryType": "砲戦系"
+  },
+  "361": {
+    "id": 361,
+    "name": "Pola改",
+    "secretaryType": "砲戦系"
+  },
+  "362": {
+    "id": 362,
+    "name": "親潮改",
+    "secretaryType": "水雷系"
+  },
+  "363": {
+    "id": 363,
+    "name": "春風改",
+    "secretaryType": "水雷系"
+  },
+  "364": {
+    "id": 364,
+    "name": "Warspite改",
+    "secretaryType": "砲戦系"
+  },
+  "365": {
+    "id": 365,
+    "name": "Aquila改",
+    "secretaryType": "空母系"
+  },
+  "366": {
+    "id": 366,
+    "name": "水無月改",
+    "secretaryType": "水雷系"
+  },
+  "367": {
+    "id": 367,
+    "name": "伊26改",
+    "secretaryType": "空母系"
+  },
+  "368": {
+    "id": 368,
+    "name": "浦波改",
+    "secretaryType": "水雷系"
+  },
+  "369": {
+    "id": 369,
+    "name": "山風改",
+    "secretaryType": "水雷系"
+  },
+  "370": {
+    "id": 370,
+    "name": "朝風改",
+    "secretaryType": "水雷系"
+  },
+  "371": {
+    "id": 371,
+    "name": "松風改",
+    "secretaryType": "水雷系"
+  },
+  "372": {
+    "id": 372,
+    "name": "Commandant Teste改",
+    "secretaryType": "空母系"
+  },
+  "373": {
+    "id": 373,
+    "name": "藤波改",
+    "secretaryType": "水雷系"
+  },
+  "374": {
+    "id": 374,
+    "name": "伊13改",
+    "secretaryType": "空母系"
+  },
+  "375": {
+    "id": 375,
+    "name": "伊14改",
+    "secretaryType": "空母系"
+  },
+  "376": {
+    "id": 376,
+    "name": "占守改",
+    "secretaryType": "水雷系"
+  },
+  "377": {
+    "id": 377,
+    "name": "国後改",
+    "secretaryType": "水雷系"
+  },
+  "380": {
+    "id": 380,
+    "name": "大鷹改",
+    "secretaryType": "空母系"
+  },
+  "383": {
+    "id": 383,
+    "name": "択捉改",
+    "secretaryType": "水雷系"
+  },
+  "384": {
+    "id": 384,
+    "name": "松輪改",
+    "secretaryType": "水雷系"
+  },
+  "385": {
+    "id": 385,
+    "name": "佐渡改",
+    "secretaryType": "水雷系"
+  },
+  "386": {
+    "id": 386,
+    "name": "対馬改",
+    "secretaryType": "水雷系"
+  },
+  "387": {
+    "id": 387,
+    "name": "旗風改",
+    "secretaryType": "水雷系"
+  },
+  "390": {
+    "id": 390,
+    "name": "天霧改",
+    "secretaryType": "水雷系"
+  },
+  "391": {
+    "id": 391,
+    "name": "狭霧改",
+    "secretaryType": "水雷系"
+  },
+  "392": {
+    "id": 392,
+    "name": "Richelieu改",
+    "secretaryType": "砲戦系"
+  },
+  "393": {
+    "id": 393,
+    "name": "Ark Royal改",
+    "secretaryType": "空母系"
+  },
+  "398": {
+    "id": 398,
+    "name": "伊168改",
+    "secretaryType": "水雷系"
+  },
+  "399": {
+    "id": 399,
+    "name": "伊58改",
+    "secretaryType": "空母系"
+  },
+  "400": {
+    "id": 400,
+    "name": "伊8改",
+    "secretaryType": "空母系"
+  },
+  "401": {
+    "id": 401,
+    "name": "伊19改",
+    "secretaryType": "空母系"
+  },
+  "402": {
+    "id": 402,
+    "name": "まるゆ改",
+    "secretaryType": "水雷系"
+  },
+  "403": {
+    "id": 403,
+    "name": "伊401改",
+    "secretaryType": "空母系"
+  },
+  "404": {
+    "id": 404,
+    "name": "雲龍",
+    "secretaryType": "空母系"
+  },
+  "405": {
+    "id": 405,
+    "name": "春雨",
+    "secretaryType": "水雷系"
+  },
+  "406": {
+    "id": 406,
+    "name": "雲龍改",
+    "secretaryType": "空母系"
+  },
+  "407": {
+    "id": 407,
+    "name": "潮改二",
+    "secretaryType": "水雷系"
+  },
+  "408": {
+    "id": 408,
+    "name": "隼鷹改二",
+    "secretaryType": "空母系"
+  },
+  "409": {
+    "id": 409,
+    "name": "早霜",
+    "secretaryType": "水雷系"
+  },
+  "410": {
+    "id": 410,
+    "name": "清霜",
+    "secretaryType": "水雷系"
+  },
+  "411": {
+    "id": 411,
+    "name": "扶桑改二",
+    "secretaryType": "空母系"
+  },
+  "412": {
+    "id": 412,
+    "name": "山城改二",
+    "secretaryType": "空母系"
+  },
+  "413": {
+    "id": 413,
+    "name": "朝雲",
+    "secretaryType": "水雷系"
+  },
+  "414": {
+    "id": 414,
+    "name": "山雲",
+    "secretaryType": "水雷系"
+  },
+  "415": {
+    "id": 415,
+    "name": "野分",
+    "secretaryType": "水雷系"
+  },
+  "416": {
+    "id": 416,
+    "name": "古鷹改二",
+    "secretaryType": "砲戦系"
+  },
+  "417": {
+    "id": 417,
+    "name": "加古改二",
+    "secretaryType": "砲戦系"
+  },
+  "418": {
+    "id": 418,
+    "name": "皐月改二",
+    "secretaryType": "水雷系"
+  },
+  "419": {
+    "id": 419,
+    "name": "初霜改二",
+    "secretaryType": "水雷系"
+  },
+  "420": {
+    "id": 420,
+    "name": "叢雲改二",
+    "secretaryType": "水雷系"
+  },
+  "421": {
+    "id": 421,
+    "name": "秋月",
+    "secretaryType": "水雷系"
+  },
+  "422": {
+    "id": 422,
+    "name": "照月",
+    "secretaryType": "水雷系"
+  },
+  "423": {
+    "id": 423,
+    "name": "初月",
+    "secretaryType": "水雷系"
+  },
+  "424": {
+    "id": 424,
+    "name": "高波",
+    "secretaryType": "水雷系"
+  },
+  "425": {
+    "id": 425,
+    "name": "朝霜",
+    "secretaryType": "水雷系"
+  },
+  "426": {
+    "id": 426,
+    "name": "吹雪改二",
+    "secretaryType": "水雷系"
+  },
+  "427": {
+    "id": 427,
+    "name": "鳥海改二",
+    "secretaryType": "砲戦系"
+  },
+  "428": {
+    "id": 428,
+    "name": "摩耶改二",
+    "secretaryType": "砲戦系"
+  },
+  "429": {
+    "id": 429,
+    "name": "天城改",
+    "secretaryType": "空母系"
+  },
+  "430": {
+    "id": 430,
+    "name": "葛城改",
+    "secretaryType": "空母系"
+  },
+  "431": {
+    "id": 431,
+    "name": "U-511",
+    "secretaryType": "水雷系"
+  },
+  "432": {
+    "id": 432,
+    "name": "Graf Zeppelin",
+    "secretaryType": "空母系"
+  },
+  "433": {
+    "id": 433,
+    "name": "Saratoga",
+    "secretaryType": "空母系"
+  },
+  "434": {
+    "id": 434,
+    "name": "睦月改二",
+    "secretaryType": "水雷系"
+  },
+  "435": {
+    "id": 435,
+    "name": "如月改二",
+    "secretaryType": "水雷系"
+  },
+  "436": {
+    "id": 436,
+    "name": "呂500",
+    "secretaryType": "水雷系"
+  },
+  "437": {
+    "id": 437,
+    "name": "暁改二",
+    "secretaryType": "水雷系"
+  },
+  "438": {
+    "id": 438,
+    "name": "Saratoga改",
+    "secretaryType": "空母系"
+  },
+  "439": {
+    "id": 439,
+    "name": "Warspite",
+    "secretaryType": "砲戦系"
+  },
+  "440": {
+    "id": 440,
+    "name": "Iowa",
+    "secretaryType": "砲戦系"
+  },
+  "441": {
+    "id": 441,
+    "name": "Littorio",
+    "secretaryType": "砲戦系"
+  },
+  "442": {
+    "id": 442,
+    "name": "Roma",
+    "secretaryType": "砲戦系"
+  },
+  "443": {
+    "id": 443,
+    "name": "Libeccio",
+    "secretaryType": "水雷系"
+  },
+  "444": {
+    "id": 444,
+    "name": "Aquila",
+    "secretaryType": "空母系"
+  },
+  "445": {
+    "id": 445,
+    "name": "秋津洲",
+    "secretaryType": "空母系"
+  },
+  "446": {
+    "id": 446,
+    "name": "Italia",
+    "secretaryType": "砲戦系"
+  },
+  "447": {
+    "id": 447,
+    "name": "Roma改",
+    "secretaryType": "砲戦系"
+  },
+  "448": {
+    "id": 448,
+    "name": "Zara",
+    "secretaryType": "砲戦系"
+  },
+  "449": {
+    "id": 449,
+    "name": "Pola",
+    "secretaryType": "砲戦系"
+  },
+  "450": {
+    "id": 450,
+    "name": "秋津洲改",
+    "secretaryType": "空母系"
+  },
+  "451": {
+    "id": 451,
+    "name": "瑞穂",
+    "secretaryType": "空母系"
+  },
+  "452": {
+    "id": 452,
+    "name": "沖波",
+    "secretaryType": "水雷系"
+  },
+  "453": {
+    "id": 453,
+    "name": "風雲",
+    "secretaryType": "水雷系"
+  },
+  "454": {
+    "id": 454,
+    "name": "嵐",
+    "secretaryType": "水雷系"
+  },
+  "455": {
+    "id": 455,
+    "name": "萩風",
+    "secretaryType": "水雷系"
+  },
+  "456": {
+    "id": 456,
+    "name": "親潮",
+    "secretaryType": "水雷系"
+  },
+  "457": {
+    "id": 457,
+    "name": "山風",
+    "secretaryType": "水雷系"
+  },
+  "458": {
+    "id": 458,
+    "name": "海風",
+    "secretaryType": "水雷系"
+  },
+  "459": {
+    "id": 459,
+    "name": "江風",
+    "secretaryType": "水雷系"
+  },
+  "460": {
+    "id": 460,
+    "name": "速吸",
+    "secretaryType": "水雷系"
+  },
+  "461": {
+    "id": 461,
+    "name": "翔鶴改二",
+    "secretaryType": "空母系"
+  },
+  "462": {
+    "id": 462,
+    "name": "瑞鶴改二",
+    "secretaryType": "空母系"
+  },
+  "463": {
+    "id": 463,
+    "name": "朝潮改二",
+    "secretaryType": "水雷系"
+  },
+  "464": {
+    "id": 464,
+    "name": "霞改二",
+    "secretaryType": "水雷系"
+  },
+  "465": {
+    "id": 465,
+    "name": "鹿島",
+    "secretaryType": "水雷系"
+  },
+  "466": {
+    "id": 466,
+    "name": "翔鶴改二甲",
+    "secretaryType": "空母系"
+  },
+  "467": {
+    "id": 467,
+    "name": "瑞鶴改二甲",
+    "secretaryType": "空母系"
+  },
+  "468": {
+    "id": 468,
+    "name": "朝潮改二丁",
+    "secretaryType": "水雷系"
+  },
+  "469": {
+    "id": 469,
+    "name": "江風改二",
+    "secretaryType": "水雷系"
+  },
+  "470": {
+    "id": 470,
+    "name": "霞改二乙",
+    "secretaryType": "水雷系"
+  },
+  "471": {
+    "id": 471,
+    "name": "神風",
+    "secretaryType": "水雷系"
+  },
+  "472": {
+    "id": 472,
+    "name": "朝風",
+    "secretaryType": "水雷系"
+  },
+  "473": {
+    "id": 473,
+    "name": "春風",
+    "secretaryType": "水雷系"
+  },
+  "474": {
+    "id": 474,
+    "name": "松風",
+    "secretaryType": "水雷系"
+  },
+  "475": {
+    "id": 475,
+    "name": "旗風",
+    "secretaryType": "水雷系"
+  },
+  "476": {
+    "id": 476,
+    "name": "神風改",
+    "secretaryType": "水雷系"
+  },
+  "478": {
+    "id": 478,
+    "name": "龍田改二",
+    "secretaryType": "水雷系"
+  },
+  "479": {
+    "id": 479,
+    "name": "天霧",
+    "secretaryType": "水雷系"
+  },
+  "480": {
+    "id": 480,
+    "name": "狭霧",
+    "secretaryType": "水雷系"
+  },
+  "481": {
+    "id": 481,
+    "name": "水無月",
+    "secretaryType": "水雷系"
+  },
+  "483": {
+    "id": 483,
+    "name": "伊26",
+    "secretaryType": "水雷系"
+  },
+  "485": {
+    "id": 485,
+    "name": "藤波",
+    "secretaryType": "水雷系"
+  },
+  "486": {
+    "id": 486,
+    "name": "浦波",
+    "secretaryType": "水雷系"
+  },
+  "487": {
+    "id": 487,
+    "name": "鬼怒改二",
+    "secretaryType": "水雷系"
+  },
+  "488": {
+    "id": 488,
+    "name": "由良改二",
+    "secretaryType": "水雷系"
+  },
+  "489": {
+    "id": 489,
+    "name": "満潮改二",
+    "secretaryType": "水雷系"
+  },
+  "490": {
+    "id": 490,
+    "name": "荒潮改二",
+    "secretaryType": "水雷系"
+  },
+  "491": {
+    "id": 491,
+    "name": "Commandant Teste",
+    "secretaryType": "空母系"
+  },
+  "492": {
+    "id": 492,
+    "name": "Richelieu",
+    "secretaryType": "砲戦系"
+  },
+  "493": {
+    "id": 493,
+    "name": "伊400",
+    "secretaryType": "空母系"
+  },
+  "494": {
+    "id": 494,
+    "name": "伊13",
+    "secretaryType": "空母系"
+  },
+  "495": {
+    "id": 495,
+    "name": "伊14",
+    "secretaryType": "空母系"
+  },
+  "496": {
+    "id": 496,
+    "name": "Zara due",
+    "secretaryType": "砲戦系"
+  },
+  "498": {
+    "id": 498,
+    "name": "村雨改二",
+    "secretaryType": "水雷系"
+  },
+  "499": {
+    "id": 499,
+    "name": "神威改",
+    "secretaryType": "空母系"
+  },
+  "500": {
+    "id": 500,
+    "name": "神威改母",
+    "secretaryType": "水雷系"
+  },
+  "503": {
+    "id": 503,
+    "name": "鈴谷改二",
+    "secretaryType": "空母系"
+  },
+  "504": {
+    "id": 504,
+    "name": "熊野改二",
+    "secretaryType": "空母系"
+  },
+  "508": {
+    "id": 508,
+    "name": "鈴谷航改二",
+    "secretaryType": "空母系"
+  },
+  "509": {
+    "id": 509,
+    "name": "熊野航改二",
+    "secretaryType": "空母系"
+  },
+  "511": {
+    "id": 511,
+    "name": "Гангут",
+    "secretaryType": "砲戦系"
+  },
+  "512": {
+    "id": 512,
+    "name": "Октябрьская революция",
+    "secretaryType": "砲戦系"
+  },
+  "513": {
+    "id": 513,
+    "name": "Гангут два",
+    "secretaryType": "砲戦系"
+  },
+  "515": {
+    "id": 515,
+    "name": "Ark Royal",
+    "secretaryType": "空母系"
+  },
+  "517": {
+    "id": 517,
+    "name": "占守",
+    "secretaryType": "水雷系"
+  },
+  "518": {
+    "id": 518,
+    "name": "国後",
+    "secretaryType": "水雷系"
+  },
+  "521": {
+    "id": 521,
+    "name": "春日丸",
+    "secretaryType": "空母系"
+  },
+  "524": {
+    "id": 524,
+    "name": "択捉",
+    "secretaryType": "水雷系"
+  },
+  "525": {
+    "id": 525,
+    "name": "松輪",
+    "secretaryType": "水雷系"
+  },
+  "526": {
+    "id": 526,
+    "name": "大鷹",
+    "secretaryType": "空母系"
+  },
+  "529": {
+    "id": 529,
+    "name": "大鷹改二",
+    "secretaryType": "空母系"
+  },
+  "530": {
+    "id": 530,
+    "name": "伊504",
+    "secretaryType": "水雷系"
+  },
+  "531": {
+    "id": 531,
+    "name": "佐渡",
+    "secretaryType": "水雷系"
+  },
+  "532": {
+    "id": 532,
+    "name": "涼月",
+    "secretaryType": "水雷系"
+  },
+  "535": {
+    "id": 535,
+    "name": "Luigi Torelli",
+    "secretaryType": "水雷系"
+  },
+  "537": {
+    "id": 537,
+    "name": "涼月改",
+    "secretaryType": "水雷系"
+  },
+  "539": {
+    "id": 539,
+    "name": "UIT-25",
+    "secretaryType": "水雷系"
+  },
+  "540": {
+    "id": 540,
+    "name": "対馬",
+    "secretaryType": "水雷系"
+  },
+  "541": {
+    "id": 541,
+    "name": "長門改二",
+    "secretaryType": "砲戦系"
+  },
+  "543": {
+    "id": 543,
+    "name": "長波改二",
+    "secretaryType": "水雷系"
+  },
+  "545": {
+    "id": 545,
+    "name": "Saratoga Mk.II",
+    "secretaryType": "空母系"
+  },
+  "547": {
+    "id": 547,
+    "name": "多摩改二",
+    "secretaryType": "水雷系"
+  },
+  "548": {
+    "id": 548,
+    "name": "文月改二",
+    "secretaryType": "水雷系"
+  },
+  "550": {
+    "id": 550,
+    "name": "Saratoga Mk.II Mod.2",
+    "secretaryType": "空母系"
+  },
+  "605": {
+    "id": 605,
+    "name": "Luigi Torelli改",
+    "secretaryType": "水雷系"
+  },
+  "606": {
+    "id": 606,
+    "name": "伊400改",
+    "secretaryType": "空母系"
+  }
+}

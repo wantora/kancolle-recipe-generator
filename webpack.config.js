@@ -1,4 +1,5 @@
-/* eslint-env node */
+"use strict";
+
 const webpack = require("webpack");
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
