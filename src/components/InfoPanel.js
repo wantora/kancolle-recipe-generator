@@ -69,6 +69,14 @@ export default class InfoPanel extends React.Component {
         {results}
       </tr>;
     });
+    let itemNote = null;
+    if (specialType === "rikko") {
+      itemNote = <tfoot>
+        <tr>
+          <td colSpan={1 + (3 * 3)}>※九六式陸攻レシピでの開発率です</td>
+        </tr>
+      </tfoot>;
+    }
     
     return <RecipePanel
       title="詳細情報"
@@ -110,6 +118,7 @@ export default class InfoPanel extends React.Component {
             <tr>{times(3, (i) => MATERIEL_TYPES.map((t) => <th key={`${i}_${t}`}>{t}</th>))}</tr>
           </thead>
           <tbody>{itemRows}</tbody>
+          {itemNote}
         </table>
       </Panel.Body>
     </RecipePanel>;
