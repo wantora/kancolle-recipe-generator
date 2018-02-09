@@ -40,14 +40,30 @@ async function generateItems(db) {
       countTable[secretaryType] = {};
       
       for (const materielType of materielTypes) {
-        const count = [0, 0];
+        countTable[secretaryType][materielType] = {};
         
-        results.push({
-          type: [secretaryType, materielType],
-          result: slotitemResults[slotitem.name][secretaryType][materielType],
-          count: count,
-        });
-        countTable[secretaryType][materielType] = count;
+        const specialTypes = ["general"];
+        if (
+          (secretaryType === "砲戦系" && materielType === "ボーキ") ||
+          (secretaryType === "水雷系" && materielType === "ボーキ")) {
+          specialTypes.push("italian");
+        }
+        if (
+          (secretaryType === "空母系" && materielType === "弾薬") ||
+          (secretaryType === "空母系" && materielType === "ボーキ")) {
+          specialTypes.push("rikko");
+        }
+        
+        for (const specialType of specialTypes) {
+          const count = [0, 0];
+          
+          results.push({
+            type: [secretaryType, materielType, specialType],
+            result: slotitemResults[slotitem.name][secretaryType][materielType][specialType],
+            count: count,
+          });
+          countTable[secretaryType][materielType][specialType] = count;
+        }
       }
     }
     
@@ -86,13 +102,12 @@ async function generateItems(db) {
     }},
   ], {allowDiskUse: true});
   
-  const slotitemRo43 = slotitems.find((slotitem) => slotitem.id === 163);
-  const slotitem96Rikukou = slotitems.find((slotitem) => slotitem.id === 168);
+  const type96RikkoRecipe = slotitems.find((slotitem) => slotitem.id === 168).recipe;
   const italianShipIds = new Set(Object.values(ships)
     .filter((ship) => config.italianShips.includes(ship.name))
     .map((ship) => ship.id));
-  const countMapInitial = slotitems.map((slotitem) => [slotitem.id, 0]);
-  countMapInitial.push([-1, 0]);
+  const countMapInitial = [-1].concat(slotitems.map((slotitem) => slotitem.id))
+    .map((id) => [id, 0]);
   
   while (await cursor.hasNext()) {
     const {_id: {secretary, items}, itemIds} = await cursor.next();
@@ -100,7 +115,7 @@ async function generateItems(db) {
     const materielType = getMaterielType(items);
     const secretaryIsItalian = italianShipIds.has(secretary);
     
-    const count = itemIds.length;
+    const countAll = itemIds.length;
     const countMap = new Map(countMapInitial);
     for (const itemId of itemIds) {
       countMap.set(itemId, countMap.get(itemId) + 1);
@@ -108,24 +123,23 @@ async function generateItems(db) {
     
     for (const {id, recipe, countTable} of resultItems) {
       if (matchRecipe(items, recipe)) {
-        // Ro.43水偵
-        if (id === slotitemRo43.id || materielType === "ボーキ") {
-          if ((id !== slotitemRo43.id) === secretaryIsItalian) { continue; }
+        let specialType;
+        
+        if (secretaryIsItalian && (
+          (secretaryType === "砲戦系" && materielType === "ボーキ") ||
+          (secretaryType === "水雷系" && materielType === "ボーキ"))) {
+          specialType = "italian";
+        } else if (matchRecipe(items, type96RikkoRecipe) && (
+          (secretaryType === "空母系" && materielType === "弾薬") ||
+          (secretaryType === "空母系" && materielType === "ボーキ"))) {
+          specialType = "rikko";
+        } else {
+          specialType = "general";
         }
         
-        // 九六式陸攻以外の場合、九六式陸攻が開発可能なレシピを除外
-        if (
-          id !== slotitem96Rikukou.id &&
-          (
-            (secretaryType === "空母系" && materielType === "弾薬") ||
-            (secretaryType === "空母系" && materielType === "ボーキ")
-          ) &&
-          matchRecipe(items, slotitem96Rikukou.recipe)
-        ) { continue; }
-        
-        const resultCount = countTable[secretaryType][materielType];
+        const resultCount = countTable[secretaryType][materielType][specialType];
         resultCount[0] += countMap.get(id);
-        resultCount[1] += count;
+        resultCount[1] += countAll;
       }
     }
   }

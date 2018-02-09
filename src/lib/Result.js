@@ -65,3 +65,5 @@ export default class Result {
     return this._value !== "none";
   }
 }
+
+export const RESULT_NONE = new Result("none", [0, 0]);

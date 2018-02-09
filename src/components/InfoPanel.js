@@ -5,11 +5,14 @@ import times from "lodash/times";
 import Panel from "react-bootstrap/lib/Panel";
 import RecipePanel from "./RecipePanel";
 import {SECRETARY_TYPES, MATERIEL_TYPES, TYPES} from "../lib/RecipeItem";
+import {RESULT_NONE} from "../lib/Result";
+import {getSecretaryName} from "../lib/Recipe";
 
 export default class InfoPanel extends React.Component {
   render() {
+    const specialType = this.props.recipeData.generateSpecialType(this.props.selectedItems);
     const possibleTypes = this.props.recipeData.generatePossibleTypes(this.props.selectedItems);
-
+    
     const itemRecipeRows = this.props.selectedItems.map((item) => {
       return <tr key={item.name}>
         <td className="item-name">{item.name}</td>
@@ -19,11 +22,11 @@ export default class InfoPanel extends React.Component {
         <td>{item.recipe[3]}</td>
       </tr>;
     });
-
+    
     const baseRecipe = this.props.recipeData.generateBaseRecipe(this.props.selectedItems);
     const recipeRows = MATERIEL_TYPES.map((materielType) => {
       const recipe = this.props.recipeData.generateMaterielRecipe(baseRecipe, materielType);
-
+      
       if (recipe === null) {
         return <tr key={materielType}>
           <td className="materiel-type">{materielType}</td>
@@ -42,25 +45,31 @@ export default class InfoPanel extends React.Component {
         </tr>;
       }
     });
-
+    
     const itemRows = this.props.selectedItems.map((item) => {
+      const results = TYPES.map(([secretaryType, materielType]) => {
+        const isPossibleType = possibleTypes
+          .some(([s, m]) => s === secretaryType && m === materielType);
+        let result;
+        if (specialType === null) {
+          result = RESULT_NONE;
+        } else {
+          result = item.results[secretaryType][materielType][specialType];
+        }
+        
+        return <td
+          key={`${item.name}_${secretaryType}_${materielType}_${specialType}`}
+          className={classNames({"possible-type": isPossibleType})}
+        >
+          {result.label}<br /><span className="rate">{result.rateStr}</span>
+        </td>;
+      });
       return <tr key={item.name}>
         <td key={`${item.name}_name`} className="item-name">{item.name}</td>
-        {TYPES.map(([secretaryType, materielType]) => {
-          const isPossibleType = possibleTypes
-            .some(([s, m]) => s === secretaryType && m === materielType);
-
-          return <td
-            key={`${item.name}_${secretaryType}_${materielType}`}
-            className={classNames({"possible-type": isPossibleType})}
-          >
-            {item.results[secretaryType][materielType].label}<br />
-            <span className="rate">{item.results[secretaryType][materielType].rateStr}</span>
-          </td>;
-        })}
+        {results}
       </tr>;
     });
-
+    
     return <RecipePanel
       title="詳細情報"
       expanded={this.props.expandedPanels.info}
@@ -77,7 +86,7 @@ export default class InfoPanel extends React.Component {
           </thead>
           <tbody>{itemRecipeRows}</tbody>
         </table>
-
+        
         <h4>最大資材別投入資材</h4>
         <table className="table table-bordered table-condensed recipe-table">
           <thead>
@@ -88,13 +97,15 @@ export default class InfoPanel extends React.Component {
           </thead>
           <tbody>{recipeRows}</tbody>
         </table>
-
+        
         <h4>開発テーブル</h4>
         <table className="table table-bordered table-condensed recipe-table">
           <thead>
             <tr>
               <th className="item-name" rowSpan={2}>装備</th>
-              {SECRETARY_TYPES.map((t) => <th key={t} colSpan={3}>{t}</th>)}
+              {SECRETARY_TYPES.map((t) => {
+                return <th key={t} colSpan={3}>{getSecretaryName(t, specialType)}</th>;
+              })}
             </tr>
             <tr>{times(3, (i) => MATERIEL_TYPES.map((t) => <th key={`${i}_${t}`}>{t}</th>))}</tr>
           </thead>

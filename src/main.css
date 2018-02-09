@@ -191,18 +191,14 @@ main {
   width: 4em;
 }
 
-.recipe-table th.materiel-type,
-.recipe-table td.materiel-type {
-  width: 7em;
-}
-
-.recipe-table th.item-name,
-.recipe-table td.item-name {
+.recipe-table .item-name,
+.recipe-table .secretary-type,
+.recipe-table .materiel-type {
   width: auto;
+  min-width: 4em;
 }
 
-.recipe-table th.possible-type,
-.recipe-table td.possible-type {
+.recipe-table .possible-type {
   background-color: hsl(350, 100%, 90%);
 }
 

@@ -2,10 +2,9 @@ import groupBy from "lodash/groupBy";
 import keyBy from "lodash/keyBy";
 import uniq from "lodash/uniq";
 import zip from "lodash/zip";
-import Result from "./Result";
 import RecipeItem, {TYPES} from "./RecipeItem";
-
-const RESULT_CANNOT_DEVELOP = new Result("none", [0, 0]);
+import Recipe from "./Recipe";
+import {RESULT_NONE} from "./Result";
 
 export default class RecipeData {
   constructor(items) {
@@ -27,6 +26,11 @@ export default class RecipeData {
     return this._categoryTable[category];
   }
   generateRecipes(targetItems) {
+    const specialType = this.generateSpecialType(targetItems);
+    if (specialType === null) {
+      return [];
+    }
+    
     const possibleTypes = this.generatePossibleTypes(targetItems);
     const baseRecipe = this.generateBaseRecipe(targetItems);
     const recipes = [];
@@ -38,40 +42,52 @@ export default class RecipeData {
       if (recipe === null) {
         return;
       }
-
+      
       this._items.forEach((item) => {
-        const result = item.results[secretaryType][materielType];
+        const result = item.results[secretaryType][materielType][specialType];
         const recipeResult = zip(recipe, item.recipe).every(([a, b]) => a >= b);
         
         resultItems.push({
           data: item,
-          result: recipeResult ? result : RESULT_CANNOT_DEVELOP,
+          result: recipeResult ? result : RESULT_NONE,
           target: targetItems.some((i) => i.name === item.name),
         });
       });
       
-      const targetResultOrders = resultItems
-        .filter((resultItem) => resultItem.target)
-        .map((resultItem) => resultItem.result.order);
-      
-      recipes.push({
+      recipes.push(new Recipe({
         secretaryType: secretaryType,
         materielType: materielType,
+        specialType: specialType,
         recipe: recipe,
         resultItems: resultItems,
-        resultMin: Math.min(...targetResultOrders),
-        resultMax: Math.max(...targetResultOrders),
-      });
+      }));
     });
     
     return recipes;
   }
+  generateSpecialType(targetItems) {
+    let specialType = "general";
+    for (const item of targetItems) {
+      const t = item.specialType;
+      if (t !== "general") {
+        if (specialType !== "general" && specialType !== t) {
+          return null;
+        }
+        specialType = t;
+      }
+    }
+    return specialType;
+  }
   generatePossibleTypes(targetItems) {
-    let possibleTypes = TYPES;
+    const specialType = this.generateSpecialType(targetItems);
+    if (specialType === null) {
+      return [];
+    }
     
+    let possibleTypes = TYPES;
     targetItems.forEach((item) => {
       TYPES.forEach(([secretaryType, materielType]) => {
-        const result = item.results[secretaryType][materielType];
+        const result = item.results[secretaryType][materielType][specialType];
         
         if (!result.canDevelop()) {
           possibleTypes = possibleTypes
@@ -79,7 +95,6 @@ export default class RecipeData {
         }
       });
     });
-
     return possibleTypes;
   }
   generateBaseRecipe(targetItems) {

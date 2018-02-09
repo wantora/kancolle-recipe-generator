@@ -74,18 +74,18 @@ export default class Recipes extends React.Component {
       });
       
       const selectedItemNames = this.props.selectedItems.map((i) => i.name);
-      
       const title =
         `(${index + 1}/${sortedRecipes.length}) ` +
-        `${recipe.secretaryType}・${recipe.materielType}テーブル ` +
+        `${recipe.secretaryName}・${recipe.materielType}テーブル ` +
         `${selectedItemNames.join("・")}`;
       
+      // panelKeyにはspecialTypeを含めなくても問題ないはず
       const panelKey = recipe.recipe.join("/") + TYPENAME_TABLE[recipe.secretaryType];
       const expanded = Object.prototype.hasOwnProperty.call(this.props.expandedPanels, panelKey) ?
         this.props.expandedPanels[panelKey] : (recipe.resultMin > 1 || allResultMin <= 1);
       
       const recipeURL = generateURL(location.href, selectedItemNames, panelKey);
-      const recipeText = `${selectedItemNames.join("・")} を開発できるレシピは ${recipe.recipe.join("/")} 秘書:${recipe.secretaryType}`;
+      const recipeText = `${selectedItemNames.join("・")} を開発できるレシピは ${recipe.recipe.join("/")} 秘書:${recipe.secretaryName}`;
       
       return <RecipePanel key={`recipe${index}`}
         title={title}
@@ -95,7 +95,13 @@ export default class Recipes extends React.Component {
         <Panel.Body className="recipe-box">
           <table className="table table-bordered table-condensed recipe-table">
             <thead>
-              <tr><th>燃料</th><th>弾薬</th><th>鋼材</th><th>ボーキ</th><th>秘書艦</th></tr>
+              <tr>
+                <th>燃料</th>
+                <th>弾薬</th>
+                <th>鋼材</th>
+                <th>ボーキ</th>
+                <th className="secretary-type">秘書艦</th>
+              </tr>
             </thead>
             <tbody>
               <tr>
@@ -103,7 +109,7 @@ export default class Recipes extends React.Component {
                 <td>{recipe.recipe[1]}</td>
                 <td>{recipe.recipe[2]}</td>
                 <td>{recipe.recipe[3]}</td>
-                <td>{recipe.secretaryType}</td>
+                <td className="secretary-type">{recipe.secretaryName}</td>
               </tr>
             </tbody>
           </table>
