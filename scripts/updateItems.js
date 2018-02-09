@@ -31,31 +31,6 @@ function matchRecipe(items, recipe) {
     items[3] >= recipe[3];
 }
 
-function aggregateDocument(db) {
-  const lastUpdateDate = (() => {
-    const args = config.lastUpdateDate.concat();
-    args[1] -= 1;
-    return Date.UTC(...args);
-  })();
-  
-  return db.collection("createitemrecords").aggregate([
-    {$match: {
-      "secretary": {"$ne": 0},
-      "items.0": {"$ne": null},
-      "_id": {$gte: ObjectID.createFromTime(Math.round(lastUpdateDate / 1000))},
-      "teitokuLv": {$gte: config.minTeitokuLv},
-    }},
-    {$group: {
-      _id: {
-        items: "$items",
-        itemId: {$cond: {if: "$successful", then: "$itemId", else: -1}},
-        secretary: "$secretary",
-      },
-      count: {$sum: 1},
-    }},
-  ], {allowDiskUse: true});
-}
-
 async function generateItems(db) {
   const resultItems = slotitems.map((slotitem) => {
     const results = [];
@@ -89,18 +64,47 @@ async function generateItems(db) {
     };
   });
   
+  const lastUpdateDate = (() => {
+    const args = config.lastUpdateDate.concat();
+    args[1] -= 1;
+    return Date.UTC(...args);
+  })();
+  
+  const cursor = db.collection("createitemrecords").aggregate([
+    {$match: {
+      "secretary": {$ne: 0},
+      "items.0": {$ne: null},
+      "_id": {$gte: ObjectID.createFromTime(Math.round(lastUpdateDate / 1000))},
+      "teitokuLv": {$gte: config.minTeitokuLv},
+    }},
+    {$group: {
+      _id: {
+        secretary: "$secretary",
+        items: "$items",
+      },
+      itemIds: {$push: {$cond: {if: "$successful", then: "$itemId", else: -1}}},
+    }},
+  ], {allowDiskUse: true});
+  
   const slotitemRo43 = slotitems.find((slotitem) => slotitem.id === 163);
   const slotitem96Rikukou = slotitems.find((slotitem) => slotitem.id === 168);
   const italianShipIds = new Set(Object.values(ships)
     .filter((ship) => config.italianShips.includes(ship.name))
     .map((ship) => ship.id));
+  const countMapInitial = slotitems.map((slotitem) => [slotitem.id, 0]);
+  countMapInitial.push([-1, 0]);
   
-  const cursor = aggregateDocument(db);
   while (await cursor.hasNext()) {
-    const {_id: {items, itemId, secretary}, count} = await cursor.next();
+    const {_id: {secretary, items}, itemIds} = await cursor.next();
     const secretaryType = ships[secretary].secretaryType;
     const materielType = getMaterielType(items);
     const secretaryIsItalian = italianShipIds.has(secretary);
+    
+    const count = itemIds.length;
+    const countMap = new Map(countMapInitial);
+    for (const itemId of itemIds) {
+      countMap.set(itemId, countMap.get(itemId) + 1);
+    }
     
     for (const {id, recipe, countTable} of resultItems) {
       if (matchRecipe(items, recipe)) {
@@ -120,9 +124,7 @@ async function generateItems(db) {
         ) { continue; }
         
         const resultCount = countTable[secretaryType][materielType];
-        if (itemId === id) {
-          resultCount[0] += count;
-        }
+        resultCount[0] += countMap.get(id);
         resultCount[1] += count;
       }
     }
