@@ -44,7 +44,11 @@ export default class Result {
         });
       }
     } else {
-      ci = ["?", "?"];
+      if (this._value === "none") {
+        ci = ["0.0", "0.0"];
+      } else {
+        ci = ["?", "?"];
+      }
     }
     
     if (ci[0] === ci[1]) {
