@@ -13,12 +13,14 @@ export default class Recipe {
     specialType,
     recipe,
     resultItems,
+    restItems,
   }) {
     this.secretaryType = secretaryType;
     this.materielType = materielType;
     this.specialType = specialType;
     this.recipe = recipe;
     this.resultItems = resultItems;
+    this.restItems = restItems;
     
     const targetResultOrders = resultItems
       .filter((resultItem) => resultItem.target)

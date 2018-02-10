@@ -20,7 +20,10 @@ export default class RecipePanel extends React.Component {
     };
     
     return <div id={this.props.panelKey}>
-      <Panel className="recipe-panel" expanded={this.props.expanded}>
+      <Panel
+        className={`recipe-panel ${this.props.className || ""}`}
+        expanded={this.props.expanded}
+      >
         <Panel.Heading onClick={onClick}>
           <h3>{this.props.title}</h3>
           <span className="glyphicon glyphicon-chevron-down accordion-icon" />
@@ -37,4 +40,5 @@ RecipePanel.propTypes = {
   title: PropTypes.string.isRequired,
   panelKey: PropTypes.string.isRequired,
   expanded: PropTypes.bool.isRequired,
+  className: PropTypes.string,
 };

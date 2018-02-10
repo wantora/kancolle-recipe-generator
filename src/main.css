@@ -33,6 +33,13 @@ body {
   font-size: 100%;
 }
 
+.rest-items-panel {
+  margin-bottom: 0;
+}
+.rest-items-panel .panel-heading > h3 {
+  font-weight: normal;
+}
+
 .info-text {
   border-bottom: 1px dotted #000;
   font-weight: inherit;
@@ -142,6 +149,10 @@ main {
 
 *[data-category="増設バルジ"] {
   background-color: hsl(240, 100%, 95%);
+}
+
+.unavailable-item {
+  color: hsl(0, 0%, 60%);
 }
 
 .item-list dt,

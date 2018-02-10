@@ -4,7 +4,6 @@ import uniq from "lodash/uniq";
 import zip from "lodash/zip";
 import RecipeItem, {TYPES} from "./RecipeItem";
 import Recipe from "./Recipe";
-import {RESULT_NONE} from "./Result";
 
 export default class RecipeData {
   constructor(items) {
@@ -38,6 +37,7 @@ export default class RecipeData {
     possibleTypes.forEach(([secretaryType, materielType]) => {
       const recipe = this.generateMaterielRecipe(baseRecipe, materielType);
       const resultItems = [];
+      const restItems = [];
       
       if (recipe === null) {
         return;
@@ -45,21 +45,24 @@ export default class RecipeData {
       
       this._items.forEach((item) => {
         const result = item.results[secretaryType][materielType][specialType];
+        if (!result.canDevelop()) {
+          return;
+        }
         const recipeResult = zip(recipe, item.recipe).every(([a, b]) => a >= b);
-        
-        resultItems.push({
+        (recipeResult ? resultItems : restItems).push({
           data: item,
-          result: recipeResult ? result : RESULT_NONE,
+          result: result,
           target: targetItems.some((i) => i.name === item.name),
         });
       });
       
       recipes.push(new Recipe({
-        secretaryType: secretaryType,
-        materielType: materielType,
-        specialType: specialType,
-        recipe: recipe,
-        resultItems: resultItems,
+        secretaryType,
+        materielType,
+        specialType,
+        recipe,
+        resultItems,
+        restItems,
       }));
     });
     

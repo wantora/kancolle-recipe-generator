@@ -18,6 +18,7 @@ export default class ItemListItem extends React.Component {
   render() {
     const contents = [];
     const labels = [];
+    const available = this.props.available !== false;
     
     if (this.props.result) {
       labels.push(`${this.props.result.label} `);
@@ -49,7 +50,10 @@ export default class ItemListItem extends React.Component {
     }
     
     return <ListGroupItem
-      className={classNames({"target-item": this.props.target})}
+      className={classNames({
+        "target-item": this.props.target,
+        "unavailable-item": !available,
+      })}
       title={this.props.item.summary}
       data-name={this.props.item.name}
       data-category={this.props.item.category}>
@@ -62,4 +66,5 @@ ItemListItem.propTypes = {
   button: PropTypes.bool,
   result: PropTypes.object,
   target: PropTypes.bool,
+  available: PropTypes.bool,
 };

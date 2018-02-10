@@ -63,14 +63,21 @@ export default class Recipes extends React.Component {
     const allResultMin = Math.max(...recipes.map((recipe) => recipe.resultMin));
 
     return sortedRecipes.map((recipe, index) => {
-      const listItems = sortBy(
-        recipe.resultItems.filter((resultItem) => resultItem.result.canDevelop()),
-        (resultItem) => 100 - resultItem.result.order
-      ).map((resultItem) => {
+      const listItems = sortBy(recipe.resultItems, (resultItem) => {
+        return 100 - resultItem.result.order;
+      }).map((resultItem) => {
         return <ItemListItem key={resultItem.data.name}
           item={resultItem.data}
           result={resultItem.result}
           target={resultItem.target} />;
+      });
+      
+      const listRestItems = recipe.restItems.map((resultItem) => {
+        return <ItemListItem key={resultItem.data.name}
+          item={resultItem.data}
+          result={resultItem.result}
+          target={resultItem.target}
+          available={false} />;
       });
       
       const selectedItemNames = this.props.selectedItems.map((i) => i.name);
@@ -81,11 +88,39 @@ export default class Recipes extends React.Component {
       
       // panelKeyにはspecialTypeを含めなくても問題ないはず
       const panelKey = recipe.recipe.join("/") + TYPENAME_TABLE[recipe.secretaryType];
-      const expanded = Object.prototype.hasOwnProperty.call(this.props.expandedPanels, panelKey) ?
-        this.props.expandedPanels[panelKey] : (recipe.resultMin > 1 || allResultMin <= 1);
+      const expanded = (() => {
+        if (Object.prototype.hasOwnProperty.call(this.props.expandedPanels, panelKey)) {
+          return this.props.expandedPanels[panelKey];
+        } else {
+          return (recipe.resultMin > 1 || allResultMin <= 1);
+        }
+      })();
+      
+      const restPanelKey = `${panelKey}_rest`;
+      const restExpanded = (() => {
+        if (Object.prototype.hasOwnProperty.call(this.props.expandedPanels, restPanelKey)) {
+          return this.props.expandedPanels[restPanelKey];
+        } else {
+          return false;
+        }
+      })();
       
       const recipeURL = generateURL(location.href, selectedItemNames, panelKey);
       const recipeText = `${selectedItemNames.join("・")} を開発できるレシピは ${recipe.recipe.join("/")} 秘書:${recipe.secretaryName}`;
+      
+      let restItemsPanel = null;
+      if (listRestItems.length > 0) {
+        restItemsPanel = <Panel.Body>
+          <RecipePanel key={`recipe${index}`}
+            title="投入資材不足で開発できない装備"
+            panelKey={restPanelKey}
+            expanded={restExpanded}
+            className="rest-items-panel"
+          >
+            <ListGroup className="kcitems">{listRestItems}</ListGroup>
+          </RecipePanel>
+        </Panel.Body>;
+      }
       
       return <RecipePanel key={`recipe${index}`}
         title={title}
@@ -116,6 +151,7 @@ export default class Recipes extends React.Component {
           <ShareBox url={recipeURL} text={recipeText} hashtags="艦これ" />
         </Panel.Body>
         <ListGroup className="kcitems">{listItems}</ListGroup>
+        {restItemsPanel}
       </RecipePanel>;
     });
   }
