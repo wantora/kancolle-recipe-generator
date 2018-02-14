@@ -10,15 +10,22 @@ body {
 
 .panel-body > h3,
 .recipe-panel .panel-body > h4 {
-  margin: 20px 0 10px 0;
   font-size: 18px;
-  border-bottom: 1px solid #eee;
+  font-weight: bold;
+  margin: 20px 0 10px 0;
+  border-bottom: 1px solid #ddd;
   padding-bottom: 10px;
 }
 
 .panel-body > h3:first-child,
 .recipe-panel .panel-body > h4:first-child {
   margin-top: 0;
+}
+
+.panel-body > h4 {
+  font-size: 16px;
+  font-weight: bold;
+  margin: 1em 0;
 }
 
 .panel-heading > h2 {
