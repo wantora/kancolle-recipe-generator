@@ -57,11 +57,17 @@ export default class InfoPanel extends React.Component {
           result = item.results[secretaryType][materielType][specialType];
         }
         
+        const content = [result.label];
+        if (result.canDevelop()) {
+          content.push(<br key="br" />);
+          content.push(<span key="rate" className="rate">{result.rateStr}</span>);
+        }
+        
         return <td
           key={`${item.name}_${secretaryType}_${materielType}_${specialType}`}
           className={classNames({"possible-type": isPossibleType})}
         >
-          {result.label}<br /><span className="rate">{result.rateStr}</span>
+          {content}
         </td>;
       });
       return <tr key={item.name}>
