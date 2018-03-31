@@ -15,10 +15,8 @@ export const URLSafeBase64 = {
       .replace(/[=]/g, "");
   },
   decode(string) {
-    const pad = "=".repeat((Math.ceil(string.length / 4) * 4) - string.length);
-    
-    return Base64.decode((string + pad)
-      .replace(/-/g, "+")
-      .replace(/_/g, "/"));
+    const pad = "=".repeat(Math.ceil(string.length / 4) * 4 - string.length);
+
+    return Base64.decode((string + pad).replace(/-/g, "+").replace(/_/g, "/"));
   },
 };

@@ -5,17 +5,23 @@ import SelectedItemList from "./SelectedItemList";
 
 export default class ItemSelector extends React.Component {
   render() {
-    return <div className="panel panel-default">
-      <div className="panel-heading"><h2>開発対象装備</h2></div>
-      <div className="panel-body">
-        <ItemButtonList
-          recipeData={this.props.recipeData}
-          selectedItems={this.props.selectedItems} />
-        <SelectedItemList
-          recipeData={this.props.recipeData}
-          selectedItems={this.props.selectedItems} />
+    return (
+      <div className="panel panel-default">
+        <div className="panel-heading">
+          <h2>開発対象装備</h2>
+        </div>
+        <div className="panel-body">
+          <ItemButtonList
+            recipeData={this.props.recipeData}
+            selectedItems={this.props.selectedItems}
+          />
+          <SelectedItemList
+            recipeData={this.props.recipeData}
+            selectedItems={this.props.selectedItems}
+          />
+        </div>
       </div>
-    </div>;
+    );
   }
 }
 ItemSelector.propTypes = {

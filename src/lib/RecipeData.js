@@ -29,20 +29,20 @@ export default class RecipeData {
     if (specialType === null) {
       return [];
     }
-    
+
     const possibleTypes = this.generatePossibleTypes(targetItems);
     const baseRecipe = this.generateBaseRecipe(targetItems);
     const recipes = [];
-    
+
     possibleTypes.forEach(([secretaryType, materielType]) => {
       const recipe = this.generateMaterielRecipe(baseRecipe, materielType);
       const resultItems = [];
       const restItems = [];
-      
+
       if (recipe === null) {
         return;
       }
-      
+
       this._items.forEach((item) => {
         const result = item.results[secretaryType][materielType][specialType];
         if (!result.canDevelop()) {
@@ -55,17 +55,19 @@ export default class RecipeData {
           target: targetItems.some((i) => i.name === item.name),
         });
       });
-      
-      recipes.push(new Recipe({
-        secretaryType,
-        materielType,
-        specialType,
-        recipe,
-        resultItems,
-        restItems,
-      }));
+
+      recipes.push(
+        new Recipe({
+          secretaryType,
+          materielType,
+          specialType,
+          recipe,
+          resultItems,
+          restItems,
+        })
+      );
     });
-    
+
     return recipes;
   }
   generateSpecialType(targetItems) {
@@ -86,30 +88,30 @@ export default class RecipeData {
     if (specialType === null) {
       return [];
     }
-    
+
     let possibleTypes = TYPES;
     targetItems.forEach((item) => {
       TYPES.forEach(([secretaryType, materielType]) => {
         const result = item.results[secretaryType][materielType][specialType];
-        
+
         if (!result.canDevelop()) {
-          possibleTypes = possibleTypes
-            .filter((t) => !(t[0] === secretaryType && t[1] === materielType));
+          possibleTypes = possibleTypes.filter(
+            (t) => !(t[0] === secretaryType && t[1] === materielType)
+          );
         }
       });
     });
     return possibleTypes;
   }
   generateBaseRecipe(targetItems) {
-    return zip(...targetItems.map((item) => item.recipe))
-      .map((a) => Math.max(...a));
+    return zip(...targetItems.map((item) => item.recipe)).map((a) => Math.max(...a));
   }
   generateMaterielRecipe(baseRecipe, materielType) {
     const recipe = baseRecipe.concat();
-    
+
     if (materielType === "鋼材(燃料)") {
       const max = Math.max(...recipe);
-      
+
       if (recipe[0] < max && recipe[2] < max) {
         recipe[2] = max;
       }
@@ -117,22 +119,22 @@ export default class RecipeData {
       if (recipe[1] < recipe[3]) {
         recipe[1] = recipe[3];
       }
-      
+
       const max = Math.max(recipe[0], recipe[2]);
-      
+
       if (recipe[1] <= max) {
         recipe[1] = max + 1;
       }
     } else if (materielType === "ボーキ") {
       const max = Math.max(recipe[0], recipe[1], recipe[2]);
-      
+
       if (recipe[3] <= max) {
         recipe[3] = max + 1;
       }
     } else {
       throw new Error("materielType");
     }
-    
+
     if (Math.max(...recipe) > 300) {
       return null;
     } else {

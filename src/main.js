@@ -42,7 +42,10 @@ function reducer(state, action) {
 
 function render() {
   storage.save(store.state);
-  ReactDOM.render(<Root recipeData={recipeData} {...store.state} />, document.getElementById("root"));
+  ReactDOM.render(
+    <Root recipeData={recipeData} {...store.state} />,
+    document.getElementById("root")
+  );
 }
 
 const recipeData = new RecipeData(itemsData);
@@ -55,9 +58,10 @@ const initialState = {
 
 const query = loadURLQuery(location.href);
 if (query) {
-  initialState.selectedItems = query.selectedItems
-    .filter((itemName) => recipeData.getItemByName(itemName));
-  
+  initialState.selectedItems = query.selectedItems.filter((itemName) =>
+    recipeData.getItemByName(itemName)
+  );
+
   if (query.panelKey) {
     initialState.expandedPanels[query.panelKey] = true;
   }
