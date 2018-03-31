@@ -1,6 +1,6 @@
-import {EventEmitter} from "events";
+import events from "events";
 
-const Dispatcher = new EventEmitter();
+const Dispatcher = new events.EventEmitter();
 
 export const dispatch = (action) => {
   Dispatcher.emit("action", action);
@@ -10,7 +10,7 @@ export class Store {
   constructor(initialState, reducer) {
     this.reducer = reducer;
     this.state = initialState;
-    this.emitter = new EventEmitter();
+    this.emitter = new events.EventEmitter();
 
     this.onAction = (action) => {
       this.state = this.reducer(this.state, action);

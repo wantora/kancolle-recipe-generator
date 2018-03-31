@@ -41,7 +41,7 @@ module.exports = (env, argv) => {
                       browsers: ["last 2 versions", "Firefox ESR", "not IE <=10"],
                     },
                     modules: false,
-                    useBuiltIns: true,
+                    useBuiltIns: "usage",
                   },
                 ],
                 "@babel/preset-react",
