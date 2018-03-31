@@ -1,50 +1,31 @@
 "use strict";
 
-const webpack = require("webpack");
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 const path = require("path");
 
-module.exports = (options) => {
-  const production = options && options.production === "true";
-  const plugins = [
-    new webpack.LoaderOptionsPlugin({
-      debug: true,
-    }),
-    new CopyWebpackPlugin([
-      {from: "./src/www"},
-    ]),
-    new ExtractTextPlugin("[name].css"),
-  ];
-  
-  if (production) {
-    plugins.push(...[
-      new webpack.optimize.ModuleConcatenationPlugin(),
-      new webpack.LoaderOptionsPlugin({
-        minimize: true,
-        debug: false,
-      }),
-      new webpack.DefinePlugin({
-        "process.env.NODE_ENV": JSON.stringify("production"),
-      }),
-      new webpack.optimize.UglifyJsPlugin(),
-      new webpack.NoEmitOnErrorsPlugin(),
-    ]);
-  }
-  
-  return {
+module.exports = (env, argv) => {
+  const config = {
     entry: {
       bundle: "./src/main.js",
     },
     output: {
       path: path.join(__dirname, "dist"),
       filename: "[name].js",
-      pathinfo: !production,
     },
-    devtool: production ? false : "inline-source-map",
-    plugins: plugins,
+    plugins: [
+      new CopyWebpackPlugin([
+        {from: "./src/www"},
+      ]),
+      new ExtractTextPlugin("[name].css"),
+    ],
     module: {
       rules: [
+        {
+          test: /\.js$/,
+          exclude: /node_modules/,
+          type: "javascript/esm",
+        },
         {
           test: /\.js$/,
           exclude: /node_modules/,
@@ -54,7 +35,21 @@ module.exports = (options) => {
         {
           test: /\.js$/,
           exclude: /node_modules/,
-          use: "babel-loader",
+          use: {
+            loader: "babel-loader",
+            options: {
+              "presets": [
+                ["@babel/preset-env", {
+                  "targets": {
+                    "browsers": ["last 2 versions", "Firefox ESR", "not IE <=10"],
+                  },
+                  "modules": false,
+                  "useBuiltIns": true,
+                }],
+                "@babel/preset-react",
+              ],
+            },
+          },
         },
         {
           test: /\.css$/,
@@ -80,4 +75,10 @@ module.exports = (options) => {
       ],
     },
   };
+
+  if (argv.mode === "development") {
+    config.devtool = "inline-source-map";
+  }
+
+  return config;
 };

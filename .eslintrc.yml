@@ -1,15 +1,10 @@
-plugins:
-  - react
-
 parserOptions:
   ecmaVersion: 2017
   sourceType: module
-  ecmaFeatures:
-    jsx: true
 
 extends:
-  - eslint-config-wantora
-  - plugin:react/recommended
+  - wantora
+  - wantora-react
 
 env:
   es6: true
