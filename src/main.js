@@ -2,7 +2,7 @@ import "./main.css";
 
 import React from "react";
 import ReactDOM from "react-dom";
-import {Store} from "./flux";
+import {FluxStore} from "./flux";
 import PermanentStorage from "./storage";
 import Root from "./components/Root";
 import RecipeData from "./lib/RecipeData";
@@ -37,14 +37,6 @@ function reducer(state, action) {
   return state;
 }
 
-function render() {
-  storage.save(store.state);
-  ReactDOM.render(
-    <Root recipeData={recipeData} {...store.state} />,
-    document.getElementById("root")
-  );
-}
-
 const recipeData = new RecipeData(itemsData);
 const initialState = {
   selectedItems: [],
@@ -66,7 +58,15 @@ if (query) {
 const storageKey = "kancolle-recipe-generator" + location.search;
 
 const storage = new PermanentStorage(storageKey, sessionStorage);
-const store = new Store(storage.load(initialState), reducer);
+const fluxStore = new FluxStore(storage.load(initialState), [
+  reducer,
+  (state) => {
+    storage.save(state);
+    return state;
+  },
+]);
 
-store.subscribe(render);
-render();
+ReactDOM.render(
+  <fluxStore.Provider>{(state) => <Root recipeData={recipeData} {...state} />}</fluxStore.Provider>,
+  document.getElementById("root")
+);

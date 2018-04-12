@@ -1,27 +1,74 @@
-import events from "events";
+import React from "react";
+import PropTypes from "prop-types";
 
-const Dispatcher = new events.EventEmitter();
+const FluxContext = React.createContext("flux");
 
-export const dispatch = (action) => {
-  Dispatcher.emit("action", action);
-};
-
-export class Store {
-  constructor(initialState, reducer) {
-    this.reducer = reducer;
-    this.state = initialState;
-    this.emitter = new events.EventEmitter();
-
-    this.onAction = (action) => {
-      this.state = this.reducer(this.state, action);
-      this.emitter.emit("change");
-    };
-    Dispatcher.on("action", this.onAction);
+class Dispatcher {
+  constructor() {
+    this._listeners = [];
   }
-  dispose() {
-    Dispatcher.removeListener("action", this.onAction);
+  on(listener) {
+    this._listeners.push(listener);
   }
-  subscribe(listener) {
-    this.emitter.on("change", listener);
+  off(listener) {
+    this._listeners = this._listeners.filter((lis) => lis !== listener);
+  }
+  dispatch(value) {
+    for (const listener of this._listeners) {
+      listener(value);
+    }
   }
 }
+
+function createProvider(initialState, storeDispatcher, dispatch) {
+  const provider = class FluxProvider extends React.Component {
+    constructor(props) {
+      super(props);
+
+      this._update = (newState) => {
+        this.setState({state: newState});
+      };
+
+      this.state = {state: initialState};
+    }
+    render() {
+      const {children} = this.props;
+
+      return (
+        <FluxContext.Provider value={dispatch}>{children(this.state.state)}</FluxContext.Provider>
+      );
+    }
+    componentDidMount() {
+      storeDispatcher.on(this._update);
+    }
+    componentWillUnmount() {
+      storeDispatcher.off(this._update);
+    }
+  };
+  provider.propTypes = {
+    children: PropTypes.func.isRequired,
+  };
+
+  return provider;
+}
+
+export class FluxStore {
+  constructor(initialState, reducers) {
+    this._state = initialState;
+    this._reducers = reducers;
+    this._dispatcher = new Dispatcher();
+
+    this._provider = createProvider(this._state, this._dispatcher, (action) => {
+      this.dispatch(action);
+    });
+  }
+  dispatch(action) {
+    this._state = this._reducers.reduce((value, reducer) => reducer(value, action), this._state);
+    this._dispatcher.dispatch(this._state);
+  }
+  get Provider() {
+    return this._provider;
+  }
+}
+
+export const FluxDispatcher = FluxContext.Consumer;

@@ -2,73 +2,73 @@ import React from "react";
 import PropTypes from "prop-types";
 import ListGroupItem from "react-bootstrap/lib/ListGroupItem";
 import classNames from "classnames";
-import {dispatch} from "../flux";
+import {FluxDispatcher} from "../flux";
 
-export default class ItemListItem extends React.Component {
-  constructor(props) {
-    super(props);
+export default function ItemListItem({item, button, result, target, available}) {
+  const contents = [];
+  const labels = [];
 
-    this._onClick = () => {
-      dispatch({
-        type: "removeItem",
-        value: this.props.item.name,
-      });
-    };
+  if (result) {
+    labels.push(`${result.label} `);
   }
-  render() {
-    const contents = [];
-    const labels = [];
-    const available = this.props.available !== false;
 
-    if (this.props.result) {
-      labels.push(`${this.props.result.label} `);
-    }
-
-    if (this.props.item.name === "Ro.43水偵") {
-      labels.push(
-        <b
-          key="info-text"
-          className="info-text"
-          title="Ro.43水偵は秘書艦がイタリア艦の場合のみ開発できます"
-        >
-          {this.props.item.name}
-        </b>
-      );
-    } else {
-      labels.push(this.props.item.name);
-    }
-
-    contents.push(<span key="label">{labels}</span>);
-
-    contents.push(
-      <span key="info" className="info">
-        {this.props.result ? `${this.props.result.rateStr} | ` : null}
-        {this.props.item.category}
-      </span>
-    );
-
-    if (this.props.button) {
-      contents.push(
-        <button key="close-button" type="button" className="close-button" onClick={this._onClick}>
-          <span className="glyphicon glyphicon-remove" />
-        </button>
-      );
-    }
-
-    return (
-      <ListGroupItem
-        className={classNames({
-          "target-item": this.props.target,
-          "unavailable-item": !available,
-        })}
-        title={this.props.item.summary}
-        data-name={this.props.item.name}
-        data-category={this.props.item.category}
+  if (item.name === "Ro.43水偵") {
+    labels.push(
+      <b
+        key="info-text"
+        className="info-text"
+        title="Ro.43水偵は秘書艦がイタリア艦の場合のみ開発できます"
       >
-        {contents}
-      </ListGroupItem>
+        {item.name}
+      </b>
+    );
+  } else {
+    labels.push(item.name);
+  }
+
+  contents.push(<span key="label">{labels}</span>);
+
+  contents.push(
+    <span key="info" className="info">
+      {result ? `${result.rateStr} | ` : null}
+      {item.category}
+    </span>
+  );
+
+  if (button) {
+    contents.push(
+      <FluxDispatcher key="close-button">
+        {(dispatch) => (
+          <button
+            type="button"
+            className="close-button"
+            onClick={() => {
+              dispatch({
+                type: "removeItem",
+                value: item.name,
+              });
+            }}
+          >
+            <span className="glyphicon glyphicon-remove" />
+          </button>
+        )}
+      </FluxDispatcher>
     );
   }
+
+  return (
+    <ListGroupItem
+      className={classNames({
+        "target-item": target,
+        "unavailable-item": available === false,
+      })}
+      title={item.summary}
+      data-name={item.name}
+      data-category={item.category}
+    >
+      {contents}
+    </ListGroupItem>
+  );
 }
 ItemListItem.propTypes = {
   item: PropTypes.object.isRequired,
