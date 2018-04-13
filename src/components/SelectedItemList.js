@@ -9,7 +9,9 @@ export default class SelectedItemList extends React.Component {
       return <ItemListItem key={item.name} item={item} button={true} />;
     });
 
-    return <ListGroup className="kcitems selected-items">{components}</ListGroup>;
+    return (
+      <ListGroup className="kcitems selected-items">{components}</ListGroup>
+    );
   }
 }
 SelectedItemList.propTypes = {

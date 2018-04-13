@@ -13,7 +13,10 @@ module.exports = (env, argv) => {
       path: path.join(__dirname, "dist"),
       filename: "[name].js",
     },
-    plugins: [new CopyWebpackPlugin([{from: "./src/www"}]), new ExtractTextPlugin("[name].css")],
+    plugins: [
+      new CopyWebpackPlugin([{from: "./src/www"}]),
+      new ExtractTextPlugin("[name].css"),
+    ],
     module: {
       rules: [
         {
@@ -38,7 +41,11 @@ module.exports = (env, argv) => {
                   "@babel/preset-env",
                   {
                     targets: {
-                      browsers: ["last 2 versions", "Firefox ESR", "not IE <=10"],
+                      browsers: [
+                        "last 2 versions",
+                        "Firefox ESR",
+                        "not IE <=10",
+                      ],
                     },
                     modules: false,
                     useBuiltIns: "usage",

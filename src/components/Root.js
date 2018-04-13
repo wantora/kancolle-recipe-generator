@@ -11,7 +11,10 @@ export default class Root extends React.Component {
 
     return (
       <div>
-        <ItemSelector recipeData={this.props.recipeData} selectedItems={selectedItems} />
+        <ItemSelector
+          recipeData={this.props.recipeData}
+          selectedItems={selectedItems}
+        />
         <Recipes
           recipeData={this.props.recipeData}
           selectedItems={selectedItems}

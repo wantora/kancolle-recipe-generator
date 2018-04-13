@@ -11,7 +11,13 @@ export default class ShareBox extends React.Component {
         text
       )}&url=${encodeURIComponent(url)}`;
     const openTweetURL = (ev) => {
-      if (ev.button !== 0 || ev.ctrlKey || ev.shiftKey || ev.altKey || ev.metaKey) {
+      if (
+        ev.button !== 0 ||
+        ev.ctrlKey ||
+        ev.shiftKey ||
+        ev.altKey ||
+        ev.metaKey
+      ) {
         return;
       }
 

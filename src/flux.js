@@ -35,7 +35,9 @@ function createProvider(initialState, storeDispatcher, dispatch) {
       const {children} = this.props;
 
       return (
-        <FluxContext.Provider value={dispatch}>{children(this.state.state)}</FluxContext.Provider>
+        <FluxContext.Provider value={dispatch}>
+          {children(this.state.state)}
+        </FluxContext.Provider>
       );
     }
     componentDidMount() {
@@ -63,7 +65,10 @@ export class FluxStore {
     });
   }
   dispatch(action) {
-    this._state = this._reducers.reduce((value, reducer) => reducer(value, action), this._state);
+    this._state = this._reducers.reduce(
+      (value, reducer) => reducer(value, action),
+      this._state
+    );
     this._dispatcher.dispatch(this._state);
   }
   get Provider() {

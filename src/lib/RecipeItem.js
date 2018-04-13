@@ -73,9 +73,13 @@ export default class RecipeItem {
 
     SECRETARY_TYPES.forEach((secretaryType) => {
       const mtypes = MATERIEL_TYPES.filter((materielType) => {
-        return this._results[secretaryType][materielType][specialType].canDevelop();
+        return this._results[secretaryType][materielType][
+          specialType
+        ].canDevelop();
       }).map((materielType) => {
-        return `${this._results[secretaryType][materielType][specialType].label}${materielType}`;
+        return `${
+          this._results[secretaryType][materielType][specialType].label
+        }${materielType}`;
       });
 
       if (mtypes.length > 0) {
@@ -83,9 +87,9 @@ export default class RecipeItem {
       }
     });
 
-    let summary = `理論値：${this._item.recipe.join("/")}\n開発可能テーブル\n${typeTexts.join(
-      "\n"
-    )}`;
+    let summary = `理論値：${this._item.recipe.join(
+      "/"
+    )}\n開発可能テーブル\n${typeTexts.join("\n")}`;
 
     if (specialType === "italian") {
       summary += "\n秘書艦がイタリア艦の場合のみ開発可能";

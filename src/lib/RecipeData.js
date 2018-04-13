@@ -104,7 +104,9 @@ export default class RecipeData {
     return possibleTypes;
   }
   generateBaseRecipe(targetItems) {
-    return zip(...targetItems.map((item) => item.recipe)).map((a) => Math.max(...a));
+    return zip(...targetItems.map((item) => item.recipe)).map((a) =>
+      Math.max(...a)
+    );
   }
   generateMaterielRecipe(baseRecipe, materielType) {
     const recipe = baseRecipe.concat();

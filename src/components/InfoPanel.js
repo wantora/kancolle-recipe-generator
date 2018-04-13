@@ -10,8 +10,12 @@ import {getSecretaryName} from "../lib/Recipe";
 
 export default class InfoPanel extends React.Component {
   render() {
-    const specialType = this.props.recipeData.generateSpecialType(this.props.selectedItems);
-    const possibleTypes = this.props.recipeData.generatePossibleTypes(this.props.selectedItems);
+    const specialType = this.props.recipeData.generateSpecialType(
+      this.props.selectedItems
+    );
+    const possibleTypes = this.props.recipeData.generatePossibleTypes(
+      this.props.selectedItems
+    );
 
     const itemRecipeRows = this.props.selectedItems.map((item) => {
       return (
@@ -25,9 +29,14 @@ export default class InfoPanel extends React.Component {
       );
     });
 
-    const baseRecipe = this.props.recipeData.generateBaseRecipe(this.props.selectedItems);
+    const baseRecipe = this.props.recipeData.generateBaseRecipe(
+      this.props.selectedItems
+    );
     const recipeRows = MATERIEL_TYPES.map((materielType) => {
-      const recipe = this.props.recipeData.generateMaterielRecipe(baseRecipe, materielType);
+      const recipe = this.props.recipeData.generateMaterielRecipe(
+        baseRecipe,
+        materielType
+      );
 
       if (recipe === null) {
         return (
@@ -37,12 +46,19 @@ export default class InfoPanel extends React.Component {
           </tr>
         );
       } else {
-        const isPossibleType = possibleTypes.some(([s, m]) => m === materielType);
+        const isPossibleType = possibleTypes.some(
+          ([s, m]) => m === materielType
+        );
         const className = classNames({"possible-type": isPossibleType});
 
         return (
           <tr key={materielType}>
-            <td className={classNames({"materiel-type": true, "possible-type": isPossibleType})}>
+            <td
+              className={classNames({
+                "materiel-type": true,
+                "possible-type": isPossibleType,
+              })}
+            >
               {materielType}
             </td>
             <td className={className}>{recipe[0]}</td>
@@ -106,7 +122,11 @@ export default class InfoPanel extends React.Component {
     }
 
     return (
-      <RecipePanel title="詳細情報" expanded={this.props.expandedPanels.info} panelKey="info">
+      <RecipePanel
+        title="詳細情報"
+        expanded={this.props.expandedPanels.info}
+        panelKey="info"
+      >
         <Panel.Body>
           <h4>理論値</h4>
           <table className="table table-bordered table-condensed recipe-table">
@@ -151,7 +171,11 @@ export default class InfoPanel extends React.Component {
                   );
                 })}
               </tr>
-              <tr>{times(3, (i) => MATERIEL_TYPES.map((t) => <th key={`${i}_${t}`}>{t}</th>))}</tr>
+              <tr>
+                {times(3, (i) =>
+                  MATERIEL_TYPES.map((t) => <th key={`${i}_${t}`}>{t}</th>)
+                )}
+              </tr>
             </thead>
             <tbody>{itemRows}</tbody>
             {itemNote}

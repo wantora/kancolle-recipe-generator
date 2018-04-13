@@ -7,7 +7,14 @@ export function getSecretaryName(secretaryType, specialType) {
 }
 
 export default class Recipe {
-  constructor({secretaryType, materielType, specialType, recipe, resultItems, restItems}) {
+  constructor({
+    secretaryType,
+    materielType,
+    specialType,
+    recipe,
+    resultItems,
+    restItems,
+  }) {
     this.secretaryType = secretaryType;
     this.materielType = materielType;
     this.specialType = specialType;

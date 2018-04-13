@@ -9,12 +9,18 @@ const materielTypes = ["鋼材(燃料)", "弾薬", "ボーキ"];
 const itemsFile = path.join(__dirname, "..", "src", "data", "items.json");
 const dataDir = path.join(__dirname, "data");
 
-const config = JSON.parse(fs.readFileSync(path.join(dataDir, "config.json"), "utf8"));
-const slotitems = JSON.parse(fs.readFileSync(path.join(dataDir, "slotitems.json"), "utf8"));
+const config = JSON.parse(
+  fs.readFileSync(path.join(dataDir, "config.json"), "utf8")
+);
+const slotitems = JSON.parse(
+  fs.readFileSync(path.join(dataDir, "slotitems.json"), "utf8")
+);
 const slotitemResults = JSON.parse(
   fs.readFileSync(path.join(dataDir, "slotitem-results.json"), "utf8")
 );
-const ships = JSON.parse(fs.readFileSync(path.join(dataDir, "ships.json"), "utf8"));
+const ships = JSON.parse(
+  fs.readFileSync(path.join(dataDir, "ships.json"), "utf8")
+);
 
 function getMaterielType(items) {
   if (items[3] > Math.max(items[0], items[1], items[2])) {
@@ -28,7 +34,10 @@ function getMaterielType(items) {
 
 function matchRecipe(items, recipe) {
   return (
-    items[0] >= recipe[0] && items[1] >= recipe[1] && items[2] >= recipe[2] && items[3] >= recipe[3]
+    items[0] >= recipe[0] &&
+    items[1] >= recipe[1] &&
+    items[2] >= recipe[2] &&
+    items[3] >= recipe[3]
   );
 }
 
@@ -62,7 +71,10 @@ async function generateItems(db) {
 
           results.push({
             type: [secretaryType, materielType, specialType],
-            result: slotitemResults[slotitem.name][secretaryType][materielType][specialType],
+            result:
+              slotitemResults[slotitem.name][secretaryType][materielType][
+                specialType
+              ],
             count: count,
           });
           countTable[secretaryType][materielType][specialType] = count;
@@ -95,7 +107,9 @@ async function generateItems(db) {
         $match: {
           secretary: {$ne: 0},
           "items.0": {$ne: null},
-          _id: {$gte: ObjectID.createFromTime(Math.round(lastUpdateDate / 1000))},
+          _id: {
+            $gte: ObjectID.createFromTime(Math.round(lastUpdateDate / 1000)),
+          },
           teitokuLv: {$gte: config.minTeitokuLv},
         },
       },
@@ -105,14 +119,17 @@ async function generateItems(db) {
             secretary: "$secretary",
             items: "$items",
           },
-          itemIds: {$push: {$cond: {if: "$successful", then: "$itemId", else: -1}}},
+          itemIds: {
+            $push: {$cond: {if: "$successful", then: "$itemId", else: -1}},
+          },
         },
       },
     ],
     {allowDiskUse: true}
   );
 
-  const type96RikkoRecipe = slotitems.find((slotitem) => slotitem.id === 168).recipe;
+  const type96RikkoRecipe = slotitems.find((slotitem) => slotitem.id === 168)
+    .recipe;
   const italianShipIds = new Set(
     Object.values(ships)
       .filter((ship) => config.italianShips.includes(ship.name))
@@ -123,7 +140,10 @@ async function generateItems(db) {
     .map((id) => [id, 0]);
 
   while (await cursor.hasNext()) {
-    const {_id: {secretary, items}, itemIds} = await cursor.next();
+    const {
+      _id: {secretary, items},
+      itemIds,
+    } = await cursor.next();
     const secretaryType = ships[secretary].secretaryType;
     const materielType = getMaterielType(items);
     const secretaryIsItalian = italianShipIds.has(secretary);
@@ -154,7 +174,8 @@ async function generateItems(db) {
           specialType = "general";
         }
 
-        const resultCount = countTable[secretaryType][materielType][specialType];
+        const resultCount =
+          countTable[secretaryType][materielType][specialType];
         resultCount[0] += countMap.get(id);
         resultCount[1] += countAll;
       }

@@ -10,7 +10,9 @@ export function generateURL(baseURL, selectedItems, panelKey) {
     urlElement.search = "";
   } else {
     const str = selectedItems.join("<>");
-    urlElement.search = `?q=${encodeURIComponent(QUERY_VERSION + URLSafeBase64.encode(str))}`;
+    urlElement.search = `?q=${encodeURIComponent(
+      QUERY_VERSION + URLSafeBase64.encode(str)
+    )}`;
     urlElement.hash = `#${panelKey}`;
   }
 

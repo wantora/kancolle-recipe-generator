@@ -15,7 +15,9 @@ export default class Recipes extends React.Component {
     let panels;
 
     if (this.props.selectedItems.length > 0) {
-      const recipes = this.props.recipeData.generateRecipes(this.props.selectedItems);
+      const recipes = this.props.recipeData.generateRecipes(
+        this.props.selectedItems
+      );
 
       if (recipes.length > 0) {
         panels = this._generatePanels(recipes);
@@ -23,7 +25,10 @@ export default class Recipes extends React.Component {
         panels = [
           <div key="alert" className="alert alert-danger" role="alert">
             <p>
-              <span className="glyphicon glyphicon-exclamation-sign" aria-hidden="true" />{" "}
+              <span
+                className="glyphicon glyphicon-exclamation-sign"
+                aria-hidden="true"
+              />{" "}
               条件を満たすレシピはありません。
             </p>
           </div>,
@@ -42,7 +47,10 @@ export default class Recipes extends React.Component {
       panels = [
         <div key="alert" className="alert alert-info" role="alert">
           <p>
-            <span className="glyphicon glyphicon-exclamation-sign" aria-hidden="true" />{" "}
+            <span
+              className="glyphicon glyphicon-exclamation-sign"
+              aria-hidden="true"
+            />{" "}
             開発したい装備を選択してください。
           </p>
         </div>,
@@ -101,9 +109,15 @@ export default class Recipes extends React.Component {
         `${selectedItemNames.join("・")}`;
 
       // panelKeyにはspecialTypeを含めなくても問題ないはず
-      const panelKey = recipe.recipe.join("/") + TYPENAME_TABLE[recipe.secretaryType];
+      const panelKey =
+        recipe.recipe.join("/") + TYPENAME_TABLE[recipe.secretaryType];
       const expanded = (() => {
-        if (Object.prototype.hasOwnProperty.call(this.props.expandedPanels, panelKey)) {
+        if (
+          Object.prototype.hasOwnProperty.call(
+            this.props.expandedPanels,
+            panelKey
+          )
+        ) {
           return this.props.expandedPanels[panelKey];
         } else {
           return recipe.resultMin > 1 || allResultMin <= 1;
@@ -112,7 +126,12 @@ export default class Recipes extends React.Component {
 
       const restPanelKey = `${panelKey}_rest`;
       const restExpanded = (() => {
-        if (Object.prototype.hasOwnProperty.call(this.props.expandedPanels, restPanelKey)) {
+        if (
+          Object.prototype.hasOwnProperty.call(
+            this.props.expandedPanels,
+            restPanelKey
+          )
+        ) {
           return this.props.expandedPanels[restPanelKey];
         } else {
           return false;
@@ -120,9 +139,11 @@ export default class Recipes extends React.Component {
       })();
 
       const recipeURL = generateURL(location.href, selectedItemNames, panelKey);
-      const recipeText = `${selectedItemNames.join("・")} を開発できるレシピは ${recipe.recipe.join(
-        "/"
-      )} 秘書:${recipe.secretaryName}`;
+      const recipeText = `${selectedItemNames.join(
+        "・"
+      )} を開発できるレシピは ${recipe.recipe.join("/")} 秘書:${
+        recipe.secretaryName
+      }`;
 
       let restItemsPanel = null;
       if (listRestItems.length > 0) {
@@ -142,7 +163,12 @@ export default class Recipes extends React.Component {
       }
 
       return (
-        <RecipePanel key={`recipe${index}`} title={title} panelKey={panelKey} expanded={expanded}>
+        <RecipePanel
+          key={`recipe${index}`}
+          title={title}
+          panelKey={panelKey}
+          expanded={expanded}
+        >
           <Panel.Body className="recipe-box">
             <table className="table table-bordered table-condensed recipe-table">
               <thead>

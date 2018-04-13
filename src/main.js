@@ -22,7 +22,9 @@ function reducer(state, action) {
     }
   } else if (action.type === "removeItem") {
     return Object.assign({}, state, {
-      selectedItems: state.selectedItems.filter((item) => item !== action.value),
+      selectedItems: state.selectedItems.filter(
+        (item) => item !== action.value
+      ),
       expandedPanels: {
         info: state.expandedPanels.info,
       },
@@ -67,6 +69,8 @@ const fluxStore = new FluxStore(storage.load(initialState), [
 ]);
 
 ReactDOM.render(
-  <fluxStore.Provider>{(state) => <Root recipeData={recipeData} {...state} />}</fluxStore.Provider>,
+  <fluxStore.Provider>
+    {(state) => <Root recipeData={recipeData} {...state} />}
+  </fluxStore.Provider>,
   document.getElementById("root")
 );

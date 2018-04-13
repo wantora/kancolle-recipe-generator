@@ -4,7 +4,13 @@ import ListGroupItem from "react-bootstrap/lib/ListGroupItem";
 import classNames from "classnames";
 import {FluxDispatcher} from "../flux";
 
-export default function ItemListItem({item, button, result, target, available}) {
+export default function ItemListItem({
+  item,
+  button,
+  result,
+  target,
+  available,
+}) {
   const contents = [];
   const labels = [];
 
