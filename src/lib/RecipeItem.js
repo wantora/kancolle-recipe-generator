@@ -1,17 +1,15 @@
-import flatten from "lodash/flatten";
 import Result, {RESULT_NONE} from "./Result";
 
 export const SECRETARY_TYPES = ["砲戦系", "水雷系", "空母系"];
 export const MATERIEL_TYPES = ["鋼材(燃料)", "弾薬", "ボーキ"];
 export const SPECIAL_TYPES = ["general", "italian", "rikko"];
 
-export const TYPES = flatten(
-  SECRETARY_TYPES.map((secretaryType) => {
-    return MATERIEL_TYPES.map((materielType) => {
-      return [secretaryType, materielType];
-    });
-  })
-);
+export const TYPES = [];
+for (const secretaryType of SECRETARY_TYPES) {
+  for (const materielType of MATERIEL_TYPES) {
+    TYPES.push([secretaryType, materielType]);
+  }
+}
 
 export const TYPENAME_TABLE = {
   砲戦系: "b",

@@ -1,7 +1,7 @@
-import groupBy from "lodash/groupBy";
-import keyBy from "lodash/keyBy";
-import uniq from "lodash/uniq";
-import zip from "lodash/zip";
+import groupBy from "lodash.groupby";
+import keyBy from "lodash.keyby";
+import uniq from "lodash.uniq";
+import zip from "lodash.zip";
 import RecipeItem, {TYPES} from "./RecipeItem";
 import Recipe from "./Recipe";
 

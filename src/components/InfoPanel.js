@@ -1,7 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
-import times from "lodash/times";
 import Panel from "react-bootstrap/lib/Panel";
 import RecipePanel from "./RecipePanel";
 import {SECRETARY_TYPES, MATERIEL_TYPES, TYPES} from "../lib/RecipeItem";
@@ -172,8 +171,12 @@ export default class InfoPanel extends React.Component {
                 })}
               </tr>
               <tr>
-                {times(3, (i) =>
-                  MATERIEL_TYPES.map((t) => <th key={`${i}_${t}`}>{t}</th>)
+                {SECRETARY_TYPES.map((secretaryType) =>
+                  MATERIEL_TYPES.map((materielType) => (
+                    <th key={`${secretaryType}_${materielType}`}>
+                      {materielType}
+                    </th>
+                  ))
                 )}
               </tr>
             </thead>
