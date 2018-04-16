@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-const FluxContext = React.createContext("flux");
+const FluxContext = React.createContext(null);
 
 class Dispatcher {
   constructor() {
