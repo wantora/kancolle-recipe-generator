@@ -33,28 +33,7 @@ module.exports = (env, argv) => {
         {
           test: /\.js$/,
           exclude: /node_modules/,
-          use: {
-            loader: "babel-loader",
-            options: {
-              presets: [
-                [
-                  "@babel/preset-env",
-                  {
-                    targets: {
-                      browsers: [
-                        "last 2 versions",
-                        "Firefox ESR",
-                        "not IE <=10",
-                      ],
-                    },
-                    modules: false,
-                    useBuiltIns: "usage",
-                  },
-                ],
-                "@babel/preset-react",
-              ],
-            },
-          },
+          use: "babel-loader",
         },
         {
           test: /\.css$/,
